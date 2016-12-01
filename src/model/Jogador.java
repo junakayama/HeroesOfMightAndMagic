@@ -1,3 +1,4 @@
+package model;
 public class Jogador {
 
 	private boolean ataque;

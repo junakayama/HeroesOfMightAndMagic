@@ -1,3 +1,4 @@
+package model;
 public class Personagem {
 
 	private int pontosVida;

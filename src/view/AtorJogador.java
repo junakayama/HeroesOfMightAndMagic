@@ -1,3 +1,8 @@
+package view;
+
+import model.Posicao;
+import model.Tabuleiro;;
+
 public class AtorJogador {
 
 	public void conectar() {
