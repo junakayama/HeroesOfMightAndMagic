@@ -86,4 +86,20 @@ public class Jogador {
 		throw new UnsupportedOperationException();
 	}
 
+	public Personagem[] getTime() {
+		return time;
+	}
+
+	public void setTime(Personagem[] time) {
+		this.time = time;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
 }
