@@ -125,4 +125,12 @@ public class Tabuleiro {
 		throw new UnsupportedOperationException();
 	}
 
+	public Posicao[][] getPosicoes() {
+		return posicoes;
+	}
+
+	public void setPosicoes(Posicao[][] posicoes) {
+		this.posicoes = posicoes;
+	}
+
 }

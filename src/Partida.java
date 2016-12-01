@@ -86,4 +86,20 @@ public class Partida {
 		throw new UnsupportedOperationException();
 	}
 
+	public int getNumRodadas() {
+		return numRodadas;
+	}
+
+	public void setNumRodadas(int numRodadas) {
+		this.numRodadas = numRodadas;
+	}
+
+	public Tabuleiro getTabuleiro() {
+		return tabuleiro;
+	}
+
+	public void setTabuleiro(Tabuleiro tabuleiro) {
+		this.tabuleiro = tabuleiro;
+	}
+
 }

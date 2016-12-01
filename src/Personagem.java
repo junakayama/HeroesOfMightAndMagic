@@ -1,22 +1,13 @@
 public class Personagem {
 
-	private Integer pontosVida;
-	private Integer pontosAtaque;
-	private Boolean acaoDoTurno;
-	private Boolean longoAlcance;
-	private Boolean selecionado;
+	private int pontosVida;
+	private int pontosAtaque;
+	private boolean acaoDoTurno;
+	private boolean longoAlcance;
+	private boolean selecionado;
 	private String nome;
 	private Posicao posicao;
 	private int codigoJogador;
-
-	/**
-	 * 
-	 * @param acaoDoTurno
-	 */
-	public void setAcaoDoTurno(boolean acaoDoTurno) {
-		// TODO - implement Personagem.setAcaoDoTurno
-		throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * 
@@ -29,11 +20,6 @@ public class Personagem {
 
 	public boolean verificaPontosDeVida() {
 		// TODO - implement Personagem.verificaPontosDeVida
-		throw new UnsupportedOperationException();
-	}
-
-	public void setSelecionado() {
-		// TODO - implement Personagem.setSelecionado
 		throw new UnsupportedOperationException();
 	}
 
@@ -54,14 +40,60 @@ public class Personagem {
 		this.codigoJogador = codigoJogador;
 	}
 
+	public void setPontosVida(int pontosVida) {
+		this.pontosVida = pontosVida;
+	}
+	
+	public int getPontosVida() {
+		return pontosVida;
+	}
+	
 	public int getPontosAtaque() {
-		// TODO - implement Personagem.getPontosAtaque
-		throw new UnsupportedOperationException();
+		return pontosAtaque;
 	}
 
-	public void getPontosVida() {
-		// TODO - implement Personagem.getPontosVida
-		throw new UnsupportedOperationException();
+	public void setPontosAtaque(int pontosAtaque) {
+		this.pontosAtaque = pontosAtaque;
+	}
+
+	public boolean getAcaoDoTurno() {
+		return acaoDoTurno;
+	}
+
+	public void setAcaoDoTurno(boolean acaoDoTurno) {
+		this.acaoDoTurno = acaoDoTurno;
+	}
+
+	public boolean isLongoAlcance() {
+		return longoAlcance;
+	}
+
+	public void setLongoAlcance(boolean longoAlcance) {
+		this.longoAlcance = longoAlcance;
+	}
+
+	public boolean isSelecionado() {
+		return selecionado;
+	}
+
+	public void setSelecionado(boolean selecionado) {
+		this.selecionado = selecionado;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Posicao getPosicao() {
+		return posicao;
+	}
+
+	public void setPosicao(Posicao posicao) {
+		this.posicao = posicao;
 	}
 
 }
