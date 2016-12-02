@@ -5,15 +5,30 @@ public class Personagem {
 	private int pontosAtaque;
 	private boolean acaoDoTurno;
 	private boolean longoAlcance;
-	private boolean selecionado;
 	private String nome;
-	private Posicao posicao;
 	private int codigoJogador;
 
 	/**
 	 * 
 	 * @param pontosAtaque
 	 */
+	
+	public Personagem(String nome, int codigoJogador, int pontosVida, int pontosAtaque,
+			boolean acaoDoTurno, boolean longoAlcance) {
+		this.pontosVida = pontosVida;
+		this.pontosAtaque = pontosAtaque;
+		this.acaoDoTurno = acaoDoTurno;
+		this.longoAlcance = longoAlcance;
+		this.nome = nome;
+		this.codigoJogador = codigoJogador;
+	}
+	
+	public Personagem(String nome, int codigoJogador, int pontosVida){
+		this.nome = nome;
+		this.codigoJogador = codigoJogador;
+		this.pontosVida = pontosVida;
+	}
+	
 	public int recebeDano(int pontosAtaque) {
 		// TODO - implement Personagem.recebeDano
 		throw new UnsupportedOperationException();
@@ -73,28 +88,12 @@ public class Personagem {
 		this.longoAlcance = longoAlcance;
 	}
 
-	public boolean isSelecionado() {
-		return selecionado;
-	}
-
-	public void setSelecionado(boolean selecionado) {
-		this.selecionado = selecionado;
-	}
-
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Posicao getPosicao() {
-		return posicao;
-	}
-
-	public void setPosicao(Posicao posicao) {
-		this.posicao = posicao;
 	}
 
 }
