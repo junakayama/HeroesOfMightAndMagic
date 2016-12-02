@@ -1,17 +1,29 @@
 package control;
 
-import model.Posicao;
+import model.Jogador;
+import model.Personagem;
+///import model.Posicao;
 import model.Tabuleiro;
+import view.AtorJogador;
 
 public class Partida {
 
 	private int numRodadas;
 	private boolean emAndamento;
 	private Tabuleiro tabuleiro;
+	private AtorJogador atorJogador;
+	private Jogador jogador1;
+	private Jogador jogador2;
+
+	public Partida() {
+		atorJogador = new AtorJogador();
+		numRodadas = 165;
+		tabuleiro = new Tabuleiro();
+	}
 
 	public void iniciarPartida() {
-		// TODO - implement Partida.iniciarPartida
-		throw new UnsupportedOperationException();
+		this.atorJogador.iniciarPartida();
+
 	}
 
 	public void notificaPartidaEmAndamento() {
@@ -30,21 +42,10 @@ public class Partida {
 
 	/**
 	 * 
-	 * @param nickName
-	 * @param nicknameAdversario
-	 */
-	public void criaJogadores(String nickName, String nicknameAdversario) {
-		// TODO - implement Partida.criaJogadores
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
 	 * @param isEmAndamento
 	 */
 	public void setPartidaEmAndamento(boolean isEmAndamento) {
-		// TODO - implement Partida.setPartidaEmAndamento
-		throw new UnsupportedOperationException();
+		this.emAndamento = isEmAndamento;
 	}
 
 	/**
@@ -52,13 +53,13 @@ public class Partida {
 	 * @param posicaoAtual
 	 * @param posicaoDestino
 	 */
-	public void jogar(Posicao posicaoAtual, Posicao posicaoDestino) {
-		// TODO - implement Partida.jogar
+	public void jogar(int posicaoAtual, int posicaoDestino) {
+		// vai porra
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean verificaVencedor() {
-		// TODO - implement Partida.verificaVencedor
+		// deve existir?
 		throw new UnsupportedOperationException();
 	}
 
@@ -67,8 +68,7 @@ public class Partida {
 	 * @param tabuleiro
 	 */
 	public void enviarJogada(Tabuleiro tabuleiro) {
-		// TODO - implement Partida.enviarJogada
-		throw new UnsupportedOperationException();
+		this.tabuleiro = tabuleiro;
 	}
 
 	/**
@@ -77,8 +77,10 @@ public class Partida {
 	 * @param nicknameAdversario
 	 */
 	public void criarJogadores(String nickname, String nicknameAdversario) {
-		// TODO - implement Partida.criarJogadores
-		throw new UnsupportedOperationException();
+		this.jogador1 = new Jogador(true, nickname, true, 1);
+		jogador1.carregarPersonagensAtaque();
+		this.jogador2 = new Jogador(false, nicknameAdversario, false, 2);
+		jogador2.carregarPersonagensDefesa();
 	}
 
 	public void notificarPartidaEmAndamento() {

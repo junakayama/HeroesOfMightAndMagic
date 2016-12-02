@@ -29,7 +29,7 @@ public class Tabuleiro {
 	 * @param posicaoAtual
 	 * @param posicaoDestino
 	 */
-	public void andar(Posicao posicaoAtual, Posicao posicaoDestino) {
+	public void andar(int posicaoAtual, int posicaoDestino) {
 		// TODO - implement Tabuleiro.andar
 		throw new UnsupportedOperationException();
 	}

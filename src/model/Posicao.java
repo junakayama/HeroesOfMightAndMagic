@@ -1,4 +1,5 @@
 package model;
+
 public class Posicao {
 
 	private boolean ocupada;
@@ -78,4 +79,9 @@ public class Posicao {
 		this.castelo = castelo;
 	}
 
+	public int verificaPontosDeVida() {
+		int pontosVidaDoPersonagem = ocupante.getPontosVida();
+		return pontosVidaDoPersonagem;
+
+	}
 }
