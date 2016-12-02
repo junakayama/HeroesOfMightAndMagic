@@ -12,6 +12,8 @@ public class Partida {
 	private boolean emAndamento;
 	private Tabuleiro tabuleiro;
 	private AtorJogador atorJogador;
+	private Jogador jogador1;
+	private Jogador jogador2;
 	
 	public Partida(){
 		atorJogador = new AtorJogador();
@@ -40,23 +42,13 @@ public class Partida {
 		return this.emAndamento;
 	}
 
-	/**
-	 * 
-	 * @param nickName
-	 * @param nicknameAdversario
-	 */
-	public void criaJogadores(String nickName, String nicknameAdversario) {
-	//jogador1 = new Jogador(true
-			throw new UnsupportedOperationException();
-	}
 
 	/**
 	 * 
 	 * @param isEmAndamento
 	 */
 	public void setPartidaEmAndamento(boolean isEmAndamento) {
-		// TODO - implement Partida.setPartidaEmAndamento
-		throw new UnsupportedOperationException();
+		this.emAndamento = isEmAndamento;
 	}
 
 	/**
@@ -65,12 +57,12 @@ public class Partida {
 	 * @param posicaoDestino
 	 */
 	public void jogar(int posicaoAtual, int posicaoDestino) {
-		// TODO - implement Partida.jogar
+		// vai porra
 		throw new UnsupportedOperationException();
 	}
 
 	public boolean verificaVencedor() {
-		// TODO - implement Partida.verificaVencedor
+		// deve existir?
 		throw new UnsupportedOperationException();
 	}
 
@@ -79,8 +71,7 @@ public class Partida {
 	 * @param tabuleiro
 	 */
 	public void enviarJogada(Tabuleiro tabuleiro) {
-		// TODO - implement Partida.enviarJogada
-		throw new UnsupportedOperationException();
+		this.tabuleiro = tabuleiro;
 	}
 
 	/**
@@ -89,9 +80,9 @@ public class Partida {
 	 * @param nicknameAdversario
 	 */
 	public void criarJogadores(String nickname, String nicknameAdversario) {
-		Jogador jogador1 = new Jogador(true, nickname,true,1);
+		this.jogador1 = new Jogador(true, nickname,true,1);
 		jogador1.carregarPersonagensAtaque();
-		Jogador jogador2 = new Jogador(false, nicknameAdversario,false,2);
+		this.jogador2 = new Jogador(false, nicknameAdversario,false,2);
 		jogador2.carregarPersonagensDefesa();
 	}
 
