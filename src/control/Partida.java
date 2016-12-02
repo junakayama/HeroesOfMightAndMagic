@@ -1,17 +1,27 @@
 package control;
 
+import model.Jogador;
+import model.Personagem;
 ///import model.Posicao;
 import model.Tabuleiro;
+import view.AtorJogador;
 
 public class Partida {
 
 	private int numRodadas;
 	private boolean emAndamento;
 	private Tabuleiro tabuleiro;
+	private AtorJogador atorJogador;
+	
+	public Partida(){
+		atorJogador = new AtorJogador();
+		numRodadas = 165;
+		tabuleiro = new Tabuleiro();
+	}
 
 	public void iniciarPartida() {
-		// TODO - implement Partida.iniciarPartida
-		throw new UnsupportedOperationException();
+		this.atorJogador.iniciarPartida();
+		
 	}
 
 	public void notificaPartidaEmAndamento() {
@@ -24,6 +34,8 @@ public class Partida {
 		throw new UnsupportedOperationException();
 	}
 
+	
+	
 	public boolean isEmAndamento() {
 		return this.emAndamento;
 	}
@@ -34,8 +46,8 @@ public class Partida {
 	 * @param nicknameAdversario
 	 */
 	public void criaJogadores(String nickName, String nicknameAdversario) {
-		// TODO - implement Partida.criaJogadores
-		throw new UnsupportedOperationException();
+	//jogador1 = new Jogador(true
+			throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -77,8 +89,10 @@ public class Partida {
 	 * @param nicknameAdversario
 	 */
 	public void criarJogadores(String nickname, String nicknameAdversario) {
-		// TODO - implement Partida.criarJogadores
-		throw new UnsupportedOperationException();
+		Jogador jogador1 = new Jogador(true, nickname,true,1);
+		jogador1.carregarPersonagensAtaque();
+		Jogador jogador2 = new Jogador(false, nicknameAdversario,false,2);
+		jogador2.carregarPersonagensDefesa();
 	}
 
 	public void notificarPartidaEmAndamento() {

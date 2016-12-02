@@ -1,23 +1,31 @@
 package model;
+
+import java.util.ArrayList;
+
 public class Jogador {
 
 	private boolean ataque;
-	private Personagem[] time;
+	private ArrayList<Personagem> time;
 	private String nickName;
 	private boolean turno;
 	private boolean vencedor;
 	private int codigo;
 	private boolean passarTurno;
+	
+	public Jogador(boolean ataque, String nickName, boolean turno, int codigo){
+		this.ataque = ataque;
+		this.nickName = nickName;
+		this.turno = turno;
+		this.codigo = codigo;
+		
+	}
 
 	public void jogar() {
 		// TODO - implement Jogador.jogar
 		throw new UnsupportedOperationException();
 	}
 
-	public void procederJogada() {
-		// TODO - implement Jogador.procederJogada
-		throw new UnsupportedOperationException();
-	}
+
 
 	public void receberJogada() {
 		// TODO - implement Jogador.receberJogada
@@ -87,11 +95,11 @@ public class Jogador {
 		throw new UnsupportedOperationException();
 	}
 
-	public Personagem[] getTime() {
+	public ArrayList<Personagem> getTime() {
 		return time;
 	}
 
-	public void setTime(Personagem[] time) {
+	public void setTime(ArrayList<Personagem> time) {
 		this.time = time;
 	}
 
