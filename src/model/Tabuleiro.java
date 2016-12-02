@@ -14,24 +14,18 @@ public class Tabuleiro {
 		super();
 	}
 
-	/**
-	 * 
-	 * @param posicao
-	 */
+	
 	public boolean isPosicaoOcupada(int posicao) {
 		boolean ocupada;
-		ocupada = posicoes.get(posicao).isOcupada();
+		posicaoDestino=posicoes.get(posicao);
+		ocupada = posicaoDestino.isOcupada();
 		return ocupada;
 	}
 
-	/**
-	 * 
-	 * @param posicaoAtual
-	 * @param posicaoDestino
-	 */
 	public void andar(int posicaoAtual, int posicaoDestino) {
-		// TODO - implement Tabuleiro.andar
-		throw new UnsupportedOperationException();
+		this.posicaoDestino.setOcupante(ocupante);
+		this.posicaoAtual.setOcupante(null);
+		ocupante.setAcaoDoTurno(true);
 	}
 
 	public void atualizarInformacoes() {
@@ -49,78 +43,37 @@ public class Tabuleiro {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param posicaoAtual
-	 * @param posicaoDestino
-	 */
 	public void jogar(Posicao posicaoAtual, Posicao posicaoDestino) {
 		// TODO - implement Tabuleiro.jogar
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param posicaoAtual
-	 */
-	public Personagem buscaOcupante(int posicaoAtual) {
-		setOcupante(posicoes.get(posicaoAtual).getOcupante());
+	public Personagem buscaOcupante(int posicao) {
+		posicaoAtual=posicoes.get(posicao);
+		setOcupante(posicaoAtual.getOcupante());
 		return getOcupante();
 	}
 
-	/**
-	 * 
-	 * @param posicaoAtual
-	 * @param posicaoDestino
-	 */
 	public int atacar(Posicao posicaoAtual, Posicao posicaoDestino) {
-		// TODO - implement Tabuleiro.atacar
-		throw new UnsupportedOperationException();
+		return 1;
 	}
 
-	/**
-	 * 
-	 * @param posicao
-	 */
-	public boolean verificaCastelo(Posicao posicao) {
-		// TODO - implement Tabuleiro.verificaCastelo
-		throw new UnsupportedOperationException();
+
+	public boolean verificaCastelo(int posicao) {
+		return posicoes.get(posicao).isCastelo();
 	}
 
-	/**
-	 * 
-	 * @param posicaoDestino
-	 */
-	public Posicao atribuiInimigoPosicao(Posicao posicaoDestino) {
-		// TODO - implement Tabuleiro.atribuiInimigoPosicao
-		throw new UnsupportedOperationException();
+
+	public Posicao atribuiInimigoPosicao(int posicaoDestino) {
+		inimigo = posicoes.get(posicaoDestino).getPersonagem();
+		return posicoes.get(posicaoDestino);
+		
 	}
 
-	/**
-	 * 
-	 * @param posicao
-	 */
-	public int verificaPontosAtaque(Posicao posicao) {
-		// TODO - implement Tabuleiro.verificaPontosAtaque
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param posicao
-	 */
-	public int verificaPontosVida(Posicao posicao) {
-		// TODO - implement Tabuleiro.verificaPontosVida
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param posicaoDestino
-	 */
-	public Posicao atribuiPersongaemPosicao(Posicao posicaoDestino) {
-		// TODO - implement Tabuleiro.atribuiPersongaemPosicao
-		throw new UnsupportedOperationException();
+	public Posicao atribuiPersongaemPosicao(int posicaoDestino) {
+		posicoes.get(posicaoDestino).setPersonagem(null);
+		ocupante.setAcaoDoTurno(true);
+		return posicoes.get(posicaoDestino);
 	}
 
 	public Personagem getOcupante() {
