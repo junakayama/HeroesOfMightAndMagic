@@ -1,17 +1,27 @@
 package model;
+
+import java.util.ArrayList;
+
 public class Tabuleiro {
 
-	private Posicao[][] posicoes;
-	private Jogador jogador1;
-	private Jogador jogador2;
+	private ArrayList<Posicao> posicoes;
+	private Posicao posicaoAtual;
+	private Posicao posicaoDestino;
+	private Personagem ocupante;
+	private Personagem inimigo;
+	
+	public Tabuleiro() {
+		super();
+	}
 
 	/**
 	 * 
 	 * @param posicao
 	 */
-	public boolean isPosicaoOcupada(Posicao posicao) {
-		// TODO - implement Tabuleiro.isPosicaoOcupada
-		throw new UnsupportedOperationException();
+	public boolean isPosicaoOcupada(int posicao) {
+		boolean ocupada;
+		ocupada = posicoes.get(posicao).isOcupada();
+		return ocupada;
 	}
 
 	/**
@@ -53,9 +63,9 @@ public class Tabuleiro {
 	 * 
 	 * @param posicaoAtual
 	 */
-	public void verificarOcupante(Posicao posicaoAtual) {
-		// TODO - implement Tabuleiro.verificarOcupante
-		throw new UnsupportedOperationException();
+	public Personagem buscaOcupante(int posicaoAtual) {
+		setOcupante(posicoes.get(posicaoAtual).getOcupante());
+		return getOcupante();
 	}
 
 	/**
@@ -113,25 +123,19 @@ public class Tabuleiro {
 		throw new UnsupportedOperationException();
 	}
 
-	public Jogador getJogador1() {
-		return this.jogador1;
+	public Personagem getOcupante() {
+		return ocupante;
 	}
 
-	public Jogador getJogador2() {
-		return this.jogador2;
+	public void setOcupante(Personagem ocupante) {
+		this.ocupante = ocupante;
 	}
 
-	public void carregarPersonagens() {
-		// TODO - implement Tabuleiro.carregarPersonagens
-		throw new UnsupportedOperationException();
+	public Personagem getInimigo() {
+		return inimigo;
 	}
 
-	public Posicao[][] getPosicoes() {
-		return posicoes;
+	public void setInimigo(Personagem inimigo) {
+		this.inimigo = inimigo;
 	}
-
-	public void setPosicoes(Posicao[][] posicoes) {
-		this.posicoes = posicoes;
-	}
-
 }

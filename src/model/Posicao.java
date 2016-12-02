@@ -49,9 +49,9 @@ public class Posicao {
 
 	/**
 	 * 
-	 * @param ocupada
+	 * @return TODO
 	 */
-	public void isOcupada(boolean ocupada) {
+	public boolean isOcupada() {
 		// TODO - implement Posicao.isOcupada
 		throw new UnsupportedOperationException();
 	}
