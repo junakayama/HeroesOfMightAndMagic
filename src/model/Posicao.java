@@ -1,3 +1,4 @@
+package model;
 public class Posicao {
 
 	private boolean ocupada;

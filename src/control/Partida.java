@@ -1,3 +1,8 @@
+package control;
+
+import model.Posicao;
+import model.Tabuleiro;
+
 public class Partida {
 
 	private int numRodadas;
