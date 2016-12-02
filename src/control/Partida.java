@@ -1,6 +1,6 @@
 package control;
 
-import model.Posicao;
+///import model.Posicao;
 import model.Tabuleiro;
 
 public class Partida {
@@ -52,7 +52,7 @@ public class Partida {
 	 * @param posicaoAtual
 	 * @param posicaoDestino
 	 */
-	public void jogar(Posicao posicaoAtual, Posicao posicaoDestino) {
+	public void jogar(int posicaoAtual, int posicaoDestino) {
 		// TODO - implement Partida.jogar
 		throw new UnsupportedOperationException();
 	}

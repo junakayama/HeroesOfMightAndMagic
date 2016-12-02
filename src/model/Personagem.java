@@ -15,14 +15,12 @@ public class Personagem {
 	 * @param pontosAtaque
 	 */
 	public int recebeDano(int pontosAtaque) {
-		// TODO - implement Personagem.recebeDano
-		throw new UnsupportedOperationException();
+	
+		this.setPontosVida(this.pontosVida-pontosAtaque);
+		
+		return this.pontosVida;
 	}
 
-	public boolean verificaPontosDeVida() {
-		// TODO - implement Personagem.verificaPontosDeVida
-		throw new UnsupportedOperationException();
-	}
 
 	public void selecionarPersonagem() {
 		// TODO - implement Personagem.selecionarPersonagem

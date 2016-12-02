@@ -77,5 +77,11 @@ public class Posicao {
 	public void setCastelo(boolean castelo) {
 		this.castelo = castelo;
 	}
+	
+	public int verificaPontosDeVida(){
+		int pontosVidaDoPersonagem = ocupante.getPontosVida();
+		return pontosVidaDoPersonagem;
+		
+	}
+	}
 
-}
