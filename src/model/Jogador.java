@@ -11,6 +11,14 @@ public class Jogador {
 	private boolean vencedor;
 	private int codigo;
 	private boolean passarTurno;
+	
+	public Jogador(boolean ataque, String nickName, boolean turno, int codigo){
+		this.ataque = ataque;
+		this.nickName = nickName;
+		this.turno = turno;
+		this.codigo = codigo;
+		
+	}
 
 	public void jogar() {
 		// TODO - implement Jogador.jogar
@@ -87,7 +95,8 @@ public class Jogador {
 	}
 
 	public void carregarPersonagensDefesa() {
-this.time = new ArrayList<Personagem>();
+
+		this.time = new ArrayList<Personagem>();
 		
 		Personagem leao = new Personagem("Leão", this.codigo, 20, 10, false, true);
 		this.time.add(0, leao);
