@@ -1,5 +1,4 @@
+package model;
 public class Muro extends Personagem {
-
-	private Integer pontosVida;
 
 }

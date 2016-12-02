@@ -1,3 +1,4 @@
+package model;
 public class Posicao {
 
 	private boolean ocupada;
@@ -64,14 +65,17 @@ public class Posicao {
 		throw new UnsupportedOperationException();
 	}
 
-	public void isCastelo() {
-		// TODO - implement Posicao.isCastelo
-		throw new UnsupportedOperationException();
+	public boolean isCastelo() {
+		return castelo;
 	}
 
 	public Personagem getPersonagem() {
 		// TODO - implement Posicao.getPersonagem
 		throw new UnsupportedOperationException();
+	}
+
+	public void setCastelo(boolean castelo) {
+		this.castelo = castelo;
 	}
 
 }

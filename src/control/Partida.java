@@ -1,3 +1,8 @@
+package control;
+
+import model.Posicao;
+import model.Tabuleiro;
+
 public class Partida {
 
 	private int numRodadas;
@@ -84,6 +89,22 @@ public class Partida {
 	public void noticarPartidaIniciada() {
 		// TODO - implement Partida.noticarPartidaIniciada
 		throw new UnsupportedOperationException();
+	}
+
+	public int getNumRodadas() {
+		return numRodadas;
+	}
+
+	public void setNumRodadas(int numRodadas) {
+		this.numRodadas = numRodadas;
+	}
+
+	public Tabuleiro getTabuleiro() {
+		return tabuleiro;
+	}
+
+	public void setTabuleiro(Tabuleiro tabuleiro) {
+		this.tabuleiro = tabuleiro;
 	}
 
 }

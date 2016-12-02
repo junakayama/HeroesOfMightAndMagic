@@ -1,3 +1,4 @@
+package model;
 public class Tabuleiro {
 
 	private Posicao[][] posicoes;
@@ -123,6 +124,14 @@ public class Tabuleiro {
 	public void carregarPersonagens() {
 		// TODO - implement Tabuleiro.carregarPersonagens
 		throw new UnsupportedOperationException();
+	}
+
+	public Posicao[][] getPosicoes() {
+		return posicoes;
+	}
+
+	public void setPosicoes(Posicao[][] posicoes) {
+		this.posicoes = posicoes;
 	}
 
 }

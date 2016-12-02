@@ -1,3 +1,4 @@
+package NetGames;
 public class Proxy {
 
 	/**
