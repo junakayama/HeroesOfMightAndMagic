@@ -1,5 +1,6 @@
 package model;
-public class Tabuleiro {
+
+public class Tabuleiro{
 
 	private Posicao[][] posicoes;
 	private Jogador jogador1;
