@@ -14,8 +14,8 @@ public class Partida {
 	private AtorJogador atorJogador;
 	private Jogador jogador1;
 	private Jogador jogador2;
-	
-	public Partida(){
+
+	public Partida() {
 		atorJogador = new AtorJogador();
 		numRodadas = 165;
 		tabuleiro = new Tabuleiro();
@@ -23,7 +23,7 @@ public class Partida {
 
 	public void iniciarPartida() {
 		this.atorJogador.iniciarPartida();
-		
+
 	}
 
 	public void notificaPartidaEmAndamento() {
@@ -36,12 +36,9 @@ public class Partida {
 		throw new UnsupportedOperationException();
 	}
 
-	
-	
 	public boolean isEmAndamento() {
 		return this.emAndamento;
 	}
-
 
 	/**
 	 * 
@@ -80,9 +77,9 @@ public class Partida {
 	 * @param nicknameAdversario
 	 */
 	public void criarJogadores(String nickname, String nicknameAdversario) {
-		this.jogador1 = new Jogador(true, nickname,true,1);
+		this.jogador1 = new Jogador(true, nickname, true, 1);
 		jogador1.carregarPersonagensAtaque();
-		this.jogador2 = new Jogador(false, nicknameAdversario,false,2);
+		this.jogador2 = new Jogador(false, nicknameAdversario, false, 2);
 		jogador2.carregarPersonagensDefesa();
 	}
 

@@ -1,4 +1,5 @@
 package model;
+
 public class Posicao {
 
 	private boolean ocupada;
@@ -49,9 +50,9 @@ public class Posicao {
 
 	/**
 	 * 
-	 * @param ocupada
+	 * @return TODO
 	 */
-	public void isOcupada(boolean ocupada) {
+	public boolean isOcupada() {
 		// TODO - implement Posicao.isOcupada
 		throw new UnsupportedOperationException();
 	}
@@ -77,11 +78,10 @@ public class Posicao {
 	public void setCastelo(boolean castelo) {
 		this.castelo = castelo;
 	}
-	
-	public int verificaPontosDeVida(){
+
+	public int verificaPontosDeVida() {
 		int pontosVidaDoPersonagem = ocupante.getPontosVida();
 		return pontosVidaDoPersonagem;
-		
-	}
-	}
 
+	}
+}

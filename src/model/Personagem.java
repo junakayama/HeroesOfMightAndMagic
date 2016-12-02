@@ -1,4 +1,5 @@
 package model;
+
 public class Personagem {
 
 	private int pontosVida;
@@ -12,9 +13,9 @@ public class Personagem {
 	 * 
 	 * @param pontosAtaque
 	 */
-	
-	public Personagem(String nome, int codigoJogador, int pontosVida, int pontosAtaque,
-			boolean acaoDoTurno, boolean longoAlcance) {
+
+	public Personagem(String nome, int codigoJogador, int pontosVida, int pontosAtaque, boolean acaoDoTurno,
+			boolean longoAlcance) {
 		this.pontosVida = pontosVida;
 		this.pontosAtaque = pontosAtaque;
 		this.acaoDoTurno = acaoDoTurno;
@@ -22,20 +23,19 @@ public class Personagem {
 		this.nome = nome;
 		this.codigoJogador = codigoJogador;
 	}
-	
-	public Personagem(String nome, int codigoJogador, int pontosVida){
+
+	public Personagem(String nome, int codigoJogador, int pontosVida) {
 		this.nome = nome;
 		this.codigoJogador = codigoJogador;
 		this.pontosVida = pontosVida;
 	}
-	
+
 	public int recebeDano(int pontosAtaque) {
-	
-		this.setPontosVida(this.pontosVida-pontosAtaque);
-		
+
+		this.setPontosVida(this.pontosVida - pontosAtaque);
+
 		return this.pontosVida;
 	}
-
 
 	public void selecionarPersonagem() {
 		// TODO - implement Personagem.selecionarPersonagem
@@ -57,11 +57,11 @@ public class Personagem {
 	public void setPontosVida(int pontosVida) {
 		this.pontosVida = pontosVida;
 	}
-	
+
 	public int getPontosVida() {
 		return pontosVida;
 	}
-	
+
 	public int getPontosAtaque() {
 		return pontosAtaque;
 	}

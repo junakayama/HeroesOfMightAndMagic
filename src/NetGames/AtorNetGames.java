@@ -1,4 +1,5 @@
 package NetGames;
+
 import control.Partida;
 
 public class AtorNetGames {
