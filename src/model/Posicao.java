@@ -84,4 +84,14 @@ public class Posicao {
 		return pontosVidaDoPersonagem;
 
 	}
+	
+	public int verificaPontosAtaque(Posicao posicao) {
+		// TODO - implement Tabuleiro.verificaPontosAtaque
+		throw new UnsupportedOperationException();
+	}
+
+	public int verificaPontosVida(Posicao posicao) {
+		// TODO - implement Tabuleiro.verificaPontosVida
+		throw new UnsupportedOperationException();
+	}
 }
