@@ -56,7 +56,22 @@ public class Tabuleiro {
 	}
 
 	public int atacar(int posicaoAtual, int posicaoDestino) {
-		return 1;
+		
+		Posicao posicaoAt = posicoes.get(posicaoAtual);
+		Posicao posicaoDe = posicoes.get(posicaoDestino);
+		
+		Personagem personagemAtaque = posicaoAt.getOcupante();
+		Personagem personagemDefesa = posicaoDe.getOcupante();
+		
+		int pontosDeAtaque = personagemAtaque.getPontosAtaque();
+		int pontosDeVida = personagemDefesa.getPontosVida();
+		
+		int resultado = pontosDeVida - pontosDeAtaque;
+		
+		personagemDefesa.setPontosVida(resultado);
+		ocupante.setAcaoDoTurno(true);
+		
+		return resultado;
 	}
 
 

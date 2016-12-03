@@ -18,8 +18,7 @@ public class Partida {
 	private Jogador jogador2;
 
 	public Partida() {
-		atorJogador = new AtorJogador(); //????????????
-		numRodadas = 165; //que
+		numRodadas = 65; //que
 		tabuleiro = new Tabuleiro();
 	}
 
@@ -55,7 +54,7 @@ public class Partida {
 		Personagem ocupante = posicaoAt.getOcupante(); //wtf pq tem ocupante em tabuleiro
 		int coluna = posicaoAt.getColuna();
 		
-		if(ocupante != null && coluna != 10) {
+		if(ocupante != null && coluna != 9) {
 			if(jogador1.isTurno()){
 				int codigo = jogador1.getCodigo();
 				int codigoJogador = ocupante.getCodigoJogador();
@@ -68,7 +67,11 @@ public class Partida {
 								jogador1.setVencedor(true);
 								enviarJogada(tabuleiro);
 							}
-						}		
+						}else{
+							enviarJogada(tabuleiro);
+						}
+						
+						
 					} else {
 						tabuleiro.atribuiInimigoPosicao(posicaoDestino);
 						Posicao posicaoDest = tabuleiro.verificarPosicao(posicaoDestino);
@@ -83,6 +86,8 @@ public class Partida {
 								int tamanhoLista = jogador2.getTime().size();
 								if(tamanhoLista == 0){
 									jogador1.setVencedor(true);
+									enviarJogada(tabuleiro);
+								}else {
 									enviarJogada(tabuleiro);
 								}
 							}
