@@ -2,7 +2,12 @@ package view;
 
 import javax.swing.JLabel;
 
-public class LabelImg extends JLabel {
+public class LabelImg extends JLabel  {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected int posicao;
 //Ainda to tentando entender oq o gian fez com isso aqui
