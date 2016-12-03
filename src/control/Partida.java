@@ -59,6 +59,10 @@ public class Partida {
 				int codigo = jogador1.getCodigo();
 				int codigoJogador = ocupante.getCodigoJogador();
 				if(codigo == codigoJogador) {
+					if(ocupante.getAcaoDoTurno()){
+						//notifica esse tu já usou renato
+					}
+					
 					boolean ocupada = tabuleiro.isPosicaoOcupada(posicaoDestino);
 					if(!ocupada) {
 						tabuleiro.andar(posicaoAtual, posicaoDestino);
