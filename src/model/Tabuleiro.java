@@ -23,6 +23,7 @@ public class Tabuleiro {
 	}
 
 	public void andar(int posicaoAtual, int posicaoDestino) {
+		//não ta usando os parametros mandados
 		this.posicaoDestino.setOcupante(ocupante);
 		this.posicaoAtual.setOcupante(null);
 		ocupante.setAcaoDoTurno(true);
@@ -54,8 +55,23 @@ public class Tabuleiro {
 		return getOcupante();
 	}
 
-	public int atacar(Posicao posicaoAtual, Posicao posicaoDestino) {
-		return 1;
+	public int atacar(int posicaoAtual, int posicaoDestino) {
+		
+		Posicao posicaoAt = posicoes.get(posicaoAtual);
+		Posicao posicaoDe = posicoes.get(posicaoDestino);
+		
+		Personagem personagemAtaque = posicaoAt.getOcupante();
+		Personagem personagemDefesa = posicaoDe.getOcupante();
+		
+		int pontosDeAtaque = personagemAtaque.getPontosAtaque();
+		int pontosDeVida = personagemDefesa.getPontosVida();
+		
+		int resultado = pontosDeVida - pontosDeAtaque;
+		
+		personagemDefesa.setPontosVida(resultado);
+		ocupante.setAcaoDoTurno(true);
+		
+		return resultado;
 	}
 
 
@@ -70,7 +86,7 @@ public class Tabuleiro {
 		
 	}
 
-	public Posicao atribuiPersongaemPosicao(int posicaoDestino) {
+	public Posicao atribuiPersonagemPosicao(int posicaoDestino) {
 		posicoes.get(posicaoDestino).setPersonagem(null);
 		ocupante.setAcaoDoTurno(true);
 		return posicoes.get(posicaoDestino);
@@ -90,5 +106,9 @@ public class Tabuleiro {
 
 	public void setInimigo(Personagem inimigo) {
 		this.inimigo = inimigo;
+	}
+	
+	public Posicao verificarPosicao(int posicao){
+		return posicoes.get(posicao);
 	}
 }
