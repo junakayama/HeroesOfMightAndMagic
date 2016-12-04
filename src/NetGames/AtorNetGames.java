@@ -30,7 +30,7 @@ public class AtorNetGames {
 	}
 
 	public void receberJogada(Partida partida) {
-		atorJogador.receberJogada(partida.getTabuleiro());
+		atorJogador.receberJogada(partida);
 	}
 
 	public AtorJogador getAtorJogador() {

@@ -25,7 +25,7 @@ public class Tabuleiro {
 	}
 
 	public void andar(int posicaoAtual, int posicaoDestino) {
-		//não ta usando os parametros mandados
+		//nï¿½o ta usando os parametros mandados
 		this.posicaoDestino.setOcupante(ocupante);
 		this.posicaoAtual.setOcupante(null);
 		ocupante.setAcaoDoTurno(true);
@@ -174,5 +174,13 @@ public class Tabuleiro {
 	
 	public Posicao verificarPosicao(int posicao){
 		return posicoes.get(posicao);
+	}
+	
+	public ArrayList<Posicao> getPosicoes(){
+		return posicoes;
+	}
+	
+	public void setPosicoes(ArrayList<Posicao> posicoes) {
+		this.posicoes = posicoes;
 	}
 }
