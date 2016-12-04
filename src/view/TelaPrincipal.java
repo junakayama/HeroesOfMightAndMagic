@@ -1,14 +1,19 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class TelaPrincipal extends JFrame {
 
@@ -18,7 +23,8 @@ public class TelaPrincipal extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 //		Atributos 		//
-	protected final AtorJogador ator;
+
+
 	protected JPanel jContentPane = null;
 
 	protected LabelImg[] labels;
@@ -31,6 +37,7 @@ public class TelaPrincipal extends JFrame {
 	protected JButton btnDesconectar;
 	
 	protected JLabel user;
+	private AtorJogador ator;
 
 //		Construtor		//
 	public TelaPrincipal(final AtorJogador ator) {
@@ -41,6 +48,10 @@ public class TelaPrincipal extends JFrame {
 		this.setTitle("Heroes Of Might And Magic - Game Of Thrones");
 		this.setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		poeBotoes();
+		
+		
 
 	}
 	
@@ -778,11 +789,18 @@ public class TelaPrincipal extends JFrame {
 		return jContentPane;
 	}
 
-	public JButton botaoIniciar(){
+	public void poeBotoes(){
+		
 		btnIniciar = new JButton("Iniciar Partida");
-		btnIniciar.setBounds(10, 10, 10, 10 );
+		btnIniciar.setBounds(1, 1 , 150, 30 );
+		btnConectar = new JButton ("Conectar");
+		btnConectar.setBounds(151, 1, 150, 30);
+		btnDesconectar = new JButton ("Desconectar");
+		btnDesconectar.setBounds(302, 1, 150,30);
+		getContentPane().add(btnDesconectar);
 	    getContentPane().add(btnIniciar);
-	    return btnIniciar;
+	    getContentPane().add(btnConectar);
+	    
 	}
 	public void clickPosicao(int posicao){
 		System.out.println(posicao);
