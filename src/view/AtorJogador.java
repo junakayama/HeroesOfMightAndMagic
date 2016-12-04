@@ -1,9 +1,9 @@
 package view;
 
 import model.Posicao;
-import model.Tabuleiro;;
+import model.Tabuleiro;
 
-public class AtorJogador {
+public class AtorJogador{
 
 	public void conectar() {
 		// TODO - implement AtorJogador.conectar

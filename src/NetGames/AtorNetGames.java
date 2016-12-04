@@ -1,32 +1,27 @@
 package NetGames;
 
 import control.Partida;
+import view.AtorJogador;
 
 public class AtorNetGames {
 
-	/**
-	 * 
-	 * @param nickname
-	 * @param servidor
-	 */
+	private AtorJogador atorJogador;
+	private Proxy proxy;
+	
 	public void conectar(String nickname, String servidor) {
-		// TODO - implement AtorNetGames.conectar
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public void desconectar() {
-		// TODO - implement AtorNetGames.desconectar
-		throw new UnsupportedOperationException();
+		proxy.desconectar();
 	}
 
 	public void iniciarNovaPartida() {
-		// TODO - implement AtorNetGames.iniciarNovaPartida
-		throw new UnsupportedOperationException();
+		atorJogador.iniciarNovaPartida();
 	}
 
 	public void iniciarPartida() {
-		// TODO - implement AtorNetGames.iniciarPartida
-		throw new UnsupportedOperationException();
+		proxy.iniciarPartida();
 	}
 
 	public String getNicknameAdversario() {
@@ -34,13 +29,24 @@ public class AtorNetGames {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param partida
-	 */
 	public void receberJogada(Partida partida) {
-		// TODO - implement AtorNetGames.receberJogada
-		throw new UnsupportedOperationException();
+		atorJogador.receberJogada(partida.getTabuleiro());
+	}
+
+	public AtorJogador getAtorJogador() {
+		return atorJogador;
+	}
+
+	public void setAtorJogador(AtorJogador atorJogador) {
+		this.atorJogador = atorJogador;
+	}
+
+	public Proxy getProxy() {
+		return proxy;
+	}
+
+	public void setProxy(Proxy proxy) {
+		this.proxy = proxy;
 	}
 
 }
