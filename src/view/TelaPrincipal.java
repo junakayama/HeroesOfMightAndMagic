@@ -10,10 +10,11 @@ import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import javafx.scene.layout.Border;
 
 public class TelaPrincipal extends JFrame {
 
@@ -42,7 +43,7 @@ public class TelaPrincipal extends JFrame {
 //		Construtor		//
 	public TelaPrincipal(final AtorJogador ator) {
 		this.ator = ator;
-		this.setSize(1100, 1000);
+		this.setSize(1000, 700);
 		this.user = new JLabel();
 		this.setContentPane(getJContentPane());
 		this.setTitle("Heroes Of Might And Magic - Game Of Thrones");
@@ -69,13 +70,13 @@ public class TelaPrincipal extends JFrame {
 			labels = new LabelImg[165];
 			
 			int contador = 0;
-			int tamanhoColuna = 40;
+			int tamanhoColuna = 20;
 			for(int i = 0; i < 11; i++){
 				int tamanhoLinha = 20;
 				for(int j = 0; j < 15; j++){
 					LabelImg label = new LabelImg(contador);
 					label.setImagem("campo.png");
-					label.setBounds(new Rectangle(tamanhoLinha, tamanhoColuna, 70, 70));
+					label.setBounds(new Rectangle(tamanhoLinha, tamanhoColuna, 50, 50));
 					if(contador == 10 || contador == 25 || contador == 40 || contador == 55 || contador == 70 || contador == 85 ||
 							contador == 100 || contador == 115 || contador == 130 || contador == 145 || contador == 160){
 						label.setImagem2("muro.png");
@@ -89,10 +90,10 @@ public class TelaPrincipal extends JFrame {
 					label.setIcon(new ImageIcon(getClass().getResource(label.retornaImagem())));
 					labels[contador] = label;
 					contador++;
-					tamanhoLinha+=70;
+					tamanhoLinha+=51;
 					jContentPane.add(label, null);
 				}
-				tamanhoColuna+=70;
+				tamanhoColuna+=51;
 			}
 			labels[109].setImagem2("dani.png");
 			labels[109].setIcon(new ImageIcon(getClass().getResource(labels[109].retornaImagem())));

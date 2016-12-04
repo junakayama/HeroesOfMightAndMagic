@@ -4,6 +4,11 @@ import javax.swing.JLabel;
 
 public class LabelImg extends JLabel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	protected int posicao;
 	protected String imagem;
 	protected String imagem2;

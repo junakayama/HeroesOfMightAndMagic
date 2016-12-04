@@ -1,11 +1,15 @@
 package view;
 
+import java.util.ArrayList; 
+
+import control.Partida;
+import model.Jogador;
 import model.Posicao;
-import model.Tabuleiro;
 
 public class AtorJogador{
 
 	private TelaPrincipal tela;
+	private Partida partida;
 	
 	
 	public AtorJogador(){
@@ -48,8 +52,8 @@ public class AtorJogador{
 	}
 
 	public void iniciarPartida() {
-		// TODO - implement AtorJogador.iniciarPartida
-		throw new UnsupportedOperationException();
+		this.partida = new Partida();
+		partida.iniciarPartida();
 	}
 
 	public void passarTurnoJogadorAtual() {
@@ -67,7 +71,7 @@ public class AtorJogador{
 		throw new UnsupportedOperationException();
 	}
 
-	public void notificarVitoria() {
+	public void notificarVencedor(Jogador jogador) {
 		// TODO - implement AtorJogador.notificarVitoria
 		throw new UnsupportedOperationException();
 	}
@@ -91,9 +95,19 @@ public class AtorJogador{
 	 * 
 	 * @param tabuleiro
 	 */
-	public void receberJogada(Tabuleiro tabuleiro) {
-		// TODO - implement AtorJogador.receberJogada
-		throw new UnsupportedOperationException();
+	public void receberJogada(Partida partidaAtualizada) {
+		Jogador jogadorTroca1 = partidaAtualizada.getJogador2();
+		this.partida.setJogador1(jogadorTroca1);
+		Jogador jogadorTroca2 = partidaAtualizada.getJogador1();
+		this.partida.setJogador2(jogadorTroca2);
+		
+		ArrayList<Posicao> posicoesTroca = partidaAtualizada.getTabuleiro().getPosicoes();
+		this.partida.getTabuleiro().setPosicoes(posicoesTroca);
+		
+		if(this.partida.getJogador2().isVencedor()) {
+			notificarVencedor(this.partida.getJogador2());
+			this.partida.setPartidaEmAndamento(false);
+		}
 	}
 
 	public void notificarFalhaDesconexao() {
