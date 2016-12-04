@@ -3,6 +3,7 @@ package view;
 import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -25,9 +26,10 @@ public class TelaPrincipal extends JFrame {
 	protected Integer atual;
 	protected Integer destino;
 
-	protected JMenuItem btnIniciar = null;
-	protected JMenuItem btnConectar = null;
-	protected JMenuItem btnDesconectar = null;
+	
+	protected JButton btnIniciar;
+	protected JButton btnConectar;
+	protected JButton btnDesconectar;
 	
 	protected JLabel user;
 
@@ -43,13 +45,17 @@ public class TelaPrincipal extends JFrame {
 
 	}
 	
-// 		La vem bomba	//
+
 
 	private JPanel getJContentPane() {
+		
+	
+    
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
 			
+		    
 			labels = new LabelImg[165];
 			
 			int contador = 0;
@@ -773,6 +779,12 @@ public class TelaPrincipal extends JFrame {
 		return jContentPane;
 	}
 
+	public JButton botaoIniciar(){
+		btnIniciar = new JButton("Iniciar Partida");
+		btnIniciar.setBounds(10, 10, 10, 10 );
+	    getContentPane().add(btnIniciar);
+	    return btnIniciar;
+	}
 	public void clickPosicao(int posicao){
 		System.out.println(posicao);
 	}
