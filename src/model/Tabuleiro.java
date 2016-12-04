@@ -73,6 +73,7 @@ public class Tabuleiro {
 	public Posicao atribuiPersongaemPosicao(int posicaoDestino) {
 		posicoes.get(posicaoDestino).setPersonagem(null);
 		ocupante.setAcaoDoTurno(true);
+		return posicoes.get(posicaoDestino);
 	}
 
 	public Personagem getOcupante() {
