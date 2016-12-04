@@ -7,8 +7,10 @@ public class AtorJogador{
 
 	private TelaPrincipal tela;
 	
+	
 	public AtorJogador(){
 		this.setTela(new TelaPrincipal(this));
+		
 	}
 	
 	public void conectar() {
@@ -110,6 +112,9 @@ public class AtorJogador{
 
 	public void setTela(TelaPrincipal tela) {
 		this.tela = tela;
-	}
+		
+	}	
+	
+
 
 }

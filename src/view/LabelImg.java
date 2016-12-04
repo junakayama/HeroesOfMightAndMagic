@@ -5,8 +5,6 @@ import javax.swing.JLabel;
 public class LabelImg extends JLabel {
 
 	protected int posicao;
-//Ainda to tentando entender oq o gian fez com isso aqui
-
 	protected String imagem;
 	protected String imagem2;
 
