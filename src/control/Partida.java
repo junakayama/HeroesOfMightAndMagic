@@ -18,7 +18,7 @@ public class Partida {
 	private Jogador jogador2;
 
 	public Partida() {
-		numRodadas = 65; //que
+		numRodadas = 15; //que
 		tabuleiro = new Tabuleiro();
 	}
 
@@ -41,10 +41,6 @@ public class Partida {
 		return this.emAndamento;
 	}
 
-	/**
-	 * 
-	 * @param isEmAndamento
-	 */
 	public void setPartidaEmAndamento(boolean isEmAndamento) {
 		this.emAndamento = isEmAndamento;
 	}
@@ -113,19 +109,10 @@ public class Partida {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param tabuleiro
-	 */
 	public void enviarJogada(Tabuleiro tabuleiro) {
 		this.tabuleiro = tabuleiro; //ENVIAR PARA O NETGAMES
 	}
 
-	/**
-	 * 
-	 * @param nickname
-	 * @param nicknameAdversario
-	 */
 	public void criarJogadores(String nickname, String nicknameAdversario) {
 		this.jogador1 = new Jogador(true, nickname, true, 1);
 		jogador1.carregarPersonagensAtaque();

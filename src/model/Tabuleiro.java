@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tabuleiro {
 
@@ -18,12 +19,13 @@ public class Tabuleiro {
 	public boolean isPosicaoOcupada(int posicao) {
 		boolean ocupada;
 		posicaoDestino=posicoes.get(posicao);
-		ocupada = posicaoDestino.isOcupada();
+//		ocupada = posicaoDestino.isOcupada();
+		ocupada = posicaoDestino.getOcupante()!=null;
 		return ocupada;
 	}
 
 	public void andar(int posicaoAtual, int posicaoDestino) {
-		//n√£o ta usando os parametros mandados
+		//n„o ta usando os parametros mandados
 		this.posicaoDestino.setOcupante(ocupante);
 		this.posicaoAtual.setOcupante(null);
 		ocupante.setAcaoDoTurno(true);
@@ -35,25 +37,87 @@ public class Tabuleiro {
 	}
 
 	public void criarPosicoes() {
-		// TODO - implement Tabuleiro.criarPosicoes
-		throw new UnsupportedOperationException();
+		for(int i=0;i<11;i++){
+			for (int j = 0; j < 15; j++) {
+				Posicao posicao = new Posicao(i, j, null, false);
+				if(posicao.getLinha()==14 && posicao.getColuna()==6){
+					posicao.setCastelo(true);
+				}
+				posicoes.add(posicao);
+			}
+		}
 	}
 
-	public void posicionarPersonagens() {
-		// TODO - implement Tabuleiro.posicionarPersonagens
-		throw new UnsupportedOperationException();
+	public void carregarPersonagens(List<Personagem> time1, List<Personagem> time2) {
+		for (int i = 0; i < posicoes.size(); i++) {
+			Posicao posicao = posicoes.get(i);
+			if (posicao.getLinha() == 1 && posicao.getColuna() == 1) {
+				posicao.setOcupante(time1.get(0));
+			}
+			if (posicao.getLinha() == 1 && posicao.getColuna() == 1) {
+				posicao.setOcupante(time1.get(1));
+			}
+			if (posicao.getLinha() == 2 && posicao.getColuna() == 2) {
+				posicao.setOcupante(time1.get(2));
+			}
+			if (posicao.getLinha() == 3 && posicao.getColuna() == 1) {
+				posicao.setOcupante(time1.get(3));
+			}
+			if (posicao.getLinha() == 4 && posicao.getColuna() == 1) {
+				posicao.setOcupante(time1.get(4));
+			}
+			if (posicao.getLinha() == 5 && posicao.getColuna() == 1) {
+				posicao.setOcupante(time1.get(5));
+			}
+			if (posicao.getLinha() == 6 && posicao.getColuna() == 2) {
+				posicao.setOcupante(time1.get(6));
+			}
+			if (posicao.getLinha() == 1 && posicao.getColuna() == 12) {
+				posicao.setOcupante(time2.get(0));
+			}
+			if (posicao.getLinha() == 2 && posicao.getColuna() == 11) {
+				posicao.setOcupante(time2.get(1));
+			}
+			if (posicao.getLinha() == 3 && posicao.getColuna() == 12) {
+				posicao.setOcupante(time2.get(2));
+			}
+			if (posicao.getLinha() == 4 && posicao.getColuna() == 11) {
+				posicao.setOcupante(time2.get(3));
+			}
+			if (posicao.getLinha() == 5 && posicao.getColuna() == 12) {
+				posicao.setOcupante(time2.get(4));
+			}
+			if (posicao.getLinha() == 6 && posicao.getColuna() == 11) {
+				posicao.setOcupante(time2.get(5));
+			}
+			if (posicao.getLinha() == 7 && posicao.getColuna() == 12) {
+				posicao.setOcupante(time2.get(6));
+			}
+			
+			if(posicao.getColuna()==9){
+				posicoes.get(9).setOcupante(time2.get(7));
+				posicoes.get(24).setOcupante(time2.get(7));
+				posicoes.get(39).setOcupante(time2.get(7));
+				posicoes.get(54).setOcupante(time2.get(7));
+				posicoes.get(69).setOcupante(time2.get(7));
+				posicoes.get(84).setOcupante(time2.get(7));
+				posicoes.get(99).setOcupante(time2.get(7));
+			}
+		}
 	}
 
-	public void jogar(Posicao posicaoAtual, Posicao posicaoDestino) {
-		// TODO - implement Tabuleiro.jogar
-		throw new UnsupportedOperationException();
-	}
-
-	public Personagem buscaOcupante(int posicao) {
-		posicaoAtual=posicoes.get(posicao);
-		setOcupante(posicaoAtual.getOcupante());
+	//mudar nome do metodo
+	public Personagem jogar(int posicaoAtual, int posicaoDestino) {
+		this.posicaoAtual=posicoes.get(posicaoAtual);
+		setOcupante(this.posicaoAtual.getOcupante());
 		return getOcupante();
 	}
+	
+//	public Personagem buscaOcupante(int posicao) {
+//		posicaoAtual=posicoes.get(posicao);
+//		setOcupante(posicaoAtual.getOcupante());
+//		return getOcupante();
+//	}
 
 	public int atacar(int posicaoAtual, int posicaoDestino) {
 		
@@ -81,13 +145,13 @@ public class Tabuleiro {
 
 
 	public Posicao atribuiInimigoPosicao(int posicaoDestino) {
-		inimigo = posicoes.get(posicaoDestino).getPersonagem();
+		inimigo = posicoes.get(posicaoDestino).getOcupante();
 		return posicoes.get(posicaoDestino);
 		
 	}
 
 	public Posicao atribuiPersonagemPosicao(int posicaoDestino) {
-		posicoes.get(posicaoDestino).setPersonagem(null);
+		posicoes.get(posicaoDestino).setOcupante(null);
 		ocupante.setAcaoDoTurno(true);
 		return posicoes.get(posicaoDestino);
 	}

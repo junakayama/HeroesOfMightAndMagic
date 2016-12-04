@@ -35,11 +35,6 @@ public class Jogador {
 		throw new UnsupportedOperationException();
 	}
 
-	public void carregarPersonagens() {
-		// TODO - implement Jogador.carregarPersonagens
-		throw new UnsupportedOperationException();
-	}
-
 	public boolean isTurno() {
 		return this.turno;
 	}

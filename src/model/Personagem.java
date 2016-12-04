@@ -9,11 +9,6 @@ public class Personagem {
 	private String nome;
 	private int codigoJogador;
 
-	/**
-	 * 
-	 * @param pontosAtaque
-	 */
-
 	public Personagem(String nome, int codigoJogador, int pontosVida, int pontosAtaque, boolean acaoDoTurno,
 			boolean longoAlcance) {
 		this.pontosVida = pontosVida;
@@ -37,19 +32,10 @@ public class Personagem {
 		return this.pontosVida;
 	}
 
-	public void selecionarPersonagem() {
-		// TODO - implement Personagem.selecionarPersonagem
-		throw new UnsupportedOperationException();
-	}
-
 	public int getCodigoJogador() {
 		return this.codigoJogador;
 	}
 
-	/**
-	 * 
-	 * @param codigoJogador
-	 */
 	public void setCodigoJogador(int codigoJogador) {
 		this.codigoJogador = codigoJogador;
 	}

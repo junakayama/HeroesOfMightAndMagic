@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -27,7 +28,7 @@ public class TelaPrincipal extends JFrame {
 		this.ator = ator;
 		this.setSize(1100, 1000);
 		this.user = new JLabel();
-		this.setContentPane(getJContentPane());
+		this.setContentPane(getContentPane());
 		this.setTitle("Heroes Of Might And Magic - Game Of Thrones");
 		this.setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -36,4 +37,3 @@ public class TelaPrincipal extends JFrame {
 	
 // 		La vem bomba	//
 }
-		
