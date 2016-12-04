@@ -5,6 +5,12 @@ import model.Tabuleiro;
 
 public class AtorJogador{
 
+	private TelaPrincipal tela;
+	
+	public AtorJogador(){
+		this.setTela(new TelaPrincipal(this));
+	}
+	
 	public void conectar() {
 		// TODO - implement AtorJogador.conectar
 		throw new UnsupportedOperationException();
@@ -96,6 +102,14 @@ public class AtorJogador{
 	public void notificarDesconectado() {
 		// TODO - implement AtorJogador.notificarDesconectado
 		throw new UnsupportedOperationException();
+	}
+
+	public TelaPrincipal getTela() {
+		return tela;
+	}
+
+	public void setTela(TelaPrincipal tela) {
+		this.tela = tela;
 	}
 
 }
