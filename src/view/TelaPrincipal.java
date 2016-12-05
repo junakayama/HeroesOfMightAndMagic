@@ -819,6 +819,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	    
 	    getConectar();
 	    getIniciar();
+	    getDesconectar();
+	    getPassarTurno();
 	    
 	    btnDesconectar.setEnabled(false);
 	    btnIniciar.setEnabled(false);
@@ -829,8 +831,6 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	
 	public void btConectar(){
 		btnIniciar.setEnabled(true);
-		btnDesconectar.setEnabled(true);
-		btnPassarTurno.setEnabled(true);
 		conectar.setEnabled(false);
 		conectar.setVisible(false);
 		btnIniciar.setBounds(30, 590 , 150, 30);
@@ -842,8 +842,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public void btIniciarPartida(){
 		btnIniciar.setEnabled(false);
 		btnIniciar.setVisible(false);
+		btnPassarTurno.setEnabled(true);
 		btnDesconectar.setBounds(180, 590, 150, 30);
-		btnPassarTurno.setBounds(330, 590, 150,30);
+		btnPassarTurno.setBounds(30, 590 , 150, 30);
 		
 	}
 	
@@ -872,6 +873,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		
 	}
 	
+	
 	public JButton getIniciar(){
 		btnIniciar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -889,6 +891,45 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		});
 		
 		return btnIniciar;
+		
+	}
+	
+	public JButton getPassarTurno(){
+		btnPassarTurno.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				try {
+					
+					ator.passarTurnoJogadorAtual();
+					
+					
+				} catch (Exception ex) {
+				
+					ex.printStackTrace();
+				}
+			}
+		});
+		
+		return btnPassarTurno;
+		
+	}
+
+	public JButton getDesconectar(){
+		btnDesconectar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				try {
+					
+					ator.desconectar();
+					
+					
+					
+				} catch (Exception ex) {
+				
+					ex.printStackTrace();
+				}
+			}
+		});
+		
+		return btnDesconectar;
 		
 	}
 
