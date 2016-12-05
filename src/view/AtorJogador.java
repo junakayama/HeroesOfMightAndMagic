@@ -1,19 +1,28 @@
 package view;
 
+import java.util.ArrayList; 
+
+import NetGames.AtorNetGames;
+
+import control.Partida;
+import model.Jogador;
 import model.Posicao;
-import model.Tabuleiro;
 
 public class AtorJogador{
 
 	private TelaPrincipal tela;
+	private Partida partida;
+	private AtorNetGames atorNetGames;
 	
 	public AtorJogador(){
 		this.setTela(new TelaPrincipal(this));
 	}
 	
 	public void conectar() {
-		// TODO - implement AtorJogador.conectar
-		throw new UnsupportedOperationException();
+		String nickname = solicitarNome();
+		String servidor = solicitarNome();
+		atorNetGames.conectar(nickname, servidor);
+		notificarConexaoEstabelecida();
 	}
 
 	public void notificarConexaoEstabelecida() {
@@ -22,8 +31,8 @@ public class AtorJogador{
 	}
 
 	public void desconectar() {
-		// TODO - implement AtorJogador.desconectar
-		throw new UnsupportedOperationException();
+		atorNetGames.desconectar();
+		
 	}
 
 	public void notificarDesconexao() {
@@ -40,14 +49,15 @@ public class AtorJogador{
 	 * 
 	 * @param nome
 	 */
-	public String solicitarNome(String nome) {
+	public String solicitarNome() {
 		// TODO - implement AtorJogador.solicitarNome
 		throw new UnsupportedOperationException();
 	}
 
 	public void iniciarPartida() {
-		// TODO - implement AtorJogador.iniciarPartida
-		throw new UnsupportedOperationException();
+		this.partida = new Partida();
+		partida.iniciarPartida();
+		tela.btIniciarPartida();
 	}
 
 	public void passarTurnoJogadorAtual() {
@@ -65,9 +75,8 @@ public class AtorJogador{
 		throw new UnsupportedOperationException();
 	}
 
-	public void notificarVitoria() {
-		// TODO - implement AtorJogador.notificarVitoria
-		throw new UnsupportedOperationException();
+	public void notificarVencedor(Jogador jogador) {
+		tela.notificaVencedor();		
 	}
 
 	public void notificarErroPersonagem() {
@@ -76,32 +85,39 @@ public class AtorJogador{
 	}
 
 	public void notificarErroTurno() {
-		// TODO - implement AtorJogador.notificarErroTurno
-		throw new UnsupportedOperationException();
+		tela.notificaErroTurno();
+		
 	}
 
 	public void notificarErroInstancia() {
-		// TODO - implement AtorJogador.notificarErroInstancia
-		throw new UnsupportedOperationException();
+		tela.notificaErroInstancia();
 	}
 
 	/**
 	 * 
 	 * @param tabuleiro
 	 */
-	public void receberJogada(Tabuleiro tabuleiro) {
-		// TODO - implement AtorJogador.receberJogada
-		throw new UnsupportedOperationException();
+	public void receberJogada(Partida partidaAtualizada) {
+		Jogador jogadorTroca1 = partidaAtualizada.getJogador2();
+		this.partida.setJogador1(jogadorTroca1);
+		Jogador jogadorTroca2 = partidaAtualizada.getJogador1();
+		this.partida.setJogador2(jogadorTroca2);
+		
+		ArrayList<Posicao> posicoesTroca = partidaAtualizada.getTabuleiro().getPosicoes();
+		this.partida.getTabuleiro().setPosicoes(posicoesTroca);
+		
+		if(this.partida.getJogador2().isVencedor()) {
+			notificarVencedor(this.partida.getJogador2());
+			this.partida.setPartidaEmAndamento(false);
+		}
 	}
 
 	public void notificarFalhaDesconexao() {
-		// TODO - implement AtorJogador.notificarFalhaDesconexao
-		throw new UnsupportedOperationException();
+		tela.notificaErroDesconectado();
 	}
 
 	public void notificarDesconectado() {
-		// TODO - implement AtorJogador.notificarDesconectado
-		throw new UnsupportedOperationException();
+	tela.notificaDesconectado();
 	}
 
 	public TelaPrincipal getTela() {

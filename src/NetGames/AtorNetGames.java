@@ -7,13 +7,22 @@ public class AtorNetGames {
 
 	private AtorJogador atorJogador;
 	private Proxy proxy;
+	private boolean conectado;
 	
 	public void conectar(String nickname, String servidor) {
-		
+		proxy.conectar(nickname, servidor);
+		setConectado(true);
 	}
 
 	public void desconectar() {
-		proxy.desconectar();
+		if(conectado){
+			proxy.desconectar();
+			setConectado(false);
+			atorJogador.notificarDesconexao();
+			
+		} else {
+			atorJogador.notificarDesconectado();
+		}
 	}
 
 	public void iniciarNovaPartida() {
@@ -30,7 +39,7 @@ public class AtorNetGames {
 	}
 
 	public void receberJogada(Partida partida) {
-		atorJogador.receberJogada(partida.getTabuleiro());
+		atorJogador.receberJogada(partida);
 	}
 
 	public AtorJogador getAtorJogador() {
@@ -47,6 +56,14 @@ public class AtorNetGames {
 
 	public void setProxy(Proxy proxy) {
 		this.proxy = proxy;
+	}
+
+	public boolean isConectado() {
+		return conectado;
+	}
+
+	public void setConectado(boolean conectado) {
+		this.conectado = conectado;
 	}
 
 }

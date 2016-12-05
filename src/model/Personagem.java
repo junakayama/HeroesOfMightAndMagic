@@ -18,7 +18,8 @@ public class Personagem {
 		this.nome = nome;
 		this.codigoJogador = codigoJogador;
 	}
-
+	
+	//construtor para o muro
 	public Personagem(String nome, int codigoJogador, int pontosVida) {
 		this.nome = nome;
 		this.codigoJogador = codigoJogador;

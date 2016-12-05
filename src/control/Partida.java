@@ -7,34 +7,38 @@ import model.Posicao;
 ///import model.Posicao;
 import model.Tabuleiro;
 import view.AtorJogador;
+import view.TelaPrincipal;
 
 public class Partida {
 
 	private int numRodadas;
 	private boolean emAndamento;
 	private Tabuleiro tabuleiro;
-	private AtorJogador atorJogador;
 	private Jogador jogador1;
 	private Jogador jogador2;
+	private TelaPrincipal tela;
 
 	public Partida() {
-		numRodadas = 15; //que
+		numRodadas = 15;
 		tabuleiro = new Tabuleiro();
 	}
 
 	public void iniciarPartida() {
-		this.atorJogador.iniciarPartida();
-
+		if(emAndamento) {
+			notificaPartidaEmAndamento();
+		} else {
+			setPartidaEmAndamento(true);
+			notificaPartidaIniciada();
+		}
+	
 	}
 
 	public void notificaPartidaEmAndamento() {
-		// TODO - implement Partida.notificaPartidaEmAndamento
-		throw new UnsupportedOperationException();
+		tela.notificaAndamento();
 	}
 
 	public void notificaPartidaIniciada() {
-		// TODO - implement Partida.notificaPartidaIniciada
-		throw new UnsupportedOperationException();
+		tela.notificaIniciada();
 	}
 
 	public boolean isEmAndamento() {
@@ -56,7 +60,7 @@ public class Partida {
 				int codigoJogador = ocupante.getCodigoJogador();
 				if(codigo == codigoJogador) {
 					if(ocupante.getAcaoDoTurno()){
-						//notifica esse tu já usou renato
+						//notifica esse tu jï¿½ usou renato
 					}
 					
 					boolean ocupada = tabuleiro.isPosicaoOcupada(posicaoDestino);
@@ -110,7 +114,7 @@ public class Partida {
 	}
 
 	public void enviarJogada(Tabuleiro tabuleiro) {
-		this.tabuleiro = tabuleiro; //ENVIAR PARA O NETGAMES
+		this.tabuleiro = tabuleiro;
 	}
 
 	public void criarJogadores(String nickname, String nicknameAdversario) {
@@ -134,6 +138,22 @@ public class Partida {
 
 	public void setTabuleiro(Tabuleiro tabuleiro) {
 		this.tabuleiro = tabuleiro;
+	}
+	
+	public Jogador getJogador1(){
+		return jogador1;
+	}
+	
+	public void setJogador1(Jogador jogador) {
+		this.jogador1 = jogador;
+	}
+	
+	public Jogador getJogador2(){
+		return jogador2;
+	}
+	
+	public void setJogador2(Jogador jogador) {
+		this.jogador2 = jogador;
 	}
 
 }
