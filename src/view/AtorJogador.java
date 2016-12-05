@@ -52,8 +52,8 @@ public class AtorJogador{
 	}
 
 	public void iniciarPartida() {
-	//	this.partida = new Partida();
-	//	partida.iniciarPartida();
+		this.partida = new Partida();
+		partida.iniciarPartida();
 		tela.btIniciarPartida();
 	}
 
@@ -73,8 +73,7 @@ public class AtorJogador{
 	}
 
 	public void notificarVencedor(Jogador jogador) {
-		// TODO - implement AtorJogador.notificarVitoria
-		throw new UnsupportedOperationException();
+		tela.notificaVencedor();		
 	}
 
 	public void notificarErroPersonagem() {
@@ -83,13 +82,12 @@ public class AtorJogador{
 	}
 
 	public void notificarErroTurno() {
-		// TODO - implement AtorJogador.notificarErroTurno
-		throw new UnsupportedOperationException();
+		tela.notificaErroTurno();
+		
 	}
 
 	public void notificarErroInstancia() {
-		// TODO - implement AtorJogador.notificarErroInstancia
-		throw new UnsupportedOperationException();
+		tela.notificaErroInstancia();
 	}
 
 	/**
@@ -112,13 +110,11 @@ public class AtorJogador{
 	}
 
 	public void notificarFalhaDesconexao() {
-		// TODO - implement AtorJogador.notificarFalhaDesconexao
-		throw new UnsupportedOperationException();
+		tela.notificaErroDesconectado();
 	}
 
 	public void notificarDesconectado() {
-		// TODO - implement AtorJogador.notificarDesconectado
-		throw new UnsupportedOperationException();
+	tela.notificaDesconectado();
 	}
 
 	public TelaPrincipal getTela() {

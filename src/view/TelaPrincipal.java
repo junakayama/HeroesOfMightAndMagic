@@ -13,6 +13,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -941,6 +942,41 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	}
 
 
+
+	public void notificaAndamento() {
+		JOptionPane.showMessageDialog(null, "Já existe uma partida em andamento!");
+		
+	}
+
+	public void notificaIniciada() {
+		JOptionPane.showMessageDialog(null, "Sua partida foi iniciada!");
+		
+	}
+	
+	public void notificaVencedor() {
+		JOptionPane.showMessageDialog(null, "Você venceu, parabéns!");
+		
+	}
+	
+	public void notificaErroTurno() {
+		JOptionPane.showMessageDialog(null , "Não está na hora de jogar ainda, aguarda o seu turno");
+		
+	}
+
+	public void notificaErroInstancia() {
+		JOptionPane.showMessageDialog(null , "Ops!Parece que você selecionou errado...");
+		
+	}
+	
+	public void notificaDesconectado() {
+		JOptionPane.showMessageDialog(null , "Desconexão realizada com sucesso!");
+		
+	}
+
+	public void notificaErroDesconectado() {
+		JOptionPane.showMessageDialog(null , "Desconexão falhada! Tente novamente.");
+		
+	}
 
 
 			
