@@ -12,7 +12,7 @@ public class Proxy {
 		throw new UnsupportedOperationException();
 	}
 
-	public void desconectar() {
+	public boolean desconectar() {
 		// TODO - implement Proxy.desconectar
 		throw new UnsupportedOperationException();
 	}

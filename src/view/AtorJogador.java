@@ -2,6 +2,8 @@ package view;
 
 import java.util.ArrayList; 
 
+import NetGames.AtorNetGames;
+
 import control.Partida;
 import model.Jogador;
 import model.Posicao;
@@ -10,16 +12,17 @@ public class AtorJogador{
 
 	private TelaPrincipal tela;
 	private Partida partida;
-	
+	private AtorNetGames atorNetGames;
 	
 	public AtorJogador(){
 		this.setTela(new TelaPrincipal(this));
-		
 	}
 	
 	public void conectar() {
-		
-		tela.btConectar();
+		String nickname = solicitarNome();
+		String servidor = solicitarNome();
+		atorNetGames.conectar(nickname, servidor);
+		notificarConexaoEstabelecida();
 	}
 
 	public void notificarConexaoEstabelecida() {
@@ -28,8 +31,8 @@ public class AtorJogador{
 	}
 
 	public void desconectar() {
-		// TODO - implement AtorJogador.desconectar
-		throw new UnsupportedOperationException();
+		atorNetGames.desconectar();
+		
 	}
 
 	public void notificarDesconexao() {
@@ -46,7 +49,7 @@ public class AtorJogador{
 	 * 
 	 * @param nome
 	 */
-	public String solicitarNome(String nome) {
+	public String solicitarNome() {
 		// TODO - implement AtorJogador.solicitarNome
 		throw new UnsupportedOperationException();
 	}
@@ -126,9 +129,6 @@ public class AtorJogador{
 
 	public void setTela(TelaPrincipal tela) {
 		this.tela = tela;
-		
-	}	
-	
-
+	}
 
 }

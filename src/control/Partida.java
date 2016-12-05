@@ -14,13 +14,12 @@ public class Partida {
 	private int numRodadas;
 	private boolean emAndamento;
 	private Tabuleiro tabuleiro;
-	private AtorJogador atorJogador;
 	private Jogador jogador1;
 	private Jogador jogador2;
 	private TelaPrincipal tela;
 
 	public Partida() {
-		numRodadas = 15; //que
+		numRodadas = 15;
 		tabuleiro = new Tabuleiro();
 	}
 
