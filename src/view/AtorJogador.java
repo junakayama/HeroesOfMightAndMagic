@@ -18,8 +18,8 @@ public class AtorJogador{
 	}
 	
 	public void conectar() {
-		// TODO - implement AtorJogador.conectar
-		throw new UnsupportedOperationException();
+		
+		tela.btConectar();
 	}
 
 	public void notificarConexaoEstabelecida() {

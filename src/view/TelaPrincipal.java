@@ -36,6 +36,7 @@ public class TelaPrincipal extends JFrame {
 	protected JButton btnIniciar;
 	protected JButton btnConectar;
 	protected JButton btnDesconectar;
+	protected JButton btnPassarTurno;
 	
 	protected JLabel user;
 	private AtorJogador ator;
@@ -799,11 +800,39 @@ public class TelaPrincipal extends JFrame {
 		btnConectar.setBounds(180, 590, 150, 30);
 		btnDesconectar = new JButton ("Desconectar");
 		btnDesconectar.setBounds(330, 590, 150,30);
+		btnPassarTurno = new JButton ("Passar Turno");
+		btnPassarTurno.setBounds(480, 590, 150, 30);
 		getContentPane().add(btnDesconectar);
 	    getContentPane().add(btnIniciar);
 	    getContentPane().add(btnConectar);
+	    getContentPane().add(btnPassarTurno);
+	    btnDesconectar.setEnabled(false);
+	    btnIniciar.setEnabled(false);
+	    btnPassarTurno.setEnabled(false);
 	    
 	}
+	
+	
+	public void btConectar(){
+		btnIniciar.setEnabled(true);
+		btnDesconectar.setEnabled(true);
+		btnPassarTurno.setEnabled(true);
+		btnConectar.setEnabled(false);
+		btnConectar.setVisible(false);
+		btnIniciar.setBounds(30, 590 , 150, 30);
+		btnDesconectar.setBounds(180, 590, 150, 30);
+		btnPassarTurno.setBounds(330, 590, 150,30);
+		
+	}
+	
+	public void btIniciarPartida(){
+		btnIniciar.setEnabled(false);
+		btnIniciar.setVisible(false);
+		btnDesconectar.setBounds(180, 590, 150, 30);
+		btnPassarTurno.setBounds(330, 590, 150,30);
+		
+	}
+	
 	public void clickPosicao(int posicao){
 		System.out.println(posicao);
 	}
