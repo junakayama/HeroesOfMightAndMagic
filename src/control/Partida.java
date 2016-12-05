@@ -7,6 +7,7 @@ import model.Posicao;
 ///import model.Posicao;
 import model.Tabuleiro;
 import view.AtorJogador;
+import view.TelaPrincipal;
 
 public class Partida {
 
@@ -16,6 +17,7 @@ public class Partida {
 	private AtorJogador atorJogador;
 	private Jogador jogador1;
 	private Jogador jogador2;
+	private TelaPrincipal tela;
 
 	public Partida() {
 		numRodadas = 15; //que
@@ -29,6 +31,7 @@ public class Partida {
 			setPartidaEmAndamento(true);
 			notificaPartidaIniciada();
 		}
+		tela.btIniciarPartida();
 	}
 
 	public void notificaPartidaEmAndamento() {
