@@ -207,11 +207,11 @@ public class Partida {
 	
 			if(jogador2.getMuro().getPontosVida()!=0){
 				if((posicaoDestino == 10 || posicaoDestino == 25 || posicaoDestino == 40 || posicaoDestino == 55 || posicaoDestino == 70 || posicaoDestino == 85 ||
-				posicaoDestino == 100 || posicaoDestino == 115 || posicaoDestino == 130 || posicaoDestino == 145 || posicaoDestino == 160)){
+				posicaoDestino == 100 || posicaoDestino == 115 || posicaoDestino == 130 || posicaoDestino == 145 || posicaoDestino == 160)&& jogador1.isAtaque()== false){
 		
 					tela.notificaErroAndarMuro();
 				}
-				
+//A proxima verificação ve se o ataque ou a desefa tentam ultrapassar do muro				
 				if(jogador1.isAtaque()){
 					
 					if(((posicaoDestino > 10) || (posicaoDestino > 25 & posicaoDestino <= 29) || (posicaoDestino > 40 & posicaoDestino <= 44)|| (posicaoDestino > 56 & posicaoDestino <= 59) || (posicaoDestino > 71 & posicaoDestino <= 74) || (posicaoDestino > 86 & posicaoDestino < 89) || (posicaoDestino > 101 & posicaoDestino <= 104) || (posicaoDestino > 116 & posicaoDestino <= 119) || (posicaoDestino > 131 & posicaoDestino <= 134) || (posicaoDestino > 146 & posicaoDestino <= 149) || (posicaoDestino > 161 & posicaoDestino <= 164)) & ((posicaoAtual > 10) || (posicaoAtual > 14 & posicaoAtual < 25) || (posicaoAtual > 29 & posicaoAtual < 40) || (posicaoAtual > 44 & posicaoAtual < 55 ) || (posicaoAtual > 59 & posicaoAtual < 70) || (posicaoAtual > 74 & posicaoAtual < 85) || (posicaoAtual > 89 & posicaoAtual < 90 ) || (posicaoAtual > 104 & posicaoAtual < 115) || (posicaoAtual > 119 & posicaoAtual < 130) || (posicaoAtual > 134 & posicaoAtual < 145) || (posicaoAtual > 149 & posicaoAtual < 160) ) ){
