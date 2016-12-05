@@ -30,17 +30,15 @@ public class Partida {
 			setPartidaEmAndamento(true);
 			notificaPartidaIniciada();
 		}
-		tela.btIniciarPartida();
+	
 	}
 
 	public void notificaPartidaEmAndamento() {
-		// TODO - implement Partida.notificaPartidaEmAndamento
-		throw new UnsupportedOperationException();
+		tela.notificaAndamento();
 	}
 
 	public void notificaPartidaIniciada() {
-		// TODO - implement Partida.notificaPartidaIniciada
-		throw new UnsupportedOperationException();
+		tela.notificaIniciada();
 	}
 
 	public boolean isEmAndamento() {

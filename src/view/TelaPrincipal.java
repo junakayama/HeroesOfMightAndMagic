@@ -13,6 +13,7 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -36,7 +37,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 
 	
 	protected JButton btnIniciar;
-	protected JButton btnConectar;
+	protected JButton conectar;
 	protected JButton btnDesconectar;
 	protected JButton btnPassarTurno;
 	
@@ -799,17 +800,29 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		
 		btnIniciar = new JButton("Iniciar Partida");
 		btnIniciar.setBounds(30, 590 , 150, 30 );
-		//btnIniciar.addMouseListener(ator.iniciarNovaPartida());
-		btnConectar = new JButton ("Conectar");
-		btnConectar.setBounds(180, 590, 150, 30);
+		
+		conectar = new JButton ("Conectar");
+		conectar.setBounds(180, 590, 150, 30);
+		
 		btnDesconectar = new JButton ("Desconectar");
 		btnDesconectar.setBounds(330, 590, 150,30);
+		
 		btnPassarTurno = new JButton ("Passar Turno");
 		btnPassarTurno.setBounds(480, 590, 150, 30);
-		getContentPane().add(btnDesconectar);
+		
 	    getContentPane().add(btnIniciar);
-	    getContentPane().add(btnConectar);
+		
+		getContentPane().add(btnDesconectar);
+
+	    getContentPane().add(conectar);
+	    
 	    getContentPane().add(btnPassarTurno);
+	    
+	    getConectar();
+	    getIniciar();
+	    getDesconectar();
+	    getPassarTurno();
+	    
 	    btnDesconectar.setEnabled(false);
 	    btnIniciar.setEnabled(false);
 	    btnPassarTurno.setEnabled(false);
@@ -819,10 +832,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	
 	public void btConectar(){
 		btnIniciar.setEnabled(true);
-		btnDesconectar.setEnabled(true);
-		btnPassarTurno.setEnabled(true);
-		btnConectar.setEnabled(false);
-		btnConectar.setVisible(false);
+		conectar.setEnabled(false);
+		conectar.setVisible(false);
 		btnIniciar.setBounds(30, 590 , 150, 30);
 		btnDesconectar.setBounds(180, 590, 150, 30);
 		btnPassarTurno.setBounds(330, 590, 150,30);
@@ -832,35 +843,148 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public void btIniciarPartida(){
 		btnIniciar.setEnabled(false);
 		btnIniciar.setVisible(false);
+		btnPassarTurno.setEnabled(true);
 		btnDesconectar.setBounds(180, 590, 150, 30);
-		btnPassarTurno.setBounds(330, 590, 150,30);
+		btnPassarTurno.setBounds(30, 590 , 150, 30);
 		
 	}
 	
 	public void clickPosicao(int posicao){
 		System.out.println(posicao);
 	}
+	
+	public JButton getConectar(){
+		conectar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				try {
+					
+					ator.conectar();
+					btnIniciar.setEnabled(true);
+					btnDesconectar.setEnabled(true);
+					conectar.setEnabled(false);
+					
+				} catch (Exception ex) {
+				
+					ex.printStackTrace();
+				}
+			}
+		});
+		
+		return conectar;
+		
+	}
+	
+	
+	public JButton getIniciar(){
+		btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				try {
+					
+					ator.iniciarPartida();
+					btIniciarPartida();
+					
+					
+				} catch (Exception ex) {
+				
+					ex.printStackTrace();
+				}
+			}
+		});
+		
+		return btnIniciar;
+		
+	}
+	
+	public JButton getPassarTurno(){
+		btnPassarTurno.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				try {
+					
+					ator.passarTurnoJogadorAtual();
+					
+					
+				} catch (Exception ex) {
+				
+					ex.printStackTrace();
+				}
+			}
+		});
+		
+		return btnPassarTurno;
+		
+	}
+
+	public JButton getDesconectar(){
+		btnDesconectar.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				try {
+					
+					ator.desconectar();
+					
+					
+					
+				} catch (Exception ex) {
+				
+					ex.printStackTrace();
+				}
+			}
+		});
+		
+		return btnDesconectar;
+		
+	}
 
 
 
 	public void actionPerformed(ActionEvent e) {
-		String ac = e.getActionCommand();
-		if (ac == btnIniciar.toString()){
-			ator.iniciarPartida();
-		}else if(ac == btnConectar.toString()){
-			ator.conectar();
-		}else if(ac == btnDesconectar.toString()){
-			ator.desconectar();
-		}else if(ac == btnPassarTurno.toString()){
-			ator.passarTurnoJogadorAtual();
-			
-		}
-			
-		
-			
-			
-			
-			
-		}
+		// TODO Auto-generated method stub
 		
 	}
+
+
+
+	public void notificaAndamento() {
+		JOptionPane.showMessageDialog(null, "Já existe uma partida em andamento!");
+		
+	}
+
+	public void notificaIniciada() {
+		JOptionPane.showMessageDialog(null, "Sua partida foi iniciada!");
+		
+	}
+	
+	public void notificaVencedor() {
+		JOptionPane.showMessageDialog(null, "Você venceu, parabéns!");
+		
+	}
+	
+	public void notificaErroTurno() {
+		JOptionPane.showMessageDialog(null , "Não está na hora de jogar ainda, aguarda o seu turno");
+		
+	}
+
+	public void notificaErroInstancia() {
+		JOptionPane.showMessageDialog(null , "Ops!Parece que você selecionou errado...");
+		
+	}
+	
+	public void notificaDesconectado() {
+		JOptionPane.showMessageDialog(null , "Desconexão realizada com sucesso!");
+		
+	}
+
+	public void notificaErroDesconectado() {
+		JOptionPane.showMessageDialog(null , "Desconexão falhada! Tente novamente.");
+		
+	}
+
+
+			
+		
+			
+			
+			
+			
+		}
+		
+	
