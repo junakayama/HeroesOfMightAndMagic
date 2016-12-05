@@ -12,8 +12,6 @@ import javax.swing.JPanel;
 import javafx.scene.layout.Border;
 
 public class TelaPrincipal extends JFrame {
-
-	
 /**
 	 * 
 	 */
