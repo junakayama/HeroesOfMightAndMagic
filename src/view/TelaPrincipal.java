@@ -3,6 +3,8 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import javafx.scene.layout.Border;
 
-public class TelaPrincipal extends JFrame {
+public class TelaPrincipal extends JFrame implements ActionListener {
 
 	
 /**
@@ -786,6 +788,8 @@ public class TelaPrincipal extends JFrame {
 				public void mouseClicked(java.awt.event.MouseEvent e) {
 					clickPosicao(164);				}
 			});
+			
+		
 
 		}
 		return jContentPane;
@@ -836,4 +840,27 @@ public class TelaPrincipal extends JFrame {
 	public void clickPosicao(int posicao){
 		System.out.println(posicao);
 	}
-}
+
+
+
+	public void actionPerformed(ActionEvent e) {
+		String ac = e.getActionCommand();
+		if (ac == btnIniciar.toString()){
+			ator.iniciarPartida();
+		}else if(ac == btnConectar.toString()){
+			ator.conectar();
+		}else if(ac == btnDesconectar.toString()){
+			ator.desconectar();
+		}else if(ac == btnPassarTurno.toString()){
+			ator.passarTurnoJogadorAtual();
+			
+		}
+			
+		
+			
+			
+			
+			
+		}
+		
+	}
