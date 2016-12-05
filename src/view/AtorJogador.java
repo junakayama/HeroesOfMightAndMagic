@@ -54,6 +54,7 @@ public class AtorJogador{
 	public void iniciarPartida() {
 		this.partida = new Partida();
 		partida.iniciarPartida();
+		tela.btIniciarPartida();
 	}
 
 	public void passarTurnoJogadorAtual() {
