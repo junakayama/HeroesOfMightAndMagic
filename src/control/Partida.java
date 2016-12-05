@@ -221,6 +221,16 @@ public class Partida {
 					}else{
 						tabuleiro.andar(posicaoAtual, posicaoDestino);
 					}
+				}else{
+					
+					if(((posicaoAtual > 10) || (posicaoAtual > 25 & posicaoAtual <= 29) || (posicaoAtual > 40 & posicaoAtual <= 44)|| (posicaoAtual > 56 & posicaoAtual <= 59) || (posicaoAtual > 71 & posicaoAtual <= 74) || (posicaoAtual > 86 & posicaoAtual < 89) || (posicaoAtual > 101 & posicaoAtual <= 104) || (posicaoAtua > 116 & posicaoAtual <= 119) || (posicaoAtual > 131 & posicaoAtual <= 134) || (posicaoAtual > 146 & posicaoAtual <= 149) || (posicaoAtual > 161 & posicaoAtual <= 164)) & ((posicaoDestino > 10) || (posicaoDestino > 14 & posicaoDestino < 25) || (posicaoDestino > 29 & posicaoDestino < 40) || (posicaoDestino > 44 & posicaoDestino < 55 ) || (posicaoDestino > 59 & posicaoDestino < 70) || (posicaoDestino > 74 & posicaoDestino < 85) || (posicaoDestino > 89 & posicaoDestino < 90 ) || (posicaoDestino > 104 & posicaoDestino < 115) || (posicaoDestino > 119 & posicaoDestino < 130) || (posicaoDestino > 134 & posicaoDestino < 145) || (posicaoDestino > 149 & posicaoDestino < 160) ) ){
+						
+						tela.notificaErroPassarMuro();
+						
+						}else{
+							tabuleiro.andar(posicaoAtual, posicaoDestino);
+						}
+					
 				}
 			}
 				
