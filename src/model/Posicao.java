@@ -3,33 +3,24 @@ package model;
 public class Posicao {
 
 //	private boolean ocupada;
-	private int linha;
-	private int coluna;
+	private int codigo;
 	private Personagem ocupante;
 	private boolean castelo;
+	private boolean muro;
 
-	public Posicao(int linha, int coluna, Personagem ocupante, boolean castelo) {
-		super();
-		this.linha = linha;
-		this.coluna = coluna;
-		this.ocupante = ocupante;
-		this.castelo = castelo;
+	public Posicao(int codigo) {
+		this.codigo = codigo;
+		this.ocupante = null;
+		this.castelo = false;
+		this.muro = false;
 	}
 
-	public int getLinha() {
-		return this.linha;
+	public int getCodigo() {
+		return this.codigo;
 	}
 
-	public void setLinha(int linha) {
-		this.linha = linha;
-	}
-
-	public int getColuna() {
-		return this.coluna;
-	}
-
-	public void setColuna(int coluna) {
-		this.coluna = coluna;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public Personagem getOcupante() {
@@ -57,9 +48,17 @@ public class Posicao {
 		int pontosVidaDoPersonagem = ocupante.getPontosVida();
 		return pontosVidaDoPersonagem;
 	}
+
+	public boolean isMuro() {
+		return muro;
+	}
+
+	public void setMuro(boolean muro) {
+		this.muro = muro;
+	}
 	
 	
-	//TUDO ISSO PODE SER SUBSTITUIDO APENAS PELA VERIFICAÇÃO DE OCUPANTE
+	//TUDO ISSO PODE SER SUBSTITUIDO APENAS PELA VERIFICAï¿½ï¿½O DE OCUPANTE
 	
 //	public boolean getOcupada() {
 //		return this.ocupada;

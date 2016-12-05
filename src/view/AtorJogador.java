@@ -16,6 +16,8 @@ public class AtorJogador{
 	
 	public AtorJogador(){
 		this.setTela(new TelaPrincipal(this));
+		this.partida = new Partida(this);
+
 	}
 	
 	public void conectar() {
@@ -55,7 +57,7 @@ public class AtorJogador{
 	}
 
 	public void iniciarPartida() {
-		this.partida = new Partida();
+		this.partida = new Partida(this);
 		partida.iniciarPartida();
 	}
 
@@ -68,10 +70,11 @@ public class AtorJogador{
 	 * 
 	 * @param posicaoAtual
 	 * @param posicaoDestino
+	 * @throws Exception 
 	 */
-	public void jogar(Posicao posicaoAtual, Posicao posicaoDestino) {
-		// TODO - implement AtorJogador.jogar
-		throw new UnsupportedOperationException();
+	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception {
+		System.out.println("entrou no jogar do ator jogador uhul");
+		this.partida.jogar(posicaoAtual, posicaoDestino);
 	}
 
 	public void notificarVencedor(Jogador jogador) {
@@ -129,6 +132,10 @@ public class AtorJogador{
 
 	public void setTela(TelaPrincipal tela) {
 		this.tela = tela;
+	}
+	
+	public Partida getPartida(){
+		return partida;
 	}
 
 }

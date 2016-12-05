@@ -1,5 +1,7 @@
 package control;
 
+import java.util.List;
+
 import model.Jogador;
 import model.Personagem;
 import model.Posicao;
@@ -17,10 +19,13 @@ public class Partida {
 	private Jogador jogador1;
 	private Jogador jogador2;
 	private TelaPrincipal tela;
+	private AtorJogador ator;
 
-	public Partida() {
+	public Partida(AtorJogador ator) {
 		numRodadas = 15;
 		tabuleiro = new Tabuleiro();
+		criarJogadores("julia", "leon");
+		this.ator = ator;
 	}
 
 	public void iniciarPartida() {
@@ -51,24 +56,35 @@ public class Partida {
 		this.emAndamento = isEmAndamento;
 	}
 
-	public void jogar(int posicaoAtual, int posicaoDestino) {
-		Posicao posicaoAt = tabuleiro.verificarPosicao(posicaoAtual);
-		Personagem ocupante = posicaoAt.getOcupante(); //wtf pq tem ocupante em tabuleiro
-		int coluna = posicaoAt.getColuna();
-		
-		if(ocupante != null && coluna != 9) {
+	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception{
+		Posicao posicaoAt = tabuleiro.getPosicoes().get(posicaoAtual);
+		System.out.println(posicaoAt.getCodigo()+" ====== " + posicaoAtual);
+		Personagem ocupante = posicaoAt.getOcupante();
+		System.out.println(ocupante.getNome()+" jogando");
+		if(ocupante != null && !posicaoAt.isMuro()) {
+			System.out.println("verifica ocupante e muro uhul");
 			if(jogador1.isTurno()){
+				System.out.println("verifica turno uhul");
 				int codigo = jogador1.getCodigo();
 				int codigoJogador = ocupante.getCodigoJogador();
+				System.out.println("fim verifica turno uhul");
+
 				if(codigo == codigoJogador) {
-					if(ocupante.getAcaoDoTurno()){
-						//notifica esse tu j� usou renato
-					}
 					
+					if(ocupante.getAcaoDoTurno()){
+						throw new Exception("Esse personagem já jogou nesse turno");
+					}
+					System.out.println("verifica codigo jogador uhul");
+
 					boolean ocupada = tabuleiro.isPosicaoOcupada(posicaoDestino);
+					
 					if(!ocupada) {
 						tabuleiro.andar(posicaoAtual, posicaoDestino);
+						System.out.println("andouuuuuu");
+
 						if(jogador1.isAtaque()) {
+							System.out.println("verifica se é ataque uhul");
+
 							if(tabuleiro.verificaCastelo(posicaoDestino)) {
 								jogador1.setVencedor(true);
 								enviarJogada(tabuleiro);
@@ -79,34 +95,35 @@ public class Partida {
 						
 						
 					} else {
-						tabuleiro.atribuiInimigoPosicao(posicaoDestino);
-						Posicao posicaoDest = tabuleiro.verificarPosicao(posicaoDestino);
+						System.out.println("entrou no else");
+						Posicao posicaoDest = tabuleiro.getPosicoes().get(posicaoDestino);
 						int codigoAdversario = jogador2.getCodigo();
 						Personagem inimigo = posicaoDest.getOcupante();
 						int codigoJogadorAdversario = inimigo.getCodigoJogador();
 						if(codigoAdversario == codigoJogadorAdversario) {
-							int pontosVida = tabuleiro.atacar(posicaoAtual, posicaoDestino);
+							int pontosVida = verificaAtaque(posicaoAtual, posicaoDestino);
 							if(pontosVida <= 0) {
-								tabuleiro.atribuiPersonagemPosicao(posicaoDestino);
 								jogador2.getTime().remove(inimigo);
+								tabuleiro.getPosicoes().get(posicaoDestino).setOcupante(null);
+								ator.getTela().mataPersonagem(posicaoDestino);
 								int tamanhoLista = jogador2.getTime().size();
-								if(tamanhoLista == 0){
+								if(tamanhoLista == 0) {
 									jogador1.setVencedor(true);
-									enviarJogada(tabuleiro);
-								}else {
-									enviarJogada(tabuleiro);
 								}
 							}
-						} else {
-							//TROCA PERSONAGEM? NOTIFICA PRA ESCOLHER OUTRO?
+							ator.getTela().notificaAtaque(pontosVida);
+						}else {
+							throw new Exception("Não ataque seu próprio personagem");
 						}
 					}
 				} else {
-					//NOTIFICA QUE NÃO É DO JOGADOR ATUAL
+					throw new Exception("Personagem pertence ao adversário");
 				}
 			} else {
-				//NOTIFICA NÃO É TURNO
+				throw new Exception("Espere sua vez de jogar");
 			}
+		} else {
+			throw new Exception("É muro ou não tem personagem");
 		}
 	}
 
@@ -120,10 +137,15 @@ public class Partida {
 	}
 
 	public void criarJogadores(String nickname, String nicknameAdversario) {
+
 		this.jogador1 = new Jogador(true, nickname, true, 1);
 		jogador1.carregarPersonagensAtaque();
+		List<Personagem> ataque = jogador1.getTime();
 		this.jogador2 = new Jogador(false, nicknameAdversario, false, 2);
 		jogador2.carregarPersonagensDefesa();
+		List<Personagem> defesa = jogador2.getTime();
+		
+		tabuleiro.carregarPersonagens(ataque, defesa);
 	}
 
 	public int getNumRodadas() {
@@ -157,5 +179,33 @@ public class Partida {
 	public void setJogador2(Jogador jogador) {
 		this.jogador2 = jogador;
 	}
+	
 
+	public int verificaAtaque(int posicaoAtual, int posicaoDestino) throws Exception{
+		Personagem personagem = tabuleiro.getPosicoes().get(posicaoAtual).getOcupante();
+		int ret;
+		int deslocamento = Math.abs(posicaoDestino - posicaoAtual);
+		int modulo = deslocamento % 15;
+		if(deslocamento == 1 || deslocamento == 15 ) {
+			ret = tabuleiro.atacar(posicaoAtual, posicaoDestino);
+			return ret;
+		} else {
+			if(personagem.isLongoAlcance()) {
+				if(deslocamento <= 8 || modulo == 0) {
+					ret = tabuleiro.atacar(posicaoAtual, posicaoDestino);
+					return ret;
+				}
+			}
+		}
+		throw new Exception("Não pode atacar, personagem adversário está muito longe");
+	}
+	
+//	private void verificaAndar(int posicaoAtual, int posicaoDestino) throws Exception {
+//		Personagem personagem = tabuleiro.getPosicoes().get(posicaoAtual).getOcupante();
+//		int deslocamento = Math.abs(posicaoDestino - posicaoAtual);
+//		if(deslocamento <= 4 || deslocamento == 15) {
+//			tabuleiro.andar(posicaoAtual, posicaoDestino);
+//		}
+//		throw new Exception("Não pode andar, personagem está muito longe");
+//	}
 }

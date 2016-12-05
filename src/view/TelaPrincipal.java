@@ -1,22 +1,15 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import javafx.scene.layout.Border;
 
 public class TelaPrincipal extends JFrame implements ActionListener {
 
@@ -54,17 +47,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		poeBotoes();
-		
-		
-
 	}
-	
-
 
 	private JPanel getJContentPane() {
-		
-	
-    
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
@@ -838,10 +823,35 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	}
 	
 	public void clickPosicao(int posicao){
-		System.out.println(posicao);
+		if(this.atual != null && this.atual != posicao && labels[this.atual].getImagem2() != null){
+			try {
+				boolean ocupada = (ator.getPartida().getTabuleiro().getPosicoes().get(posicao).getOcupante() != null);
+				this.ator.jogar(this.atual, posicao);
+				this.destino = posicao;
+				this.atualizaInterface(this.atual, this.destino, ocupada);
+				this.atual = null;
+				this.destino = null;
+				System.out.println("posicao: "+posicao);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+				this.atual = null;
+				this.destino = null;
+			}
+			
+		} else {
+			this.atual = posicao;
+			System.out.println("primeiro click: " + posicao);
+		}
 	}
 
-
+	private void atualizaInterface(int saida, int entrada, boolean ocupada) {
+		if(!ocupada){
+			labels[entrada].setImagem2(labels[saida].getImagem2());
+			labels[entrada].setIcon(new ImageIcon(getClass().getResource(labels[entrada].getImagem2())));
+			labels[saida].setImagem2(null);
+			labels[saida].setIcon(new ImageIcon(getClass().getResource(labels[saida].retornaImagem())));
+		}
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		String ac = e.getActionCommand();
@@ -853,14 +863,17 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			ator.desconectar();
 		}else if(ac == btnPassarTurno.toString()){
 			ator.passarTurnoJogadorAtual();
-			
-		}
-			
-		
-			
-			
-			
-			
-		}
-		
+		}	
 	}
+	
+	public void mataPersonagem(int posicao) {
+		labels[posicao].setImagem2(null);
+		labels[posicao].setIcon(new ImageIcon(getClass().getResource(labels[posicao].getImagem())));
+		JOptionPane.showMessageDialog(null, "Morreu" );
+	}
+	
+	public void notificaAtaque(int pontosDeVida) {
+		JOptionPane.showMessageDialog(null, "Atacou! Personagem adversário possui "+pontosDeVida+" pontos de vida" );
+	}
+		
+}
