@@ -35,17 +35,15 @@ public class Partida {
 			setPartidaEmAndamento(true);
 			notificaPartidaIniciada();
 		}
-		tela.btIniciarPartida();
+	
 	}
 
 	public void notificaPartidaEmAndamento() {
-		// TODO - implement Partida.notificaPartidaEmAndamento
-		throw new UnsupportedOperationException();
+		tela.notificaAndamento();
 	}
 
 	public void notificaPartidaIniciada() {
-		// TODO - implement Partida.notificaPartidaIniciada
-		throw new UnsupportedOperationException();
+		tela.notificaIniciada();
 	}
 
 	public boolean isEmAndamento() {
@@ -102,6 +100,7 @@ public class Partida {
 						int codigoJogadorAdversario = inimigo.getCodigoJogador();
 						if(codigoAdversario == codigoJogadorAdversario) {
 							int pontosVida = verificaAtaque(posicaoAtual, posicaoDestino);
+							
 							if(pontosVida <= 0) {
 								jogador2.getTime().remove(inimigo);
 								tabuleiro.getPosicoes().get(posicaoDestino).setOcupante(null);
