@@ -793,11 +793,12 @@ public class TelaPrincipal extends JFrame {
 	public void poeBotoes(){
 		
 		btnIniciar = new JButton("Iniciar Partida");
-		btnIniciar.setBounds(1, 1 , 150, 30 );
+		btnIniciar.setBounds(30, 590 , 150, 30 );
+		//btnIniciar.addMouseListener(ator.iniciarNovaPartida());
 		btnConectar = new JButton ("Conectar");
-		btnConectar.setBounds(151, 1, 150, 30);
+		btnConectar.setBounds(180, 590, 150, 30);
 		btnDesconectar = new JButton ("Desconectar");
-		btnDesconectar.setBounds(302, 1, 150,30);
+		btnDesconectar.setBounds(330, 590, 150,30);
 		getContentPane().add(btnDesconectar);
 	    getContentPane().add(btnIniciar);
 	    getContentPane().add(btnConectar);
