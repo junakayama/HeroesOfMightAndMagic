@@ -1004,4 +1004,14 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		JOptionPane.showMessageDialog(null , "Desconexï¿½o falhada! Tente novamente.");
 		
 	}
+
+	public void notificaErroAndarMuro() {
+		JOptionPane.showMessageDialog(null , "Ops! Você não pode ficar em cima do muro");
+		
+	}
+
+	public void notificaErroPassarMuro() {
+		JOptionPane.showMessageDialog(null , "Ops! Você não pode atravessar o muro");
+		
+	}
 }
