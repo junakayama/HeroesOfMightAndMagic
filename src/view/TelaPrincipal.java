@@ -859,9 +859,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 				try {
 					
 					ator.conectar();
-					btnIniciar.setEnabled(true);
-					btnDesconectar.setEnabled(true);
-					conectar.setEnabled(false);
+					//btnIniciar.setEnabled(true);
+					//btnDesconectar.setEnabled(true);
+					//conectar.setEnabled(false);
 					
 				} catch (Exception ex) {
 				
@@ -977,4 +977,14 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public String solicitaServidor(){
 		return	JOptionPane.showInputDialog("Qual seu servidor?");
 		}
+
+	public void notificaErroPassarMuro() {
+		JOptionPane.showMessageDialog(null,"Voce nao pode ultrapassar o muro");
+		
+	}
+
+	public void notificaPoucoAlcance() {
+		JOptionPane.showMessageDialog(null,"Parece que essa posicao estah fora do seu alcance");
+		
+	}
 }
