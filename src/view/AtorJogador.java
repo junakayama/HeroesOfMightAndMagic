@@ -25,10 +25,12 @@ public class AtorJogador{
 	public void conectar() {
 		tela.btConectar();
 		String servidor = solicitarServidor();
+		String nome = solicitarNome();
 		String nomeJogador = solicitarNome();
 		boolean conectou = atorNetGames.conectar(servidor, nomeJogador);
 		
 		if(conectou){
+			tela.btConectar();
 			notificarConexaoEstabelecida();
 		} else {
 			notificarFalhaConexao();
@@ -42,6 +44,11 @@ public class AtorJogador{
 	public void desconectar() {
 		atorNetGames.desconectar();
 		
+	}
+
+
+	public void notificarDesconexao1() {
+		tela.notificar("Desconexão realizada com sucesso");
 	}
 
 	public void iniciarNovaPartida() {
@@ -153,6 +160,10 @@ public class AtorJogador{
 	public void notificarDesconexao() {
 		tela.notificar("Desconexão realizada com sucesso!");
 		
+	}
+
+	public void notificaPoucoAlcance() {
+		tela.notificar("Personagem não possui alcance suficiente");
 	}
 
 }

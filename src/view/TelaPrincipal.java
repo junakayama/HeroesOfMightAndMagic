@@ -14,13 +14,10 @@ import javax.swing.JPanel;
 
 public class TelaPrincipal extends JFrame implements ActionListener {
 
-	
-/**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//		Atributos 		//
-
 
 	protected JPanel jContentPane = null;
 
