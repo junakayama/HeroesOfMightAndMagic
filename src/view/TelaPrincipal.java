@@ -862,9 +862,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 				try {
 					
 					ator.conectar();
-					btnIniciar.setEnabled(true);
-					btnDesconectar.setEnabled(true);
-					conectar.setEnabled(false);
+		//			btnIniciar.setEnabled(true);
+		//			btnDesconectar.setEnabled(true);
+	//				conectar.setEnabled(false);
 					
 				} catch (Exception ex) {
 				
@@ -996,7 +996,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	}
 	
 	public void notificaDesconectado() {
-		JOptionPane.showMessageDialog(null , "Desconexao realizada com sucesso!");
+		JOptionPane.showMessageDialog(null , "Voce ja esta desconectado");
 		
 	}
 
@@ -1021,4 +1021,22 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public String solicitaServidor(){
 		return	JOptionPane.showInputDialog("Qual seu servidor?");
 		}
+	
+	public void notificaConectado(){
+		JOptionPane.showMessageDialog(null, "Voce esta conectado!");
+	}
+
+	public void notificaDesconexao() {
+		JOptionPane.showMessageDialog(null, "Voce foi desconectado!");
+	}
+
+	public void notificaPoucoAlcance() {
+		JOptionPane.showMessageDialog(null, "N�o pode andar ate tao longe");
+		
+	}
+
+	public void notificaConexaoEstabelecida() {
+		// TODO Auto-generated method stub
+		
+	}
 }

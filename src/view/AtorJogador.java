@@ -23,12 +23,13 @@ public class AtorJogador{
 	}
 	
 	public void conectar() {
-		tela.btConectar();
+		System.out.println ("chegou no conectar do AtJ");
 		String servidor = solicitarNome();
 		String nomeJogador = solicitarNome();
 		boolean conectou = atorNetGames.conectar(servidor, nomeJogador);
 		
 		if(conectou){
+			tela.btConectar();
 			notificarConexaoEstabelecida();
 		} else {
 			notificarFalhaDesconexao();
@@ -36,8 +37,7 @@ public class AtorJogador{
 	}
 
 	public void notificarConexaoEstabelecida() {
-		// TODO - implement AtorJogador.notificarConexaoEstabelecida
-		throw new UnsupportedOperationException();
+		tela.notificaConexaoEstabelecida();
 	}
 
 	public void desconectar() {
@@ -46,8 +46,7 @@ public class AtorJogador{
 	}
 
 	public void notificarDesconexao() {
-		// TODO - implement AtorJogador.notificarDesconexao
-		throw new UnsupportedOperationException();
+		tela.notificaDesconexao();
 	}
 
 	public void iniciarNovaPartida() {
@@ -87,8 +86,7 @@ public class AtorJogador{
 	}
 
 	public void notificarErroPersonagem() {
-		// TODO - implement AtorJogador.notificarErroPersonagem
-		throw new UnsupportedOperationException();
+	tela.notificaErroInstancia();
 	}
 
 	public void notificarErroTurno() {
