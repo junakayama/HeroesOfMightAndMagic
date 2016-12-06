@@ -863,8 +863,12 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 					ator.conectar(nomeJogador, servidor);
 					btnIniciar.setEnabled(true);
 					btnDesconectar.setEnabled(true);
-					conectar.setEnabled(false);
-					notificar("Conex�o estabelecida com sucesso!");
+					conectar.setEnabled(false);				
+					ator.conectar(nomeJogador, servidor);
+					//btnIniciar.setEnabled(true);
+					//btnDesconectar.setEnabled(true);
+					//conectar.setEnabled(false);
+					
 				} catch (Exception ex) {
 					notificar(ex.getMessage());
 					ex.printStackTrace();
@@ -978,5 +982,14 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	
 	public String solicitar(String msg, String def) {
 		return JOptionPane.showInputDialog(msg, def);
+		}
+
+	public void notificaErroPassarMuro() {
+		JOptionPane.showMessageDialog(null,"Voce nao pode ultrapassar o muro");
+		
+	}
+
+	public void notificaPoucoAlcance() {
+		JOptionPane.showMessageDialog(null,"Parece que essa posicao estah fora do seu alcance");
 	}
 }
