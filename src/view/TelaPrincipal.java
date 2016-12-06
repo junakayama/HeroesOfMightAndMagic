@@ -857,14 +857,16 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		conectar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				try {
-					
-					ator.conectar();
+					String nomeJogador = solicitar("Insira seu nome:", null);
+					String servidor = solicitar("Insira o servidor:", "localhost");
+					user.setText("Jogador: " + nomeJogador);
+					ator.conectar(nomeJogador, servidor);
 					btnIniciar.setEnabled(true);
 					btnDesconectar.setEnabled(true);
 					conectar.setEnabled(false);
-					
+					notificar("Conex�o estabelecida com sucesso!");
 				} catch (Exception ex) {
-				
+					notificar(ex.getMessage());
 					ex.printStackTrace();
 				}
 			}
@@ -918,13 +920,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		btnDesconectar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				try {
-					
 					ator.desconectar();
-					
-					
-					
 				} catch (Exception ex) {
-				
 					ex.printStackTrace();
 				}
 			}
@@ -949,7 +946,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		if (ac == btnIniciar.toString()){
 			ator.iniciarPartida();
 		}else if(ac == conectar.toString()){
-			ator.conectar();
+			ator.conectar("julia", "localhost");
 		}else if(ac == btnDesconectar.toString()){
 			ator.desconectar();
 		}else if(ac == btnPassarTurno.toString()){
@@ -974,7 +971,12 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public String solicitaNome(){
 	return	JOptionPane.showInputDialog("Qual seu nome?");
 	}
+	
 	public String solicitaServidor(){
 		return	JOptionPane.showInputDialog("Qual seu servidor?");
-		}
+	}
+	
+	public String solicitar(String msg, String def) {
+		return JOptionPane.showInputDialog(msg, def);
+	}
 }

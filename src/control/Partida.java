@@ -59,29 +59,41 @@ public class Partida {
 
 	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception{
 		Posicao posicaoAt = tabuleiro.getPosicoes().get(posicaoAtual);
+		System.out.println(posicaoAt.getCodigo()+" ====== " + posicaoAtual);
 		Personagem ocupante = posicaoAt.getOcupante();
+		System.out.println(ocupante.getNome()+" jogando");
 		if(ocupante != null && !posicaoAt.isMuro()) {
+			System.out.println("verifica ocupante e muro uhul");
 			if(jogador1.isTurno()){
+				System.out.println("verifica turno uhul");
 				int codigo = jogador1.getCodigo();
 				int codigoJogador = ocupante.getCodigoJogador();
+				System.out.println("fim verifica turno uhul");
 
 				if(codigo == codigoJogador) {
+					
 					if(ocupante.getAcaoDoTurno()){
 						throw new Exception("Esse personagem já jogou nesse turno");
 					}
+					System.out.println("verifica codigo jogador uhul");
 
 					boolean ocupada = tabuleiro.isPosicaoOcupada(posicaoDestino);
 					
 					if(!ocupada) {
-						this.verificaAndar(posicaoAtual, posicaoDestino);
+					tabuleiro.andar(posicaoAtual, posicaoDestino);
+					this.verificaAndar(posicaoAtual, posicaoDestino);
+						System.out.println("andouuuuuu");
 
 						if(jogador1.isAtaque()) {
+							System.out.println("verifica se eh ataque uhul");
+
 							if(tabuleiro.verificaCastelo(posicaoDestino)) {
 								jogador1.setVencedor(true);
 								enviarJogada(tabuleiro);
 							}
 						}		
 					} else {
+						System.out.println("entrou no else");
 						Posicao posicaoDest = tabuleiro.getPosicoes().get(posicaoDestino);
 						int codigoAdversario = jogador2.getCodigo();
 						Personagem inimigo = posicaoDest.getOcupante();
@@ -192,24 +204,26 @@ public class Partida {
 		int deslocamento = Math.abs(posicaoDestino - posicaoAtual);
 
 		if((deslocamento <= 4) || (deslocamento == 15) || (deslocamento == 30) || (deslocamento == 45) || (deslocamento == 60)) {
-			
-			//if(jogador2.getMuro().getPontosVida()!=0){
-			//System.out.println("viu que o muro ta vivo");
-			// if((posicaoDestino == 10 || 
-				//	posicaoDestino == 25 || 
-				//posicaoDestino == 40 || 
-				//posicaoDestino == 55 || 
-				//posicaoDestino == 70 || 
-				//posicaoDestino == 85 ||
-				//posicaoDestino == 100 ||
-				//posicaoDestino == 115 ||
-				//posicaoDestino == 130 ||
-				//posicaoDestino == 145 ||
-				//posicaoDestino == 160)){		/*&& (jogador1.isAtaque()== false)*/
-				//System.out.println("viu se a defesa n�o quer atacar o muro");
-				//this.ator.getTela().notificaErroAndarMuro();
-			if(jogador1.isAtaque()){
-				if(((posicaoDestino > 10) && (posicaoAtual > 10))
+				System.out.println("verificou que o deslocamento eh possivel");
+				//if(jogador2.getMuro().getPontosVida()!=0){
+				//System.out.println("viu que o muro ta vivo");
+				// if((posicaoDestino == 10 || 
+					//	posicaoDestino == 25 || 
+						//posicaoDestino == 40 || 
+						//posicaoDestino == 55 || 
+						//posicaoDestino == 70 || 
+						//posicaoDestino == 85 ||
+						//posicaoDestino == 100 ||
+						//posicaoDestino == 115 ||
+						//posicaoDestino == 130 ||
+						//posicaoDestino == 145 ||
+						//posicaoDestino == 160)){		/*&& (jogador1.isAtaque()== false)*/
+						//System.out.println("viu se a defesa n�o quer atacar o muro");
+						//this.ator.getTela().notificaErroAndarMuro();
+					if(jogador1.isAtaque()){
+					System.out.println("eh ataque");
+					if(
+							((posicaoDestino > 10) && (posicaoAtual > 10))
 						 ||((posicaoDestino > 25 && posicaoDestino <= 29) && (posicaoAtual > 14 && posicaoAtual < 25))
 						 ||((posicaoDestino > 40 && posicaoDestino <= 44) && (posicaoAtual > 29 && posicaoAtual < 40))
 						 ||((posicaoDestino > 55 && posicaoDestino <= 59) && (posicaoAtual > 44 && posicaoAtual < 55))
@@ -221,12 +235,16 @@ public class Partida {
 						 ||((posicaoDestino > 145 && posicaoDestino <= 149)  && (posicaoAtual > 134 && posicaoAtual < 145))
 						 ||((posicaoDestino > 160 && posicaoDestino <= 164) && (posicaoAtual > 149 && posicaoAtual < 160))
 							) {
-					this.ator.notificaErroPassarMuro();
-				
-				} else {
-					tabuleiro.andar(posicaoAtual, posicaoDestino);
+					
+						this.ator.notificaErroPassarMuro();
+					
+					}else{
+						
+						System.out.println("deve anda");
+						tabuleiro.andar(posicaoAtual, posicaoDestino);
 					}
-				} else {
+				}else{
+					
 					if((
 							((posicaoAtual > 10 && posicaoAtual <= 14)&& (posicaoDestino > 10))
 							|| ((posicaoAtual > 25 && posicaoAtual <= 29)&&(posicaoDestino > 14 && posicaoDestino < 25))
@@ -244,12 +262,13 @@ public class Partida {
 						
 						this.ator.notificaErroPassarMuro();
 						
-					} else{
-						tabuleiro.andar(posicaoAtual, posicaoDestino);
-					}
+						}else{
+							tabuleiro.andar(posicaoAtual, posicaoDestino);
+						}
+					
 				}
-	
-		} else{
+			
+		}else{
 			ator.notificaPoucoAlcance();
 		}
 	}

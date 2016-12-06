@@ -22,11 +22,9 @@ public class AtorJogador{
 		this.atorNetGames = new AtorNetGames(this);
 	}
 	
-	public void conectar() {
+	public void conectar(String nomeJogador, String servidor) {
 		tela.btConectar();
-		String servidor = solicitarServidor();
-		String nome = solicitarNome();
-		String nomeJogador = solicitarNome();
+
 		boolean conectou = atorNetGames.conectar(servidor, nomeJogador);
 		
 		if(conectou){
@@ -68,6 +66,7 @@ public class AtorJogador{
 	public void iniciarPartida() {
 		tela.btIniciarPartida();
 		this.partida = new Partida(this);
+		this.partida.criarJogadores(idUsuario, "luiza");
 		partida.iniciarPartida();
 		tela.btIniciarPartida();
 	}
