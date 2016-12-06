@@ -111,11 +111,6 @@ public class AtorNetGames implements OuvidorProxy{
 		this.conectado = conectado;
 	}
 
-	public void iniciarNovaPartida(Integer posicao) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void finalizarPartidaComErro(String message) {
 		// TODO Auto-generated method stub
 		
@@ -137,6 +132,15 @@ public class AtorNetGames implements OuvidorProxy{
 	}
 
 	public void tratarPartidaNaoIniciada(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getNicknameAdversario() {
+		return proxy.obterNomeAdversarios().get(0);
+	}
+
+	public void iniciarNovaPartida(Integer posicao) {
 		// TODO Auto-generated method stub
 		
 	}

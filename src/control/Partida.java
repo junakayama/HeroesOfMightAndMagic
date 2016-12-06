@@ -18,13 +18,11 @@ public class Partida {
 	private Tabuleiro tabuleiro;
 	private Jogador jogador1;
 	private Jogador jogador2;
-	private TelaPrincipal tela;
 	private AtorJogador ator;
 
 	public Partida(AtorJogador ator) {
 		numRodadas = 15;
 		tabuleiro = new Tabuleiro();
-		criarJogadores();
 		this.ator = ator;
 	}
 
@@ -39,11 +37,11 @@ public class Partida {
 	}
 
 	public void notificaPartidaEmAndamento() {
-		tela.notificaAndamento();
+		this.ator.getTela().notificaAndamento();
 	}
 
 	public void notificaPartidaIniciada() {
-		tela.notificaIniciada();
+		this.ator.getTela().notificaIniciada();
 	}
 
 	public boolean isEmAndamento() {
@@ -136,13 +134,11 @@ public class Partida {
 		this.tabuleiro = tabuleiro;
 	}
 
-	public void criarJogadores() {
-		String nickname = jogador1.getNickName();
-		String nicknameAdversario = jogador2.getNickName();
-		this.jogador1 = new Jogador(true, nickname, true, 1);
+	public void criarJogadores(String idUsuario, String idAdversario) {
+		this.jogador1 = new Jogador(true, idUsuario, true, 1);
 		jogador1.carregarPersonagensAtaque();
 		List<Personagem> ataque = jogador1.getTime();
-		this.jogador2 = new Jogador(false, nicknameAdversario, false, 2);
+		this.jogador2 = new Jogador(false, idAdversario, false, 2);
 		jogador2.carregarPersonagensDefesa();
 		List<Personagem> defesa = jogador2.getTime();
 		
@@ -211,14 +207,14 @@ public class Partida {
 				if((posicaoDestino == 10 || posicaoDestino == 25 || posicaoDestino == 40 || posicaoDestino == 55 || posicaoDestino == 70 || posicaoDestino == 85 ||
 				posicaoDestino == 100 || posicaoDestino == 115 || posicaoDestino == 130 || posicaoDestino == 145 || posicaoDestino == 160)&& jogador1.isAtaque()== false){
 		
-					tela.notificaErroAndarMuro();
+					this.ator.getTela().notificaErroAndarMuro();
 				}
-//A proxima verificação ve se o ataque ou a desefa tentam ultrapassar do muro				
+//A proxima verificaï¿½ï¿½o ve se o ataque ou a desefa tentam ultrapassar do muro				
 				if(jogador1.isAtaque()){
 					
 					if(((posicaoDestino > 10) || (posicaoDestino > 25 & posicaoDestino <= 29) || (posicaoDestino > 40 & posicaoDestino <= 44)|| (posicaoDestino > 56 & posicaoDestino <= 59) || (posicaoDestino > 71 & posicaoDestino <= 74) || (posicaoDestino > 86 & posicaoDestino < 89) || (posicaoDestino > 101 & posicaoDestino <= 104) || (posicaoDestino > 116 & posicaoDestino <= 119) || (posicaoDestino > 131 & posicaoDestino <= 134) || (posicaoDestino > 146 & posicaoDestino <= 149) || (posicaoDestino > 161 & posicaoDestino <= 164)) & ((posicaoAtual > 10) || (posicaoAtual > 14 & posicaoAtual < 25) || (posicaoAtual > 29 & posicaoAtual < 40) || (posicaoAtual > 44 & posicaoAtual < 55 ) || (posicaoAtual > 59 & posicaoAtual < 70) || (posicaoAtual > 74 & posicaoAtual < 85) || (posicaoAtual > 89 & posicaoAtual < 90 ) || (posicaoAtual > 104 & posicaoAtual < 115) || (posicaoAtual > 119 & posicaoAtual < 130) || (posicaoAtual > 134 & posicaoAtual < 145) || (posicaoAtual > 149 & posicaoAtual < 160) ) ){
 					
-					tela.notificaErroPassarMuro();
+						this.ator.getTela().notificaErroPassarMuro();
 					
 					}else{
 						tabuleiro.andar(posicaoAtual, posicaoDestino);
@@ -227,7 +223,7 @@ public class Partida {
 					
 					if(((posicaoAtual > 10) || (posicaoAtual > 25 & posicaoAtual <= 29) || (posicaoAtual > 40 & posicaoAtual <= 44)|| (posicaoAtual > 56 & posicaoAtual <= 59) || (posicaoAtual > 71 & posicaoAtual <= 74) || (posicaoAtual > 86 & posicaoAtual < 89) || (posicaoAtual > 101 & posicaoAtual <= 104) || (posicaoAtual > 116 & posicaoAtual <= 119) || (posicaoAtual > 131 & posicaoAtual <= 134) || (posicaoAtual > 146 & posicaoAtual <= 149) || (posicaoAtual > 161 & posicaoAtual <= 164)) & ((posicaoDestino > 10) || (posicaoDestino > 14 & posicaoDestino < 25) || (posicaoDestino > 29 & posicaoDestino < 40) || (posicaoDestino > 44 & posicaoDestino < 55 ) || (posicaoDestino > 59 & posicaoDestino < 70) || (posicaoDestino > 74 & posicaoDestino < 85) || (posicaoDestino > 89 & posicaoDestino < 90 ) || (posicaoDestino > 104 & posicaoDestino < 115) || (posicaoDestino > 119 & posicaoDestino < 130) || (posicaoDestino > 134 & posicaoDestino < 145) || (posicaoDestino > 149 & posicaoDestino < 160) ) ){
 						
-						tela.notificaErroPassarMuro();
+						this.ator.getTela().notificaErroPassarMuro();
 						
 						}else{
 							tabuleiro.andar(posicaoAtual, posicaoDestino);
