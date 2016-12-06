@@ -1,5 +1,7 @@
 package NetGames;
 
+import view.TelaPrincipal;
+
 public class Proxy {
 
 	/**
@@ -7,9 +9,11 @@ public class Proxy {
 	 * @param nickname
 	 * @param servidor
 	 */
-	public void conectar(String nickname, String servidor) {
-		// TODO - implement Proxy.conectar
-		throw new UnsupportedOperationException();
+	private TelaPrincipal tela;
+	
+	public String conectar(String servidor) {
+		String nome =  tela.solicitaNome();
+		return nome;
 	}
 
 	public boolean desconectar() {

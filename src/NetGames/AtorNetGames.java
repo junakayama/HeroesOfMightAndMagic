@@ -9,9 +9,10 @@ public class AtorNetGames {
 	private Proxy proxy;
 	private boolean conectado;
 	
-	public void conectar(String nickname, String servidor) {
-		proxy.conectar(nickname, servidor);
+	public String conectar( String servidor) {
+		String nomeJogador = proxy.conectar(servidor);
 		setConectado(true);
+		return nomeJogador;
 	}
 
 	public void desconectar() {

@@ -20,11 +20,13 @@ public class AtorJogador{
 
 	}
 	
-	public void conectar() {
-		String nickname = solicitarNome();
+	public String conectar() {
+		
 		String servidor = solicitarNome();
-		atorNetGames.conectar(nickname, servidor);
+		String nomeJogador = atorNetGames.conectar( servidor);
 		notificarConexaoEstabelecida();
+		return nomeJogador;
+
 	}
 
 	public void notificarConexaoEstabelecida() {
@@ -52,8 +54,7 @@ public class AtorJogador{
 	 * @param nome
 	 */
 	public String solicitarNome() {
-		// TODO - implement AtorJogador.solicitarNome
-		throw new UnsupportedOperationException();
+		return tela.solicitaNome();
 	}
 
 	public void iniciarPartida() {

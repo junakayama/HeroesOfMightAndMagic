@@ -967,11 +967,11 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	}
 	
 	public void notificaAtaque(int pontosDeVida) {
-		JOptionPane.showMessageDialog(null, "Atacou! Personagem adversÃ¡rio possui "+pontosDeVida+" pontos de vida" );
+		JOptionPane.showMessageDialog(null, "Atacou! Personagem adversario possui "+pontosDeVida+" pontos de vida" );
 	}
 		
 	public void notificaAndamento() {
-		JOptionPane.showMessageDialog(null, "Jï¿½ existe uma partida em andamento!");
+		JOptionPane.showMessageDialog(null, "Ja existe uma partida em andamento!");
 		
 	}
 
@@ -981,37 +981,44 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	}
 	
 	public void notificaVencedor() {
-		JOptionPane.showMessageDialog(null, "Vocï¿½ venceu, parabï¿½ns!");
+		JOptionPane.showMessageDialog(null, "Voce venceu, parabens!");
 		
 	}
 	
 	public void notificaErroTurno() {
-		JOptionPane.showMessageDialog(null , "Nï¿½o estï¿½ na hora de jogar ainda, aguarda o seu turno");
+		JOptionPane.showMessageDialog(null , "Nao esta na hora de jogar ainda, aguarde o seu turno");
 		
 	}
 
 	public void notificaErroInstancia() {
-		JOptionPane.showMessageDialog(null , "Ops!Parece que vocï¿½ selecionou errado...");
+		JOptionPane.showMessageDialog(null , "Ops!Parece que voce selecionou errado...");
 		
 	}
 	
 	public void notificaDesconectado() {
-		JOptionPane.showMessageDialog(null , "Desconexï¿½o realizada com sucesso!");
+		JOptionPane.showMessageDialog(null , "Desconexao realizada com sucesso!");
 		
 	}
 
 	public void notificaErroDesconectado() {
-		JOptionPane.showMessageDialog(null , "Desconexï¿½o falhada! Tente novamente.");
+		JOptionPane.showMessageDialog(null , "Desconexao falhou! Tente novamente.");
 		
 	}
 
 	public void notificaErroAndarMuro() {
-		JOptionPane.showMessageDialog(null , "Ops! Você não pode ficar em cima do muro");
+		JOptionPane.showMessageDialog(null , "Ops! Voce nao pode ficar em cima do muro");
 		
 	}
 
 	public void notificaErroPassarMuro() {
-		JOptionPane.showMessageDialog(null , "Ops! Você não pode atravessar o muro");
+		JOptionPane.showMessageDialog(null , "Ops! Voce nao pode atravessar o muro");
 		
 	}
+	
+	public String solicitaNome(){
+	return	JOptionPane.showInputDialog("Qual seu nome?");
+	}
+	public String solicitaServidor(){
+		return	JOptionPane.showInputDialog("Qual seu servidor?");
+		}
 }

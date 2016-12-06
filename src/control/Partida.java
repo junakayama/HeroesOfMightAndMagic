@@ -24,7 +24,7 @@ public class Partida {
 	public Partida(AtorJogador ator) {
 		numRodadas = 15;
 		tabuleiro = new Tabuleiro();
-		criarJogadores("julia", "leon");
+		criarJogadores();
 		this.ator = ator;
 	}
 
@@ -77,11 +77,12 @@ public class Partida {
 					boolean ocupada = tabuleiro.isPosicaoOcupada(posicaoDestino);
 					
 					if(!ocupada) {
-						tabuleiro.andar(posicaoAtual, posicaoDestino);
+						//tabuleiro.andar(posicaoAtual, posicaoDestino);
+						this.verificaAndar(posicaoAtual, posicaoDestino);
 						System.out.println("andouuuuuu");
 
 						if(jogador1.isAtaque()) {
-							System.out.println("verifica se é ataque uhul");
+							System.out.println("verifica se eh ataque uhul");
 
 							if(tabuleiro.verificaCastelo(posicaoDestino)) {
 								jogador1.setVencedor(true);
@@ -112,17 +113,17 @@ public class Partida {
 							}
 							ator.getTela().notificaAtaque(pontosVida);
 						}else {
-							throw new Exception("Não ataque seu próprio personagem");
+							throw new Exception("Nao ataque seu proprio personagem");
 						}
 					}
 				} else {
-					throw new Exception("Personagem pertence ao adversário");
+					throw new Exception("Personagem pertence ao adversario");
 				}
 			} else {
 				throw new Exception("Espere sua vez de jogar");
 			}
 		} else {
-			throw new Exception("É muro ou não tem personagem");
+			throw new Exception("Eh muro ou nao tem personagem");
 		}
 	}
 
@@ -135,8 +136,9 @@ public class Partida {
 		this.tabuleiro = tabuleiro;
 	}
 
-	public void criarJogadores(String nickname, String nicknameAdversario) {
-
+	public void criarJogadores() {
+		String nickname = jogador1.getNickName();
+		String nicknameAdversario = jogador2.getNickName();
 		this.jogador1 = new Jogador(true, nickname, true, 1);
 		jogador1.carregarPersonagensAtaque();
 		List<Personagem> ataque = jogador1.getTime();
@@ -207,11 +209,11 @@ public class Partida {
 	
 			if(jogador2.getMuro().getPontosVida()!=0){
 				if((posicaoDestino == 10 || posicaoDestino == 25 || posicaoDestino == 40 || posicaoDestino == 55 || posicaoDestino == 70 || posicaoDestino == 85 ||
-				posicaoDestino == 100 || posicaoDestino == 115 || posicaoDestino == 130 || posicaoDestino == 145 || posicaoDestino == 160)){
+				posicaoDestino == 100 || posicaoDestino == 115 || posicaoDestino == 130 || posicaoDestino == 145 || posicaoDestino == 160)&& jogador1.isAtaque()== false){
 		
 					tela.notificaErroAndarMuro();
 				}
-				
+//A proxima verifica��o ve se o ataque ou a desefa tentam ultrapassar do muro				
 				if(jogador1.isAtaque()){
 					
 					if(((posicaoDestino > 10) || (posicaoDestino > 25 & posicaoDestino <= 29) || (posicaoDestino > 40 & posicaoDestino <= 44)|| (posicaoDestino > 56 & posicaoDestino <= 59) || (posicaoDestino > 71 & posicaoDestino <= 74) || (posicaoDestino > 86 & posicaoDestino < 89) || (posicaoDestino > 101 & posicaoDestino <= 104) || (posicaoDestino > 116 & posicaoDestino <= 119) || (posicaoDestino > 131 & posicaoDestino <= 134) || (posicaoDestino > 146 & posicaoDestino <= 149) || (posicaoDestino > 161 & posicaoDestino <= 164)) & ((posicaoAtual > 10) || (posicaoAtual > 14 & posicaoAtual < 25) || (posicaoAtual > 29 & posicaoAtual < 40) || (posicaoAtual > 44 & posicaoAtual < 55 ) || (posicaoAtual > 59 & posicaoAtual < 70) || (posicaoAtual > 74 & posicaoAtual < 85) || (posicaoAtual > 89 & posicaoAtual < 90 ) || (posicaoAtual > 104 & posicaoAtual < 115) || (posicaoAtual > 119 & posicaoAtual < 130) || (posicaoAtual > 134 & posicaoAtual < 145) || (posicaoAtual > 149 & posicaoAtual < 160) ) ){
@@ -223,7 +225,7 @@ public class Partida {
 					}
 				}else{
 					
-					if(((posicaoAtual > 10) || (posicaoAtual > 25 & posicaoAtual <= 29) || (posicaoAtual > 40 & posicaoAtual <= 44)|| (posicaoAtual > 56 & posicaoAtual <= 59) || (posicaoAtual > 71 & posicaoAtual <= 74) || (posicaoAtual > 86 & posicaoAtual < 89) || (posicaoAtual > 101 & posicaoAtual <= 104) || (posicaoAtua > 116 & posicaoAtual <= 119) || (posicaoAtual > 131 & posicaoAtual <= 134) || (posicaoAtual > 146 & posicaoAtual <= 149) || (posicaoAtual > 161 & posicaoAtual <= 164)) & ((posicaoDestino > 10) || (posicaoDestino > 14 & posicaoDestino < 25) || (posicaoDestino > 29 & posicaoDestino < 40) || (posicaoDestino > 44 & posicaoDestino < 55 ) || (posicaoDestino > 59 & posicaoDestino < 70) || (posicaoDestino > 74 & posicaoDestino < 85) || (posicaoDestino > 89 & posicaoDestino < 90 ) || (posicaoDestino > 104 & posicaoDestino < 115) || (posicaoDestino > 119 & posicaoDestino < 130) || (posicaoDestino > 134 & posicaoDestino < 145) || (posicaoDestino > 149 & posicaoDestino < 160) ) ){
+					if(((posicaoAtual > 10) || (posicaoAtual > 25 & posicaoAtual <= 29) || (posicaoAtual > 40 & posicaoAtual <= 44)|| (posicaoAtual > 56 & posicaoAtual <= 59) || (posicaoAtual > 71 & posicaoAtual <= 74) || (posicaoAtual > 86 & posicaoAtual < 89) || (posicaoAtual > 101 & posicaoAtual <= 104) || (posicaoAtual > 116 & posicaoAtual <= 119) || (posicaoAtual > 131 & posicaoAtual <= 134) || (posicaoAtual > 146 & posicaoAtual <= 149) || (posicaoAtual > 161 & posicaoAtual <= 164)) & ((posicaoDestino > 10) || (posicaoDestino > 14 & posicaoDestino < 25) || (posicaoDestino > 29 & posicaoDestino < 40) || (posicaoDestino > 44 & posicaoDestino < 55 ) || (posicaoDestino > 59 & posicaoDestino < 70) || (posicaoDestino > 74 & posicaoDestino < 85) || (posicaoDestino > 89 & posicaoDestino < 90 ) || (posicaoDestino > 104 & posicaoDestino < 115) || (posicaoDestino > 119 & posicaoDestino < 130) || (posicaoDestino > 134 & posicaoDestino < 145) || (posicaoDestino > 149 & posicaoDestino < 160) ) ){
 						
 						tela.notificaErroPassarMuro();
 						
@@ -238,6 +240,6 @@ public class Partida {
 	
 			tabuleiro.andar(posicaoAtual, posicaoDestino);
 		}
-		throw new Exception("Não pode andar, personagem está muito longe");
+		throw new Exception("Nao pode andar, personagem esta muito longe");
 	}
 }
