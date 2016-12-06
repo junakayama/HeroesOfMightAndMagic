@@ -884,7 +884,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 				try {
 					
 					ator.iniciarPartida();
-					btIniciarPartida();
+					
 					
 					
 				} catch (Exception ex) {
