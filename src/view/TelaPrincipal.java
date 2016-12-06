@@ -68,7 +68,7 @@ public class TelaPrincipal extends JFrame implements Jogada {
 					label.setImagem("campo.png");
 					label.setBounds(new Rectangle(tamanhoLinha, tamanhoColuna, 50, 50));
 					if(contador == 10 || contador == 25 || contador == 40 || contador == 55 || contador == 70 || contador == 85 ||
-							contador == 100 || contador == 115 || contador == 130 || contador == 145 || contador == 160){
+							contador == 100 || contador == 115 || contador == 130 || contador == 145 || contador == 160|| contador == 175){
 						label.setImagem2("muro.png");
 					}
 					if(contador == 26 || contador == 146){

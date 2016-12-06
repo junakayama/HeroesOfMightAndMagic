@@ -19,14 +19,16 @@ public class Partida implements Jogada{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int numRodadas;
+	private int numTotalRodadas;
 	private boolean emAndamento;
 	private Tabuleiro tabuleiro;
 	private Jogador jogador1;
 	private Jogador jogador2;
+	private int numRodadas;
 
 	public Partida() {
-		numRodadas = 15;
+		numTotalRodadas = 15;
+		numRodadas = 0;
 		tabuleiro = new Tabuleiro();
 	}
 
@@ -40,12 +42,9 @@ public class Partida implements Jogada{
 
 	public int jogar(int posicaoAtual, int posicaoDestino) throws Exception{
 		Posicao posicaoAt = tabuleiro.getPosicoes().get(posicaoAtual);
-		System.out.println(posicaoAt.getCodigo()+" ====== " + posicaoAtual);
 		Personagem ocupante = posicaoAt.getOcupante();
-		System.out.println(ocupante.getNome()+" jogando");
 		if(ocupante != null && !posicaoAt.isMuro()) {
 			if(jogador1.isTurno()){
-				System.out.println("verifica turno uhul");
 				int codigo = jogador1.getCodigo();
 				int codigoJogador = ocupante.getCodigoJogador();
 
@@ -58,7 +57,6 @@ public class Partida implements Jogada{
 					
 					if(!ocupada) {
 					verificaAndar(posicaoAtual, posicaoDestino);
-						System.out.println("andouuuuuu");
 
 						if(jogador1.isAtaque()) {
 							System.out.println("verifica se eh ataque uhul");
@@ -68,7 +66,6 @@ public class Partida implements Jogada{
 							}
 						}		
 					} else {
-						System.out.println("entrou no else");
 						Posicao posicaoDest = tabuleiro.getPosicoes().get(posicaoDestino);
 						int codigoAdversario = jogador2.getCodigo();
 						Personagem inimigo = posicaoDest.getOcupante();
@@ -79,6 +76,8 @@ public class Partida implements Jogada{
 							if(pontosVida <= 0) {
 								jogador2.getTime().remove(inimigo);
 								tabuleiro.getPosicoes().get(posicaoDestino).setOcupante(null);
+								tabuleiro.getPosicoes().get(posicaoDestino).setMuro(false);
+
 								int tamanhoLista = jogador2.getTime().size();
 								if(tamanhoLista == 0) {
 									jogador1.setVencedor(true);
@@ -237,5 +236,13 @@ public class Partida implements Jogada{
 			}
 		}
 		throw new Exception("Não pode atacar, personagem adversário está muito longe");
+	}
+
+	public int getNumTotalRodadas() {
+		return numTotalRodadas;
+	}
+
+	public void setNumTotalRodadas(int numTotalRodadas) {
+		this.numTotalRodadas = numTotalRodadas;
 	}
 }

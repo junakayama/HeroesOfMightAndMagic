@@ -14,6 +14,7 @@ import rede.AtorNetGames;
 
 import control.Partida;
 import model.Jogador;
+import model.Personagem;
 import model.Posicao;
 
 public class AtorJogador implements Jogada{
@@ -113,13 +114,33 @@ public class AtorJogador implements Jogada{
 	 * @param tabuleiro
 	 */
 	public void receberJogada(Partida partidaAtualizada) {
-		System.out.println("recebeu jogada");
+		this.partida.setNumRodadas(this.partida.getNumRodadas()+1);
+		
+		if(this.partida.getNumRodadas() == this.partida.getNumTotalRodadas()){
+			if(this.partida.getJogador1().isAtaque()) {
+				this.partida.getJogador2().setVencedor(true);
+			} else {
+				this.partida.getJogador1().setVencedor(true);
+			}
+		}
+		
+		if(this.partida.getJogador2().isVencedor()) {
+			tela.notificar("Defesa venceu, número máximo de rodadas atingido");
+			this.partida.setPartidaEmAndamento(false);
+		}
+		
 		Jogador jogadorTroca1 = partidaAtualizada.getJogador2();
 		jogadorTroca1.setTurno(true);
 		this.partida.setJogador1(jogadorTroca1);
 		Jogador jogadorTroca2 = partidaAtualizada.getJogador1();
 		jogadorTroca2.setTurno(false);
 		this.partida.setJogador2(jogadorTroca2);
+		
+		for(Personagem p: this.partida.getJogador1().getTime()) {
+			if(p.getAcaoDoTurno()){
+				p.setAcaoDoTurno(false);
+			}
+		}
 		
 		ArrayList<Posicao> posicoesTroca = partidaAtualizada.getTabuleiro().getPosicoes();
 		this.partida.getTabuleiro().setPosicoes(posicoesTroca);
@@ -130,7 +151,6 @@ public class AtorJogador implements Jogada{
 		}
 
 		tela.atualizaTudo(partidaAtualizada);
-		tela.notificar("Sua vez de jogar!");
 	}
 
 	public void notificarFalhaConexao() {
@@ -181,6 +201,7 @@ public class AtorJogador implements Jogada{
 	public void passarTurnoJogadorAtual() throws NaoJogandoException {
 		this.partida.getJogador1().setTurno(false);
 		enviarJogada(this.partida);
+		tela.notificar("Sua vez de jogar!");
 	}
 
 }
