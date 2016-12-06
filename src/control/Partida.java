@@ -273,7 +273,7 @@ public class Partida {
 			tela.notificaPoucoAlcance();
 		}
 				}
-//A proxima verificao ve se o ataque ou a desefa tentam ultrapassar do muro				
+//A proxima verificao ve se o ataque ou a desefa tentam ultrapassar do muro	oieeeeeeeeeeee			
 				
 		
 	
