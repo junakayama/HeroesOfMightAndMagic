@@ -24,30 +24,24 @@ public class AtorJogador{
 	
 	public void conectar() {
 		tela.btConectar();
-		String servidor = solicitarNome();
+		String servidor = solicitarServidor();
 		String nomeJogador = solicitarNome();
 		boolean conectou = atorNetGames.conectar(servidor, nomeJogador);
 		
 		if(conectou){
 			notificarConexaoEstabelecida();
 		} else {
-			notificarFalhaDesconexao();
+			notificarFalhaConexao();
 		}
 	}
 
 	public void notificarConexaoEstabelecida() {
-		// TODO - implement AtorJogador.notificarConexaoEstabelecida
-		throw new UnsupportedOperationException();
+		tela.notificar("Conexão Estabelecida com sucesso");
 	}
 
 	public void desconectar() {
 		atorNetGames.desconectar();
 		
-	}
-
-	public void notificarDesconexao() {
-		// TODO - implement AtorJogador.notificarDesconexao
-		throw new UnsupportedOperationException();
 	}
 
 	public void iniciarNovaPartida() {
@@ -58,6 +52,10 @@ public class AtorJogador{
 
 	public String solicitarNome() {
 		return tela.solicitaNome();
+	}
+	
+	public String solicitarServidor() {
+		return tela.solicitaServidor();
 	}
 
 	public void iniciarPartida() {
@@ -78,26 +76,20 @@ public class AtorJogador{
 	 * @throws Exception 
 	 */
 	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception {
-		System.out.println("entrou no jogar do ator jogador uhul");
 		this.partida.jogar(posicaoAtual, posicaoDestino);
 	}
 
 	public void notificarVencedor(Jogador jogador) {
-		tela.notificaVencedor();		
+		tela.notificar("Você venceu!!!");		
 	}
 
 	public void notificarErroPersonagem() {
-		// TODO - implement AtorJogador.notificarErroPersonagem
-		throw new UnsupportedOperationException();
+		tela.notificar("Personagem errado");
 	}
 
 	public void notificarErroTurno() {
-		tela.notificaErroTurno();
+		tela.notificar("Turno errado");
 		
-	}
-
-	public void notificarErroInstancia() {
-		tela.notificaErroInstancia();
 	}
 
 	/**
@@ -121,12 +113,12 @@ public class AtorJogador{
 		}
 	}
 
-	public void notificarFalhaDesconexao() {
-		tela.notificaErroDesconectado();
+	public void notificarFalhaConexao() {
+		tela.notificar("Falha na conexão");
 	}
 
 	public void notificarDesconectado() {
-	tela.notificaDesconectado();
+		tela.notificar("Já está desconectado");
 	}
 
 	public TelaPrincipal getTela() {
@@ -139,6 +131,28 @@ public class AtorJogador{
 	
 	public Partida getPartida(){
 		return partida;
+	}
+
+	public void notificaErroPassarMuro() {
+		tela.notificar("Não pode passar o muro");
+	}
+
+	public void notificaAndamento() {
+		tela.notificar("Partida em andamento");
+		
+	}
+
+	public void notificaIniciada() {
+		tela.notificar("Partida iniciada");
+	}
+
+	public void notificaErroAndarMuro() {
+		tela.notificar("Erro ao andar no muro");
+	}
+
+	public void notificarDesconexao() {
+		tela.notificar("Desconexão realizada com sucesso!");
+		
 	}
 
 }

@@ -115,12 +115,6 @@ public class Tabuleiro {
 		return getOcupante();
 	}
 	
-//	public Personagem buscaOcupante(int posicao) {
-//		posicaoAtual=posicoes.get(posicao);
-//		setOcupante(posicaoAtual.getOcupante());
-//		return getOcupante();
-//	}
-
 	public int atacar(int posicaoAtual, int posicaoDestino) {
 		this.ocupante = posicoes.get(posicaoAtual).getOcupante();
 		Posicao posicaoAt = posicoes.get(posicaoAtual);
