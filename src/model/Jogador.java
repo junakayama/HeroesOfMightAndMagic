@@ -2,8 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import view.TelaPrincipal;
-
 public class Jogador {
 
 	private boolean ataque;
@@ -14,8 +12,7 @@ public class Jogador {
 	private int codigo;
 	private boolean passarTurno;
 	private Muro muro;
-	private TelaPrincipal tela;
-
+	
 	public Jogador(boolean ataque, String nome, boolean turno, int codigo) {
 		this.ataque = ataque;
 		this.nickName = nome;

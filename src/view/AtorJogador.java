@@ -2,7 +2,8 @@ package view;
 
 import java.util.ArrayList; 
 
-import NetGames.AtorNetGames;
+import rede.AtorNetGames;
+
 
 import control.Partida;
 import model.Jogador;
@@ -20,13 +21,16 @@ public class AtorJogador{
 
 	}
 	
-	public String conectar() {
+	public void conectar() {
 		
 		String servidor = solicitarNome();
-		String nomeJogador = atorNetGames.conectar( servidor);
-		notificarConexaoEstabelecida();
-		return nomeJogador;
-
+		String nomeJogador = solicitarNome();
+		boolean conectou = atorNetGames.conectar(servidor, nomeJogador);
+		if(conectou){
+			notificarConexaoEstabelecida();
+		} else {
+			notificarFalhaDesconexao();
+		}
 	}
 
 	public void notificarConexaoEstabelecida() {
