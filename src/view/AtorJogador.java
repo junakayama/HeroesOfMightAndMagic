@@ -14,11 +14,12 @@ public class AtorJogador{
 	private TelaPrincipal tela;
 	private Partida partida;
 	private AtorNetGames atorNetGames;
+	private String idUsuario;
 	
 	public AtorJogador(){
-		this.setTela(new TelaPrincipal(this));
+		this.tela = new TelaPrincipal(this);
 		this.partida = new Partida(this);
-
+		this.atorNetGames = new AtorNetGames(this);
 	}
 	
 	public void conectar() {
@@ -50,14 +51,11 @@ public class AtorJogador{
 	}
 
 	public void iniciarNovaPartida() {
-		// TODO - implement AtorJogador.iniciarNovaPartida
-		throw new UnsupportedOperationException();
+		this.partida = new Partida(this);
+		String idAdversario = atorNetGames.getNicknameAdversario();
+		this.partida.criarJogadores(idUsuario, idAdversario);
 	}
 
-	/**
-	 * 
-	 * @param nome
-	 */
 	public String solicitarNome() {
 		return tela.solicitaNome();
 	}
