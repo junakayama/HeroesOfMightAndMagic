@@ -39,6 +39,10 @@ public class Jogador {
 	public boolean isTurno() {
 		return this.turno;
 	}
+	
+	public void setTurno(boolean turno) {
+		this.turno = turno;
+	}
 
 	public int getCodigo() {
 		return this.codigo;

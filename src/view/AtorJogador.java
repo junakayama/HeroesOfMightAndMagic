@@ -68,8 +68,7 @@ public class AtorJogador{
 	}
 
 	public void passarTurnoJogadorAtual() {
-		// TODO - implement AtorJogador.passarTurnoJogadorAtual
-		throw new UnsupportedOperationException();
+		this.partida.passarTurno();
 	}
 
 	/**
@@ -107,8 +106,10 @@ public class AtorJogador{
 	 */
 	public void receberJogada(Partida partidaAtualizada) {
 		Jogador jogadorTroca1 = partidaAtualizada.getJogador2();
+		jogadorTroca1.setTurno(true);
 		this.partida.setJogador1(jogadorTroca1);
 		Jogador jogadorTroca2 = partidaAtualizada.getJogador1();
+		jogadorTroca2.setTurno(false);
 		this.partida.setJogador2(jogadorTroca2);
 		
 		ArrayList<Posicao> posicoesTroca = partidaAtualizada.getTabuleiro().getPosicoes();

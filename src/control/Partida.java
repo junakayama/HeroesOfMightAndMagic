@@ -24,6 +24,7 @@ public class Partida {
 		numRodadas = 15;
 		tabuleiro = new Tabuleiro();
 		this.ator = ator;
+		criarJogadores("nome1", "nome2");
 	}
 
 	public void iniciarPartida() {
@@ -46,6 +47,10 @@ public class Partida {
 
 	public boolean isEmAndamento() {
 		return this.emAndamento;
+	}
+	
+	public void passarTurno() {
+		enviarJogada(this.tabuleiro);
 	}
 
 	public void setPartidaEmAndamento(boolean isEmAndamento) {
@@ -86,11 +91,7 @@ public class Partida {
 								jogador1.setVencedor(true);
 								enviarJogada(tabuleiro);
 							}
-						}else{
-							enviarJogada(tabuleiro);
-						}
-						
-						
+						}		
 					} else {
 						System.out.println("entrou no else");
 						Posicao posicaoDest = tabuleiro.getPosicoes().get(posicaoDestino);
