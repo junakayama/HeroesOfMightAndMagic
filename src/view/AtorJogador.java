@@ -2,6 +2,13 @@ package view;
 
 import java.util.ArrayList; 
 
+import br.ufsc.inf.leobr.cliente.Jogada;
+import br.ufsc.inf.leobr.cliente.exception.ArquivoMultiplayerException;
+import br.ufsc.inf.leobr.cliente.exception.JahConectadoException;
+import br.ufsc.inf.leobr.cliente.exception.NaoConectadoException;
+import br.ufsc.inf.leobr.cliente.exception.NaoJogandoException;
+import br.ufsc.inf.leobr.cliente.exception.NaoPossivelConectarException;
+
 import rede.AtorNetGames;
 
 
@@ -9,8 +16,12 @@ import control.Partida;
 import model.Jogador;
 import model.Posicao;
 
-public class AtorJogador{
+public class AtorJogador implements Jogada{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private TelaPrincipal tela;
 	private Partida partida;
 	private AtorNetGames atorNetGames;
@@ -18,21 +29,12 @@ public class AtorJogador{
 	
 	public AtorJogador(){
 		this.tela = new TelaPrincipal(this);
-		this.partida = new Partida(this);
+		this.partida = new Partida();
 		this.atorNetGames = new AtorNetGames(this);
 	}
 	
-	public void conectar(String nomeJogador, String servidor) {
-		tela.btConectar();
-
-		boolean conectou = atorNetGames.conectar(servidor, nomeJogador);
-		
-		if(conectou){
-			tela.btConectar();
-			notificarConexaoEstabelecida();
-		} else {
-			notificarFalhaConexao();
-		}
+	public void conectar(String nomeJogador, String servidor) throws JahConectadoException, NaoPossivelConectarException, ArquivoMultiplayerException {
+		this.atorNetGames.conectar(servidor, nomeJogador);
 	}
 
 	public void notificarConexaoEstabelecida() {
@@ -43,16 +45,23 @@ public class AtorJogador{
 		atorNetGames.desconectar();
 		
 	}
-
+	
+	
+	
+	public void enviarJogada(Partida partida) throws NaoJogandoException {
+		this.atorNetGames.enviarJogada(partida);
+	}
 
 	public void notificarDesconexao1() {
 		tela.notificar("Desconexão realizada com sucesso");
 	}
 
-	public void iniciarNovaPartida() {
-		this.partida = new Partida(this);
+	public void iniciarNovaPartida(Integer posicao) {
+		tela.notificar("Partida iniciada com sucesso");
+		
+		this.partida = new Partida();
 		String idAdversario = atorNetGames.getNicknameAdversario();
-		this.partida.criarJogadores(idUsuario, idAdversario);
+		this.partida.criarJogadores(idUsuario, idAdversario, posicao);
 	}
 
 	public String solicitarNome() {
@@ -63,16 +72,8 @@ public class AtorJogador{
 		return tela.solicitaServidor();
 	}
 
-	public void iniciarPartida() {
-		tela.btIniciarPartida();
-		this.partida = new Partida(this);
-		this.partida.criarJogadores(idUsuario, "luiza");
-		partida.iniciarPartida();
-		tela.btIniciarPartida();
-	}
-
-	public void passarTurnoJogadorAtual() {
-		this.partida.passarTurno();
+	public void iniciarPartida() throws NaoConectadoException {
+		atorNetGames.iniciarPartidaRede();
 	}
 
 	/**
@@ -82,7 +83,16 @@ public class AtorJogador{
 	 * @throws Exception 
 	 */
 	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception {
-		this.partida.jogar(posicaoAtual, posicaoDestino);
+		int verifica = this.partida.jogar(posicaoAtual, posicaoDestino);
+		if(this.partida.verificaJogada()) {
+			enviarJogada(this.partida);
+		}
+		if(verifica == 1) {
+			this.tela.mataPersonagem(posicaoDestino);
+		}
+		if(verifica == 2) {
+			this.tela.notificarAtaque(this.partida.getTabuleiro().getPosicoes().get(posicaoDestino).getOcupante().getPontosVida());
+		}
 	}
 
 	public void notificarVencedor(Jogador jogador) {
@@ -103,6 +113,7 @@ public class AtorJogador{
 	 * @param tabuleiro
 	 */
 	public void receberJogada(Partida partidaAtualizada) {
+		System.out.println("recebeu jogada");
 		Jogador jogadorTroca1 = partidaAtualizada.getJogador2();
 		jogadorTroca1.setTurno(true);
 		this.partida.setJogador1(jogadorTroca1);
@@ -117,6 +128,9 @@ public class AtorJogador{
 			notificarVencedor(this.partida.getJogador2());
 			this.partida.setPartidaEmAndamento(false);
 		}
+
+		tela.atualizaTudo(partidaAtualizada);
+		tela.notificar("Sua vez de jogar!");
 	}
 
 	public void notificarFalhaConexao() {
@@ -158,11 +172,15 @@ public class AtorJogador{
 
 	public void notificarDesconexao() {
 		tela.notificar("Desconexão realizada com sucesso!");
-		
 	}
 
 	public void notificaPoucoAlcance() {
 		tela.notificar("Personagem não possui alcance suficiente");
+	}
+
+	public void passarTurnoJogadorAtual() throws NaoJogandoException {
+		this.partida.getJogador1().setTurno(false);
+		enviarJogada(this.partida);
 	}
 
 }

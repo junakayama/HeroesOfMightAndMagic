@@ -2,6 +2,9 @@ package control;
 
 import java.util.List;
 
+import br.ufsc.inf.leobr.cliente.Jogada;
+import br.ufsc.inf.leobr.cliente.exception.NaoJogandoException;
+
 import model.Jogador;
 import model.Personagem;
 import model.Posicao;
@@ -9,79 +12,52 @@ import model.Posicao;
 ///import model.Posicao;
 import model.Tabuleiro;
 import view.AtorJogador;
-import view.TelaPrincipal;
 
-public class Partida {
+public class Partida implements Jogada{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int numRodadas;
 	private boolean emAndamento;
 	private Tabuleiro tabuleiro;
 	private Jogador jogador1;
 	private Jogador jogador2;
-	private AtorJogador ator;
-	private TelaPrincipal tela;
 
-	public Partida(AtorJogador ator) {
+	public Partida() {
 		numRodadas = 15;
 		tabuleiro = new Tabuleiro();
-		this.ator = ator;
-	}
-
-	public void iniciarPartida() {
-		if(emAndamento) {
-			notificaPartidaEmAndamento();
-		} else {
-			setPartidaEmAndamento(true);
-			notificaPartidaIniciada();
-		}
-	
-	}
-
-	public void notificaPartidaEmAndamento() {
-		this.ator.notificaAndamento();
-	}
-
-	public void notificaPartidaIniciada() {
-		this.ator.notificaIniciada();
 	}
 
 	public boolean isEmAndamento() {
 		return this.emAndamento;
-	}
-	
-	public void passarTurno() {
-		enviarJogada(this.tabuleiro);
 	}
 
 	public void setPartidaEmAndamento(boolean isEmAndamento) {
 		this.emAndamento = isEmAndamento;
 	}
 
-	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception{
+	public int jogar(int posicaoAtual, int posicaoDestino) throws Exception{
 		Posicao posicaoAt = tabuleiro.getPosicoes().get(posicaoAtual);
 		System.out.println(posicaoAt.getCodigo()+" ====== " + posicaoAtual);
 		Personagem ocupante = posicaoAt.getOcupante();
 		System.out.println(ocupante.getNome()+" jogando");
 		if(ocupante != null && !posicaoAt.isMuro()) {
-			System.out.println("verifica ocupante e muro uhul");
 			if(jogador1.isTurno()){
 				System.out.println("verifica turno uhul");
 				int codigo = jogador1.getCodigo();
 				int codigoJogador = ocupante.getCodigoJogador();
-				System.out.println("fim verifica turno uhul");
 
 				if(codigo == codigoJogador) {
 					
 					if(ocupante.getAcaoDoTurno()){
 						throw new Exception("Esse personagem já jogou nesse turno");
 					}
-					System.out.println("verifica codigo jogador uhul");
-
 					boolean ocupada = tabuleiro.isPosicaoOcupada(posicaoDestino);
 					
 					if(!ocupada) {
-					tabuleiro.andar(posicaoAtual, posicaoDestino);
-					this.verificaAndar(posicaoAtual, posicaoDestino);
+					verificaAndar(posicaoAtual, posicaoDestino);
 						System.out.println("andouuuuuu");
 
 						if(jogador1.isAtaque()) {
@@ -89,7 +65,6 @@ public class Partida {
 
 							if(tabuleiro.verificaCastelo(posicaoDestino)) {
 								jogador1.setVencedor(true);
-								enviarJogada(tabuleiro);
 							}
 						}		
 					} else {
@@ -104,13 +79,13 @@ public class Partida {
 							if(pontosVida <= 0) {
 								jogador2.getTime().remove(inimigo);
 								tabuleiro.getPosicoes().get(posicaoDestino).setOcupante(null);
-								ator.getTela().mataPersonagem(posicaoDestino);
 								int tamanhoLista = jogador2.getTime().size();
 								if(tamanhoLista == 0) {
 									jogador1.setVencedor(true);
 								}
+								return 1;
 							}
-							ator.getTela().notificarAtaque(pontosVida);
+							return 2;
 						}else {
 							throw new Exception("Nao ataque seu proprio personagem");
 						}
@@ -124,26 +99,92 @@ public class Partida {
 		} else {
 			throw new Exception("Eh muro ou nao tem personagem");
 		}
+		return 0;
+	}
+	
+	public boolean verificaJogada() throws NaoJogandoException {
+		for(Personagem p: this.jogador1.getTime()) {
+			if(!p.getAcaoDoTurno()){
+				return false;
+			}
+		}
+		return true;
 	}
 
-	public boolean verificaVencedor() {
-		// deve existir?
-		throw new UnsupportedOperationException();
+	public void verificaAndar(int posicaoAtual, int posicaoDestino) throws Exception {
+		int deslocamento = Math.abs(posicaoDestino - posicaoAtual);
+		if((deslocamento <= 4) || (deslocamento == 15) || (deslocamento == 30)) {
+			if(this.tabuleiro.getPosicoes().get(posicaoDestino).isMuro()) {
+				throw new Exception("Não pode andar no muro");
+			} else if (!verificaMuro(posicaoAtual, posicaoDestino) && this.jogador1.isAtaque()) {
+				throw new Exception("Não pode ultrapassar o muro ou andar mais que dois espaços");
+			}
+			tabuleiro.andar(posicaoAtual, posicaoDestino);
+		} else {
+			throw new Exception("Não pode andar mais que dois espaços");
+		}
 	}
-
-	public void enviarJogada(Tabuleiro tabuleiro) {
-		this.tabuleiro = tabuleiro;
-	}
-
-	public void criarJogadores(String idUsuario, String idAdversario) {
-		this.jogador1 = new Jogador(true, idUsuario, true, 1);
-		jogador1.carregarPersonagensAtaque();
-		List<Personagem> ataque = jogador1.getTime();
-		this.jogador2 = new Jogador(false, idAdversario, false, 2);
-		jogador2.carregarPersonagensDefesa();
-		List<Personagem> defesa = jogador2.getTime();
+	
+	public boolean verificaMuro(int posicaoAtual, int posicaoDestino) {
+		Integer[] posicoesProximas = new Integer[4];
+		int direita = posicaoAtual + 1;
+		int baixo = posicaoAtual + 15;
+		int esquerda = posicaoAtual - 1;
+		int cima = posicaoAtual - 15;
+		if (direita >= 0 && direita <= 164 && tabuleiro.getPosicoes().get(direita).isMuro()) {// direita
+			posicoesProximas[0] = 1;// S� pra mostrar que n�o est� vazia
+		}
+		if (baixo >= 0 && baixo <= 164 && tabuleiro.getPosicoes().get(baixo).isMuro()) {// baixo
+			posicoesProximas[1] = 1;
+		}
+		if (esquerda >= 0 && esquerda <= 164 && tabuleiro.getPosicoes().get(esquerda).isMuro()) {// esquerda
+			posicoesProximas[2] = 1;
+		}
+		if (cima >= 0 && cima <= 164 && tabuleiro.getPosicoes().get(cima).isMuro()) {// cima
+			posicoesProximas[3] = 1;
+		}
 		
-		tabuleiro.carregarPersonagens(ataque, defesa);
+		int posicaoPossivel = posicaoAtual - posicaoDestino;
+		
+		if(Math.abs(posicaoPossivel) == 1 || Math.abs(posicaoPossivel) == 15) {
+			return true;
+		}
+		
+		if (Math.abs(posicaoPossivel) == 2 || Math.abs(posicaoPossivel) == 30) {
+			if (posicoesProximas[0] == null && posicaoPossivel == -2) {// direita
+				return true;
+			}
+			if (posicoesProximas[1] == null && posicaoPossivel == -30) {// baixo
+				return true;
+			}
+			if (posicoesProximas[2] == null && posicaoPossivel == 2) {// esquerda
+				return true;
+			}
+			if (posicoesProximas[3] == null && posicaoPossivel == 30) {// cima
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void criarJogadores(String idUsuario, String idAdversario, Integer posicao) {
+		if(posicao == 1) {
+			this.jogador1 = new Jogador(true, idUsuario, true, 1);
+			jogador1.carregarPersonagensAtaque();
+			List<Personagem> ataque = jogador1.getTime();
+			this.jogador2 = new Jogador(false, idAdversario, false, 2);
+			jogador2.carregarPersonagensDefesa();
+			List<Personagem> defesa = jogador2.getTime();
+			tabuleiro.carregarPersonagens(ataque, defesa);
+		} else {
+			this.jogador1 = new Jogador(false, idAdversario, false, 1);
+			jogador1.carregarPersonagensDefesa();
+			List<Personagem> defesa = jogador1.getTime();
+			this.jogador2 = new Jogador(true, idUsuario, true, 2);
+			jogador2.carregarPersonagensAtaque();
+			List<Personagem> ataque = jogador2.getTime();
+			tabuleiro.carregarPersonagens(ataque, defesa);
+		}
 	}
 
 	public int getNumRodadas() {
@@ -197,155 +238,4 @@ public class Partida {
 		}
 		throw new Exception("Não pode atacar, personagem adversário está muito longe");
 	}
-	
-	private boolean verificaDeslocamento(int posicaoAtual, int posicaoDestino){
-		
-		Personagem personagem = tabuleiro.getPosicoes().get(posicaoAtual).getOcupante();
-		int deslocamento = Math.abs(posicaoDestino - posicaoAtual);
-		if((deslocamento <= 4) || (deslocamento == 15) || (deslocamento == 30) || (deslocamento == 45) || (deslocamento == 60)) {
-			return true;
-		}
-		return false;
-		
-	}
-	
-	private boolean verificaAtaqueQuerUltrapassaMuro(int posicaoAtual, int posicaoDestino){
-		
-		if(
-				((posicaoDestino > 10) && (posicaoAtual > 10))
-			 ||((posicaoDestino > 25 && posicaoDestino <= 29) && (posicaoAtual > 14 && posicaoAtual < 25))
-			 ||((posicaoDestino > 40 && posicaoDestino <= 44) && (posicaoAtual > 29 && posicaoAtual < 40))
-			 ||((posicaoDestino > 55 && posicaoDestino <= 59) && (posicaoAtual > 44 && posicaoAtual < 55))
-			 ||((posicaoDestino > 70 && posicaoDestino <= 74) && (posicaoAtual > 59 && posicaoAtual < 70))
-			 ||((posicaoDestino > 85 && posicaoDestino < 89)  && (posicaoAtual > 74 && posicaoAtual < 85))
-			 ||((posicaoDestino > 100 && posicaoDestino <= 104) && (posicaoAtual > 89 && posicaoAtual < 90))
-			 ||((posicaoDestino > 115 && posicaoDestino <= 119)  && (posicaoAtual > 104 && posicaoAtual < 115))
-			 ||((posicaoDestino > 130 && posicaoDestino <= 134) && (posicaoAtual > 119 && posicaoAtual < 130))
-			 ||((posicaoDestino > 145 && posicaoDestino <= 149)  && (posicaoAtual > 134 && posicaoAtual < 145))
-			 ||((posicaoDestino > 160 && posicaoDestino <= 164) && (posicaoAtual > 149 && posicaoAtual < 160))
-				) {
-			return true;
-		}
-		return false;
-		
-	}
-	
-	private boolean verificaDefesaQuerUltrapassaMuro(int posicaoAtual, int posicaoDestino){
-		
-	if(jogador2.getMuro().getPontosVida()!=0){
-		if(
-				((posicaoAtual > 10 && posicaoAtual <= 14)&& (posicaoDestino > 10))
-				|| ((posicaoAtual > 25 && posicaoAtual <= 29)&&(posicaoDestino > 14 && posicaoDestino < 25))
-				|| ((posicaoAtual > 40 && posicaoAtual <= 44)&& (posicaoDestino > 29 && posicaoDestino < 40))
-				|| ((posicaoAtual > 56 && posicaoAtual <= 59)&& (posicaoDestino > 44 && posicaoDestino < 55))
-				|| ((posicaoAtual > 71 && posicaoAtual <= 74)&& (posicaoDestino > 59 && posicaoDestino < 70))
-				|| ((posicaoAtual > 86 && posicaoAtual < 89) && (posicaoDestino > 74 && posicaoDestino < 85))
-				|| ((posicaoAtual > 101 && posicaoAtual <= 104) && (posicaoDestino > 89 && posicaoDestino < 90))
-				|| ((posicaoAtual > 116 && posicaoAtual <= 119) && (posicaoDestino > 104 && posicaoDestino < 115))
-				|| ((posicaoAtual > 131 && posicaoAtual <= 134) && (posicaoDestino > 119 && posicaoDestino < 130))
-				|| ((posicaoAtual > 146 && posicaoAtual <= 149) && (posicaoDestino > 134 && posicaoDestino < 145))
-				|| ((posicaoAtual > 161 && posicaoAtual <= 164) && (posicaoDestino > 149 && posicaoDestino < 160))
-				){
-			return true;
-		}
-		return false;
-	}else{
-	
-		return false;
-	}
 }
-	
-	private void verificaAndar(int posicaoAtual, int posicaoDestino){
-		System.out.println("entrou verificaAndar");
-		
-	if(this.verificaDeslocamento(posicaoAtual, posicaoDestino)) {
-				System.out.println("verificou que o deslocamento eh possivel");
-				//if(jogador2.getMuro().getPontosVida()!=0){
-				//System.out.println("viu que o muro ta vivo");
-				// if((posicaoDestino == 10 || 
-					//	posicaoDestino == 25 || 
-						//posicaoDestino == 40 || 
-						//posicaoDestino == 55 || 
-						//posicaoDestino == 70 || 
-						//posicaoDestino == 85 ||
-						//posicaoDestino == 100 ||
-						//posicaoDestino == 115 ||
-						//posicaoDestino == 130 ||
-						//posicaoDestino == 145 ||
-						//posicaoDestino == 160)){		/*&& (jogador1.isAtaque()== false)*/
-						//System.out.println("viu se a defesa n�o quer atacar o muro");
-						//this.ator.getTela().notificaErroAndarMuro();
-					if(jogador1.isAtaque()){
-					System.out.println("eh ataque");
-					if(
-							((posicaoDestino > 10) && (posicaoAtual > 10))
-						 ||((posicaoDestino > 25 && posicaoDestino <= 29) && (posicaoAtual > 14 && posicaoAtual < 25))
-						 ||((posicaoDestino > 40 && posicaoDestino <= 44) && (posicaoAtual > 29 && posicaoAtual < 40))
-						 ||((posicaoDestino > 55 && posicaoDestino <= 59) && (posicaoAtual > 44 && posicaoAtual < 55))
-						 ||((posicaoDestino > 70 && posicaoDestino <= 74) && (posicaoAtual > 59 && posicaoAtual < 70))
-						 ||((posicaoDestino > 85 && posicaoDestino < 89)  && (posicaoAtual > 74 && posicaoAtual < 85))
-						 ||((posicaoDestino > 100 && posicaoDestino <= 104) && (posicaoAtual > 89 && posicaoAtual < 90))
-						 ||((posicaoDestino > 115 && posicaoDestino <= 119)  && (posicaoAtual > 104 && posicaoAtual < 115))
-						 ||((posicaoDestino > 130 && posicaoDestino <= 134) && (posicaoAtual > 119 && posicaoAtual < 130))
-						 ||((posicaoDestino > 145 && posicaoDestino <= 149)  && (posicaoAtual > 134 && posicaoAtual < 145))
-						 ||((posicaoDestino > 160 && posicaoDestino <= 164) && (posicaoAtual > 149 && posicaoAtual < 160))
-							) {
-					
-						this.ator.notificaErroPassarMuro();
-					
-					}else{
-						
-						System.out.println("deve anda");
-						tabuleiro.andar(posicaoAtual, posicaoDestino);
-					}
-				}else{
-					
-					if((
-							((posicaoAtual > 10 && posicaoAtual <= 14)&& (posicaoDestino > 10))
-							|| ((posicaoAtual > 25 && posicaoAtual <= 29)&&(posicaoDestino > 14 && posicaoDestino < 25))
-							|| ((posicaoAtual > 40 && posicaoAtual <= 44)&& (posicaoDestino > 29 && posicaoDestino < 40))
-							|| ((posicaoAtual > 56 && posicaoAtual <= 59)&& (posicaoDestino > 44 && posicaoDestino < 55))
-							|| ((posicaoAtual > 71 && posicaoAtual <= 74)&& (posicaoDestino > 59 && posicaoDestino < 70))
-							|| ((posicaoAtual > 86 && posicaoAtual < 89) && (posicaoDestino > 74 && posicaoDestino < 85))
-							|| ((posicaoAtual > 101 && posicaoAtual <= 104) && (posicaoDestino > 89 && posicaoDestino < 90))
-							|| ((posicaoAtual > 116 && posicaoAtual <= 119) && (posicaoDestino > 104 && posicaoDestino < 115))
-							|| ((posicaoAtual > 131 && posicaoAtual <= 134) && (posicaoDestino > 119 && posicaoDestino < 130))
-							|| ((posicaoAtual > 146 && posicaoAtual <= 149) && (posicaoDestino > 134 && posicaoDestino < 145))
-							|| ((posicaoAtual > 161 && posicaoAtual <= 164) && (posicaoDestino > 149 && posicaoDestino < 160))
-							)  
-							){
-						//System.out.println("viu se a defesa n�o quer atacar o muro");
-						//this.ator.getTela().notificaErroAndarMuro();
-			if(jogador1.isAtaque()){
-				System.out.println("eh ataque");
-					if(this.verificaAtaqueQuerUltrapassaMuro(posicaoAtual, posicaoDestino)) {
-					
-						this.ator.getTela().notificaErroPassarMuro();
-					
-					}else{
-						
-						System.out.println("deve andar");
-						tabuleiro.andar(posicaoAtual, posicaoDestino);
-					}
-			}else{
-					
-					if(this.verificaDefesaQuerUltrapassaMuro(posicaoAtual, posicaoDestino)){
-						this.ator.getTela().notificaErroPassarMuro();
-						
-						}else{
-							tabuleiro.andar(posicaoAtual, posicaoDestino);
-						}
-					
-				}
-			
-		} else{
-						tabuleiro.andar(posicaoAtual, posicaoDestino);
-					}
-					
-			}
-			
-	}else{
-			tela.notificaPoucoAlcance();
-		}
-	
- }}

@@ -2,7 +2,9 @@ package view;
 
 import javax.swing.JLabel;
 
-public class LabelImg extends JLabel {
+import br.ufsc.inf.leobr.cliente.Jogada;
+
+public class LabelImg extends JLabel  implements Jogada  {
 
 	/**
 	 * 

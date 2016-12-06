@@ -1,8 +1,14 @@
 package model;
 
-public class Posicao {
+import br.ufsc.inf.leobr.cliente.Jogada;
 
-//	private boolean ocupada;
+public class Posicao implements Jogada {
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//	private boolean ocupada;
 	private int codigo;
 	private Personagem ocupante;
 	private boolean castelo;

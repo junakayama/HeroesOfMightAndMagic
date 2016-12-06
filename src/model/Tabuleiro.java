@@ -3,8 +3,14 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tabuleiro {
+import br.ufsc.inf.leobr.cliente.Jogada;
 
+public class Tabuleiro  implements Jogada {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Posicao> posicoes;
 	private Posicao posicaoAtual;
 	private Posicao posicaoDestino;
@@ -28,15 +34,12 @@ public class Tabuleiro {
 	public void andar(int posicaoAtual, int posicaoDestino) {
 		//n�o ta usando os parametros mandados
 		this.posicaoAtual = posicoes.get(posicaoAtual);
-		
 		this.ocupante = this.posicaoAtual.getOcupante();
-		
 		this.posicaoDestino = posicoes.get(posicaoDestino);
-
 		this.posicaoDestino.setOcupante(ocupante);
 		this.posicaoAtual.setOcupante(null);
-		
 		this.posicaoDestino = posicoes.get(posicaoDestino);
+		
 		ocupante.setAcaoDoTurno(true);
 	}
 

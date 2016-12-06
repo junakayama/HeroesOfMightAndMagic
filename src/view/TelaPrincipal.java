@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,7 +10,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class TelaPrincipal extends JFrame implements ActionListener {
+import model.Posicao;
+
+import control.Partida;
+
+import br.ufsc.inf.leobr.cliente.Jogada;
+
+public class TelaPrincipal extends JFrame implements Jogada {
 
 	/**
 	 * 
@@ -807,7 +811,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	    
 	    btnDesconectar.setEnabled(false);
 	    btnIniciar.setEnabled(false);
-	    btnPassarTurno.setEnabled(false);
+	    btnPassarTurno.setEnabled(true);
 	    
 	}
 	
@@ -863,12 +867,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 					ator.conectar(nomeJogador, servidor);
 					btnIniciar.setEnabled(true);
 					btnDesconectar.setEnabled(true);
-					conectar.setEnabled(false);				
-					ator.conectar(nomeJogador, servidor);
-					//btnIniciar.setEnabled(true);
-					//btnDesconectar.setEnabled(true);
-					//conectar.setEnabled(false);
-					
+					conectar.setEnabled(false);
+					notificar("Conex�o estabelecida com sucesso!");
 				} catch (Exception ex) {
 					notificar(ex.getMessage());
 					ex.printStackTrace();
@@ -882,20 +882,24 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	
 	
 	public JButton getIniciar(){
-		btnIniciar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent e) {
-				try {
-					
-					ator.iniciarPartida();
-					
-					
-					
-				} catch (Exception ex) {
-				
-					ex.printStackTrace();
+			System.out.println("entrou botao");
+			btnIniciar.setText("Iniciar partida");
+			btnIniciar.setEnabled(false);
+			btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					try {
+						System.out.println("entrou try");
+
+						ator.iniciarPartida();
+						if (ator.getPartida().isEmAndamento()) {
+							btnIniciar.setEnabled(false);
+						}
+					} catch (Exception e1) {
+						notificar(e1.getMessage());
+						e1.printStackTrace();
+					}
 				}
-			}
-		});
+			});
 		
 		return btnIniciar;
 		
@@ -904,13 +908,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public JButton getPassarTurno(){
 		btnPassarTurno.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				try {
-					
-					ator.passarTurnoJogadorAtual();
-					
-					
+				try {	
+					ator.passarTurnoJogadorAtual();	
 				} catch (Exception ex) {
-				
 					ex.printStackTrace();
 				}
 			}
@@ -942,20 +942,6 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			labels[saida].setImagem2(null);
 			labels[saida].setIcon(new ImageIcon(getClass().getResource(labels[saida].retornaImagem())));
 		}
-	}
-
-	public void actionPerformed(ActionEvent e) {
-
-		String ac = e.getActionCommand();
-		if (ac == btnIniciar.toString()){
-			ator.iniciarPartida();
-		}else if(ac == conectar.toString()){
-			ator.conectar("julia", "localhost");
-		}else if(ac == btnDesconectar.toString()){
-			ator.desconectar();
-		}else if(ac == btnPassarTurno.toString()){
-			ator.passarTurnoJogadorAtual();
-		}	
 	}
 	
 	public void mataPersonagem(int posicao) {
@@ -991,5 +977,25 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 
 	public void notificaPoucoAlcance() {
 		JOptionPane.showMessageDialog(null,"Parece que essa posicao estah fora do seu alcance");
+	}
+
+	public void atualizaTudo(Partida partidaAtualizada) {
+		limpar();
+		for(Posicao posicao: partidaAtualizada.getTabuleiro().getPosicoes()) {
+			if(posicao.getOcupante() != null) {
+				labels[posicao.getCodigo()].setImagem2(posicao.getOcupante().getNome());
+				labels[posicao.getCodigo()].setIcon(new ImageIcon(getClass().getResource(labels[posicao.getCodigo()].getImagem2())));
+			}
+		}
+	}
+	
+	public void limpar(){
+		for(LabelImg l : labels){
+			l.setImagem2(null);
+			if (l.getPosicao() == 89) {
+				l.setImagem2("castle.png");
+			}
+			l.setIcon(new ImageIcon(getClass().getResource(l.retornaImagem())));
+		}
 	}
 }
