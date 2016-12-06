@@ -12,7 +12,8 @@ public class Tabuleiro {
 	private Personagem inimigo;
 	
 	public Tabuleiro() {
-		super();
+		this.posicoes = new ArrayList<Posicao>();
+		criarPosicoes();
 	}
 
 	
@@ -26,8 +27,16 @@ public class Tabuleiro {
 
 	public void andar(int posicaoAtual, int posicaoDestino) {
 		//n�o ta usando os parametros mandados
+		this.posicaoAtual = posicoes.get(posicaoAtual);
+		
+		this.ocupante = this.posicaoAtual.getOcupante();
+		
+		this.posicaoDestino = posicoes.get(posicaoDestino);
+
 		this.posicaoDestino.setOcupante(ocupante);
 		this.posicaoAtual.setOcupante(null);
+		
+		this.posicaoDestino = posicoes.get(posicaoDestino);
 		ocupante.setAcaoDoTurno(true);
 	}
 
@@ -37,71 +46,64 @@ public class Tabuleiro {
 	}
 
 	public void criarPosicoes() {
-		for(int i=0;i<11;i++){
-			for (int j = 0; j < 15; j++) {
-				Posicao posicao = new Posicao(i, j, null, false);
-				if(posicao.getLinha()==14 && posicao.getColuna()==6){
-					posicao.setCastelo(true);
-				}
-				posicoes.add(posicao);
+		for(int i = 0; i < 165; i++) {
+			Posicao posicao = new Posicao(i);
+			if(i == 89) {
+				posicao.setCastelo(true);
 			}
+			posicoes.add(posicao);
 		}
 	}
 
 	public void carregarPersonagens(List<Personagem> time1, List<Personagem> time2) {
 		for (int i = 0; i < posicoes.size(); i++) {
 			Posicao posicao = posicoes.get(i);
-			if (posicao.getLinha() == 1 && posicao.getColuna() == 1) {
+			if (i == 77) {
 				posicao.setOcupante(time1.get(0));
 			}
-			if (posicao.getLinha() == 1 && posicao.getColuna() == 1) {
+			if (i == 109) {
 				posicao.setOcupante(time1.get(1));
 			}
-			if (posicao.getLinha() == 2 && posicao.getColuna() == 2) {
+			if (i == 17) {
 				posicao.setOcupante(time1.get(2));
 			}
-			if (posicao.getLinha() == 3 && posicao.getColuna() == 1) {
+			if (i == 137) {
 				posicao.setOcupante(time1.get(3));
 			}
-			if (posicao.getLinha() == 4 && posicao.getColuna() == 1) {
+			if (i == 107) {
 				posicao.setOcupante(time1.get(4));
 			}
-			if (posicao.getLinha() == 5 && posicao.getColuna() == 1) {
+			if (i == 47) {
 				posicao.setOcupante(time1.get(5));
 			}
-			if (posicao.getLinha() == 6 && posicao.getColuna() == 2) {
+			if (i == 49) {
 				posicao.setOcupante(time1.get(6));
 			}
-			if (posicao.getLinha() == 1 && posicao.getColuna() == 12) {
+			if (i == 73) {
 				posicao.setOcupante(time2.get(0));
 			}
-			if (posicao.getLinha() == 2 && posicao.getColuna() == 11) {
+			if (i == 103) {
 				posicao.setOcupante(time2.get(1));
 			}
-			if (posicao.getLinha() == 3 && posicao.getColuna() == 12) {
+			if (i == 56) {
 				posicao.setOcupante(time2.get(2));
 			}
-			if (posicao.getLinha() == 4 && posicao.getColuna() == 11) {
+			if (i == 116) {
 				posicao.setOcupante(time2.get(3));
 			}
-			if (posicao.getLinha() == 5 && posicao.getColuna() == 12) {
+			if (i == 86) {
 				posicao.setOcupante(time2.get(4));
 			}
-			if (posicao.getLinha() == 6 && posicao.getColuna() == 11) {
+			if (i == 26) {
 				posicao.setOcupante(time2.get(5));
 			}
-			if (posicao.getLinha() == 7 && posicao.getColuna() == 12) {
+			if (i == 146) {
 				posicao.setOcupante(time2.get(6));
 			}
-			
-			if(posicao.getColuna()==9){
-				posicoes.get(9).setOcupante(time2.get(7));
-				posicoes.get(24).setOcupante(time2.get(7));
-				posicoes.get(39).setOcupante(time2.get(7));
-				posicoes.get(54).setOcupante(time2.get(7));
-				posicoes.get(69).setOcupante(time2.get(7));
-				posicoes.get(84).setOcupante(time2.get(7));
-				posicoes.get(99).setOcupante(time2.get(7));
+			if(i == 10 || i == 25 || i == 40 || i == 55 || i == 70 || i == 85 ||
+					i == 100 || i == 115 || i == 130 || i == 145){
+				posicao.setOcupante(time2.get(7));
+				posicao.setMuro(true);
 			}
 		}
 	}
@@ -120,21 +122,24 @@ public class Tabuleiro {
 //	}
 
 	public int atacar(int posicaoAtual, int posicaoDestino) {
-		
+		this.ocupante = posicoes.get(posicaoAtual).getOcupante();
 		Posicao posicaoAt = posicoes.get(posicaoAtual);
 		Posicao posicaoDe = posicoes.get(posicaoDestino);
-		
+		System.out.println("pegou posicoes");
 		Personagem personagemAtaque = posicaoAt.getOcupante();
 		Personagem personagemDefesa = posicaoDe.getOcupante();
-		
+		System.out.println("pegou personagens");
+
 		int pontosDeAtaque = personagemAtaque.getPontosAtaque();
 		int pontosDeVida = personagemDefesa.getPontosVida();
-		
+		System.out.println("pegou pontos");
+
 		int resultado = pontosDeVida - pontosDeAtaque;
 		
 		personagemDefesa.setPontosVida(resultado);
 		ocupante.setAcaoDoTurno(true);
-		
+		System.out.println("poxa");
+
 		return resultado;
 	}
 
@@ -142,7 +147,6 @@ public class Tabuleiro {
 	public boolean verificaCastelo(int posicao) {
 		return posicoes.get(posicao).isCastelo();
 	}
-
 
 	public Posicao atribuiInimigoPosicao(int posicaoDestino) {
 		inimigo = posicoes.get(posicaoDestino).getOcupante();

@@ -11,10 +11,11 @@ public class Jogador {
 	private boolean vencedor;
 	private int codigo;
 	private boolean passarTurno;
-
-	public Jogador(boolean ataque, String nickName, boolean turno, int codigo) {
+	private Muro muro;
+	
+	public Jogador(boolean ataque, String nome, boolean turno, int codigo) {
 		this.ataque = ataque;
-		this.nickName = nickName;
+		this.nickName = nome;
 		this.turno = turno;
 		this.codigo = codigo;
 
@@ -114,7 +115,7 @@ public class Jogador {
 		Personagem guarda2 = new Personagem("Guarda Real 2", this.codigo, 8, 4, false, false);
 		this.time.add(6, guarda2);
 
-		Muro muro = new Muro("Muro", this.codigo, 50);
+		this.muro = new Muro("Muro", this.codigo, 50);
 		this.time.add(7, muro);
 	}
 
@@ -134,4 +135,7 @@ public class Jogador {
 		this.nickName = nickName;
 	}
 
+	public Muro getMuro(){
+		return this.muro;
+	}
 }

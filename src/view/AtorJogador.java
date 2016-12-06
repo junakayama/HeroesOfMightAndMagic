@@ -2,7 +2,8 @@ package view;
 
 import java.util.ArrayList; 
 
-import NetGames.AtorNetGames;
+import rede.AtorNetGames;
+
 
 import control.Partida;
 import model.Jogador;
@@ -13,16 +14,25 @@ public class AtorJogador{
 	private TelaPrincipal tela;
 	private Partida partida;
 	private AtorNetGames atorNetGames;
+	private String idUsuario;
 	
 	public AtorJogador(){
-		this.setTela(new TelaPrincipal(this));
+		this.tela = new TelaPrincipal(this);
+		this.partida = new Partida(this);
+		this.atorNetGames = new AtorNetGames(this);
 	}
 	
 	public void conectar() {
-		String nickname = solicitarNome();
+		tela.btConectar();
 		String servidor = solicitarNome();
-		atorNetGames.conectar(nickname, servidor);
-		notificarConexaoEstabelecida();
+		String nomeJogador = solicitarNome();
+		boolean conectou = atorNetGames.conectar(servidor, nomeJogador);
+		
+		if(conectou){
+			notificarConexaoEstabelecida();
+		} else {
+			notificarFalhaDesconexao();
+		}
 	}
 
 	public void notificarConexaoEstabelecida() {
@@ -41,21 +51,18 @@ public class AtorJogador{
 	}
 
 	public void iniciarNovaPartida() {
-		// TODO - implement AtorJogador.iniciarNovaPartida
-		throw new UnsupportedOperationException();
+		this.partida = new Partida(this);
+		String idAdversario = atorNetGames.getNicknameAdversario();
+		this.partida.criarJogadores(idUsuario, idAdversario);
 	}
 
-	/**
-	 * 
-	 * @param nome
-	 */
 	public String solicitarNome() {
-		// TODO - implement AtorJogador.solicitarNome
-		throw new UnsupportedOperationException();
+		return tela.solicitaNome();
 	}
 
 	public void iniciarPartida() {
-		this.partida = new Partida();
+		tela.btIniciarPartida();
+		this.partida = new Partida(this);
 		partida.iniciarPartida();
 		tela.btIniciarPartida();
 	}
@@ -69,10 +76,11 @@ public class AtorJogador{
 	 * 
 	 * @param posicaoAtual
 	 * @param posicaoDestino
+	 * @throws Exception 
 	 */
-	public void jogar(Posicao posicaoAtual, Posicao posicaoDestino) {
-		// TODO - implement AtorJogador.jogar
-		throw new UnsupportedOperationException();
+	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception {
+		System.out.println("entrou no jogar do ator jogador uhul");
+		this.partida.jogar(posicaoAtual, posicaoDestino);
 	}
 
 	public void notificarVencedor(Jogador jogador) {
@@ -126,6 +134,10 @@ public class AtorJogador{
 
 	public void setTela(TelaPrincipal tela) {
 		this.tela = tela;
+	}
+	
+	public Partida getPartida(){
+		return partida;
 	}
 
 }
