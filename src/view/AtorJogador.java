@@ -37,8 +37,7 @@ public class AtorJogador{
 	}
 
 	public void notificarConexaoEstabelecida() {
-		// TODO - implement AtorJogador.notificarConexaoEstabelecida
-		throw new UnsupportedOperationException();
+		tela.notificaConectado();
 	}
 
 	public void desconectar() {
@@ -47,7 +46,7 @@ public class AtorJogador{
 	}
 
 	public void notificarDesconexao() {
-		tela.notificaDesconectado();
+		tela.notificaDesconexao();
 		throw new UnsupportedOperationException();
 	}
 

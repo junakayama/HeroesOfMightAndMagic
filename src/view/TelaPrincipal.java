@@ -996,7 +996,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	}
 	
 	public void notificaDesconectado() {
-		JOptionPane.showMessageDialog(null , "Desconexao realizada com sucesso!");
+		JOptionPane.showMessageDialog(null , "Voce ja esta desconectado");
 		
 	}
 
@@ -1021,4 +1021,17 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public String solicitaServidor(){
 		return	JOptionPane.showInputDialog("Qual seu servidor?");
 		}
+	
+	public void notificaConectado(){
+		JOptionPane.showMessageDialog(null, "Voce esta conectado!");
+	}
+
+	public void notificaDesconexao() {
+		JOptionPane.showMessageDialog(null, "Voce foi desconectado!");
+	}
+
+	public void notificaPoucoAlcance() {
+		JOptionPane.showMessageDialog(null, "Não pode andar ate tao longe");
+		
+	}
 }
