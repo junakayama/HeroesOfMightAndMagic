@@ -23,8 +23,9 @@ public class AtorJogador{
 	}
 	
 	public void conectar() {
-		System.out.println ("chegou no conectar do AtJ");
-		String servidor = solicitarNome();
+		tela.btConectar();
+		String servidor = solicitarServidor();
+		String nome = solicitarNome();
 		String nomeJogador = solicitarNome();
 		boolean conectou = atorNetGames.conectar(servidor, nomeJogador);
 		
@@ -32,12 +33,12 @@ public class AtorJogador{
 			tela.btConectar();
 			notificarConexaoEstabelecida();
 		} else {
-			notificarFalhaDesconexao();
+			notificarFalhaConexao();
 		}
 	}
 
 	public void notificarConexaoEstabelecida() {
-		tela.notificaConectado();
+		tela.notificar("Conexão Estabelecida com sucesso");
 	}
 
 	public void desconectar() {
@@ -45,9 +46,9 @@ public class AtorJogador{
 		
 	}
 
-	public void notificarDesconexao() {
-		tela.notificaDesconexao();
-		throw new UnsupportedOperationException();
+
+	public void notificarDesconexao1() {
+		tela.notificar("Desconexão realizada com sucesso");
 	}
 
 	public void iniciarNovaPartida() {
@@ -59,6 +60,10 @@ public class AtorJogador{
 	public String solicitarNome() {
 		return tela.solicitaNome();
 	}
+	
+	public String solicitarServidor() {
+		return tela.solicitaServidor();
+	}
 
 	public void iniciarPartida() {
 		tela.btIniciarPartida();
@@ -68,8 +73,7 @@ public class AtorJogador{
 	}
 
 	public void passarTurnoJogadorAtual() {
-		// TODO - implement AtorJogador.passarTurnoJogadorAtual
-		throw new UnsupportedOperationException();
+		this.partida.passarTurno();
 	}
 
 	/**
@@ -79,25 +83,20 @@ public class AtorJogador{
 	 * @throws Exception 
 	 */
 	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception {
-		System.out.println("entrou no jogar do ator jogador uhul");
 		this.partida.jogar(posicaoAtual, posicaoDestino);
 	}
 
 	public void notificarVencedor(Jogador jogador) {
-		tela.notificaVencedor();		
+		tela.notificar("Você venceu!!!");		
 	}
 
 	public void notificarErroPersonagem() {
-	tela.notificaErroInstancia();
+		tela.notificar("Personagem errado");
 	}
 
 	public void notificarErroTurno() {
-		tela.notificaErroTurno();
+		tela.notificar("Turno errado");
 		
-	}
-
-	public void notificarErroInstancia() {
-		tela.notificaErroInstancia();
 	}
 
 	/**
@@ -106,8 +105,10 @@ public class AtorJogador{
 	 */
 	public void receberJogada(Partida partidaAtualizada) {
 		Jogador jogadorTroca1 = partidaAtualizada.getJogador2();
+		jogadorTroca1.setTurno(true);
 		this.partida.setJogador1(jogadorTroca1);
 		Jogador jogadorTroca2 = partidaAtualizada.getJogador1();
+		jogadorTroca2.setTurno(false);
 		this.partida.setJogador2(jogadorTroca2);
 		
 		ArrayList<Posicao> posicoesTroca = partidaAtualizada.getTabuleiro().getPosicoes();
@@ -119,12 +120,12 @@ public class AtorJogador{
 		}
 	}
 
-	public void notificarFalhaDesconexao() {
-		tela.notificaErroDesconectado();
+	public void notificarFalhaConexao() {
+		tela.notificar("Falha na conexão");
 	}
 
 	public void notificarDesconectado() {
-	tela.notificaDesconectado();
+		tela.notificar("Já está desconectado");
 	}
 
 	public TelaPrincipal getTela() {
@@ -137,6 +138,32 @@ public class AtorJogador{
 	
 	public Partida getPartida(){
 		return partida;
+	}
+
+	public void notificaErroPassarMuro() {
+		tela.notificar("Não pode passar o muro");
+	}
+
+	public void notificaAndamento() {
+		tela.notificar("Partida em andamento");
+		
+	}
+
+	public void notificaIniciada() {
+		tela.notificar("Partida iniciada");
+	}
+
+	public void notificaErroAndarMuro() {
+		tela.notificar("Erro ao andar no muro");
+	}
+
+	public void notificarDesconexao() {
+		tela.notificar("Desconexão realizada com sucesso!");
+		
+	}
+
+	public void notificaPoucoAlcance() {
+		tela.notificar("Personagem não possui alcance suficiente");
 	}
 
 }

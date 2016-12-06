@@ -14,13 +14,10 @@ import javax.swing.JPanel;
 
 public class TelaPrincipal extends JFrame implements ActionListener {
 
-	
-/**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//		Atributos 		//
-
 
 	protected JPanel jContentPane = null;
 
@@ -862,9 +859,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 				try {
 					
 					ator.conectar();
-		//			btnIniciar.setEnabled(true);
-		//			btnDesconectar.setEnabled(true);
-	//				conectar.setEnabled(false);
+					//btnIniciar.setEnabled(true);
+					//btnDesconectar.setEnabled(true);
+					//conectar.setEnabled(false);
 					
 				} catch (Exception ex) {
 				
@@ -966,53 +963,12 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		JOptionPane.showMessageDialog(null, "Morreu" );
 	}
 	
-	public void notificaAtaque(int pontosDeVida) {
+	public void notificarAtaque(int pontosDeVida) {
 		JOptionPane.showMessageDialog(null, "Atacou! Personagem adversario possui "+pontosDeVida+" pontos de vida" );
 	}
-		
-	public void notificaAndamento() {
-		JOptionPane.showMessageDialog(null, "Ja existe uma partida em andamento!");
-		
-	}
-
-	public void notificaIniciada() {
-		JOptionPane.showMessageDialog(null, "Sua partida foi iniciada!");
-		
-	}
 	
-	public void notificaVencedor() {
-		JOptionPane.showMessageDialog(null, "Voce venceu, parabens!");
-		
-	}
-	
-	public void notificaErroTurno() {
-		JOptionPane.showMessageDialog(null , "Nao esta na hora de jogar ainda, aguarde o seu turno");
-		
-	}
-
-	public void notificaErroInstancia() {
-		JOptionPane.showMessageDialog(null , "Ops!Parece que voce selecionou errado...");
-		
-	}
-	
-	public void notificaDesconectado() {
-		JOptionPane.showMessageDialog(null , "Voce ja esta desconectado");
-		
-	}
-
-	public void notificaErroDesconectado() {
-		JOptionPane.showMessageDialog(null , "Desconexao falhou! Tente novamente.");
-		
-	}
-
-	public void notificaErroAndarMuro() {
-		JOptionPane.showMessageDialog(null , "Ops! Voce nao pode ficar em cima do muro");
-		
-	}
-
-	public void notificaErroPassarMuro() {
-		JOptionPane.showMessageDialog(null , "Ops! Voce nao pode atravessar o muro");
-		
+	public void notificar(String msg) {
+		JOptionPane.showMessageDialog(null, msg);
 	}
 	
 	public String solicitaNome(){
@@ -1021,17 +977,14 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	public String solicitaServidor(){
 		return	JOptionPane.showInputDialog("Qual seu servidor?");
 		}
-	
-	public void notificaConectado(){
-		JOptionPane.showMessageDialog(null, "Voce esta conectado!");
-	}
 
-	public void notificaDesconexao() {
-		JOptionPane.showMessageDialog(null, "Voce foi desconectado!");
+	public void notificaErroPassarMuro() {
+		JOptionPane.showMessageDialog(null,"Voce nao pode ultrapassar o muro");
+		
 	}
 
 	public void notificaPoucoAlcance() {
-		JOptionPane.showMessageDialog(null, "Não pode andar ate tao longe");
+		JOptionPane.showMessageDialog(null,"Parece que essa posicao estah fora do seu alcance");
 		
 	}
 }

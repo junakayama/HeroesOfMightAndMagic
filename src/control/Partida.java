@@ -25,7 +25,6 @@ public class Partida {
 		numRodadas = 15;
 		tabuleiro = new Tabuleiro();
 		this.ator = ator;
-		criarJogadores("nome1","nome2");
 	}
 
 	public void iniciarPartida() {
@@ -39,15 +38,19 @@ public class Partida {
 	}
 
 	public void notificaPartidaEmAndamento() {
-		this.ator.getTela().notificaAndamento();
+		this.ator.notificaAndamento();
 	}
 
 	public void notificaPartidaIniciada() {
-		this.ator.getTela().notificaIniciada();
+		this.ator.notificaIniciada();
 	}
 
 	public boolean isEmAndamento() {
 		return this.emAndamento;
+	}
+	
+	public void passarTurno() {
+		enviarJogada(this.tabuleiro);
 	}
 
 	public void setPartidaEmAndamento(boolean isEmAndamento) {
@@ -56,45 +59,29 @@ public class Partida {
 
 	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception{
 		Posicao posicaoAt = tabuleiro.getPosicoes().get(posicaoAtual);
-		System.out.println(posicaoAt.getCodigo()+" ====== " + posicaoAtual);
 		Personagem ocupante = posicaoAt.getOcupante();
-		System.out.println(ocupante.getNome()+" jogando");
 		if(ocupante != null && !posicaoAt.isMuro()) {
-			System.out.println("verifica ocupante e muro uhul");
 			if(jogador1.isTurno()){
-				System.out.println("verifica turno uhul");
 				int codigo = jogador1.getCodigo();
 				int codigoJogador = ocupante.getCodigoJogador();
-				System.out.println("fim verifica turno uhul");
 
 				if(codigo == codigoJogador) {
-					
 					if(ocupante.getAcaoDoTurno()){
 						throw new Exception("Esse personagem já jogou nesse turno");
 					}
-					System.out.println("verifica codigo jogador uhul");
 
 					boolean ocupada = tabuleiro.isPosicaoOcupada(posicaoDestino);
 					
 					if(!ocupada) {
-					tabuleiro.andar(posicaoAtual, posicaoDestino);
-					this.verificaAndar(posicaoAtual, posicaoDestino);
-						System.out.println("andouuuuuu");
+						this.verificaAndar(posicaoAtual, posicaoDestino);
 
 						if(jogador1.isAtaque()) {
-							System.out.println("verifica se eh ataque uhul");
-
 							if(tabuleiro.verificaCastelo(posicaoDestino)) {
 								jogador1.setVencedor(true);
 								enviarJogada(tabuleiro);
 							}
-						}else{
-							enviarJogada(tabuleiro);
-						}
-						
-						
+						}		
 					} else {
-						System.out.println("entrou no else");
 						Posicao posicaoDest = tabuleiro.getPosicoes().get(posicaoDestino);
 						int codigoAdversario = jogador2.getCodigo();
 						Personagem inimigo = posicaoDest.getOcupante();
@@ -111,7 +98,7 @@ public class Partida {
 									jogador1.setVencedor(true);
 								}
 							}
-							ator.getTela().notificaAtaque(pontosVida);
+							ator.getTela().notificarAtaque(pontosVida);
 						}else {
 							throw new Exception("Nao ataque seu proprio personagem");
 						}
@@ -303,9 +290,4 @@ public class Partida {
 			tela.notificaPoucoAlcance();
 		}
 	
- }
-		
-				
-		
-	
-}
+ }}
