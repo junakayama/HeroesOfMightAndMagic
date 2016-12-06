@@ -862,9 +862,9 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 				try {
 					
 					ator.conectar();
-					btnIniciar.setEnabled(true);
-					btnDesconectar.setEnabled(true);
-					conectar.setEnabled(false);
+		//			btnIniciar.setEnabled(true);
+		//			btnDesconectar.setEnabled(true);
+	//				conectar.setEnabled(false);
 					
 				} catch (Exception ex) {
 				

@@ -47,7 +47,7 @@ public class AtorJogador{
 	}
 
 	public void notificarDesconexao() {
-		// TODO - implement AtorJogador.notificarDesconexao
+		tela.notificaDesconectado();
 		throw new UnsupportedOperationException();
 	}
 
@@ -89,8 +89,7 @@ public class AtorJogador{
 	}
 
 	public void notificarErroPersonagem() {
-		// TODO - implement AtorJogador.notificarErroPersonagem
-		throw new UnsupportedOperationException();
+	tela.notificaErroInstancia();
 	}
 
 	public void notificarErroTurno() {
