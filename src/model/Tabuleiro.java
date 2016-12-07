@@ -101,18 +101,17 @@ public class Tabuleiro  implements Jogada {
 	}
 	
 	public int atacar(int posicaoAtual, int posicaoDestino) {
-		Personagem ocupante = posicoes.get(posicaoAtual).getOcupante();
 		Posicao posicaoAt = posicoes.get(posicaoAtual);
 		Posicao posicaoDest = posicoes.get(posicaoDestino);
-		Personagem personagemAtaque = posicaoAt.getOcupante();
-		Personagem personagemDefesa = posicaoDest.getOcupante();
+		Personagem ocupante = posicaoAt.getOcupante();
+		Personagem inimigo = posicaoDest.getOcupante();
 
-		int pontosDeAtaque = personagemAtaque.getPontosAtaque();
-		int pontosDeVida = personagemDefesa.getPontosVida();
+		int pontosDeAtaque = ocupante.getPontosAtaque();
+		int pontosDeVida = inimigo.getPontosVida();
 
 		int resultado = pontosDeVida - pontosDeAtaque;
 		
-		personagemDefesa.setPontosVida(resultado);
+		inimigo.setPontosVida(resultado);
 		ocupante.setAcaoDoTurno(true);
 
 		return resultado;
