@@ -27,12 +27,12 @@ public class Tabuleiro  implements Jogada {
 	}
 
 	public void andar(int posicaoAtual, int posicaoDestino) {
-		Posicao atual = posicoes.get(posicaoAtual);
-		Personagem ocupante = atual.getOcupante();
-		Posicao destino = posicoes.get(posicaoDestino);
-		destino.setOcupante(ocupante);
-		atual.setOcupante(null);
-		destino = posicoes.get(posicaoDestino);
+		Posicao posicaoAt = posicoes.get(posicaoAtual);
+		Personagem ocupante = posicaoAt.getOcupante();
+		Posicao posicaoDest = posicoes.get(posicaoDestino);
+		posicaoDest.setOcupante(ocupante);
+		posicaoAt.setOcupante(null);
+		posicaoDest = posicoes.get(posicaoDestino);
 		
 		ocupante.setAcaoDoTurno(true);
 	}
@@ -102,10 +102,10 @@ public class Tabuleiro  implements Jogada {
 	
 	public int atacar(int posicaoAtual, int posicaoDestino) {
 		Personagem ocupante = posicoes.get(posicaoAtual).getOcupante();
-		Posicao atual = posicoes.get(posicaoAtual);
-		Posicao destino = posicoes.get(posicaoDestino);
-		Personagem personagemAtaque = atual.getOcupante();
-		Personagem personagemDefesa = destino.getOcupante();
+		Posicao posicaoAt = posicoes.get(posicaoAtual);
+		Posicao posicaoDest = posicoes.get(posicaoDestino);
+		Personagem personagemAtaque = posicaoAt.getOcupante();
+		Personagem personagemDefesa = posicaoDest.getOcupante();
 
 		int pontosDeAtaque = personagemAtaque.getPontosAtaque();
 		int pontosDeVida = personagemDefesa.getPontosVida();
