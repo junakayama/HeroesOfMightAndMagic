@@ -12,10 +12,6 @@ public class Tabuleiro  implements Jogada {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Posicao> posicoes;
-	private Posicao posicaoAtual;
-	private Posicao posicaoDestino;
-	private Personagem ocupante;
-	private Personagem inimigo;
 	
 	public Tabuleiro() {
 		this.posicoes = new ArrayList<Posicao>();
@@ -25,27 +21,20 @@ public class Tabuleiro  implements Jogada {
 	
 	public boolean isPosicaoOcupada(int posicao) {
 		boolean ocupada;
-		posicaoDestino=posicoes.get(posicao);
-//		ocupada = posicaoDestino.isOcupada();
+		Posicao posicaoDestino = posicoes.get(posicao);
 		ocupada = posicaoDestino.getOcupante()!=null;
 		return ocupada;
 	}
 
 	public void andar(int posicaoAtual, int posicaoDestino) {
-		//n�o ta usando os parametros mandados
-		this.posicaoAtual = posicoes.get(posicaoAtual);
-		this.ocupante = this.posicaoAtual.getOcupante();
-		this.posicaoDestino = posicoes.get(posicaoDestino);
-		this.posicaoDestino.setOcupante(ocupante);
-		this.posicaoAtual.setOcupante(null);
-		this.posicaoDestino = posicoes.get(posicaoDestino);
+		Posicao atual = posicoes.get(posicaoAtual);
+		Personagem ocupante = atual.getOcupante();
+		Posicao destino = posicoes.get(posicaoDestino);
+		destino.setOcupante(ocupante);
+		atual.setOcupante(null);
+		destino = posicoes.get(posicaoDestino);
 		
 		ocupante.setAcaoDoTurno(true);
-	}
-
-	public void atualizarInformacoes() {
-		// TODO - implement Tabuleiro.atualizarInformacoes
-		throw new UnsupportedOperationException();
 	}
 
 	public void criarPosicoes() {
@@ -110,32 +99,21 @@ public class Tabuleiro  implements Jogada {
 			}
 		}
 	}
-
-	//mudar nome do metodo
-	public Personagem jogar(int posicaoAtual, int posicaoDestino) {
-		this.posicaoAtual=posicoes.get(posicaoAtual);
-		setOcupante(this.posicaoAtual.getOcupante());
-		return getOcupante();
-	}
 	
 	public int atacar(int posicaoAtual, int posicaoDestino) {
-		this.ocupante = posicoes.get(posicaoAtual).getOcupante();
-		Posicao posicaoAt = posicoes.get(posicaoAtual);
-		Posicao posicaoDe = posicoes.get(posicaoDestino);
-		System.out.println("pegou posicoes");
-		Personagem personagemAtaque = posicaoAt.getOcupante();
-		Personagem personagemDefesa = posicaoDe.getOcupante();
-		System.out.println("pegou personagens");
+		Personagem ocupante = posicoes.get(posicaoAtual).getOcupante();
+		Posicao atual = posicoes.get(posicaoAtual);
+		Posicao destino = posicoes.get(posicaoDestino);
+		Personagem personagemAtaque = atual.getOcupante();
+		Personagem personagemDefesa = destino.getOcupante();
 
 		int pontosDeAtaque = personagemAtaque.getPontosAtaque();
 		int pontosDeVida = personagemDefesa.getPontosVida();
-		System.out.println("pegou pontos");
 
 		int resultado = pontosDeVida - pontosDeAtaque;
 		
 		personagemDefesa.setPontosVida(resultado);
 		ocupante.setAcaoDoTurno(true);
-		System.out.println("poxa");
 
 		return resultado;
 	}
@@ -143,34 +121,6 @@ public class Tabuleiro  implements Jogada {
 
 	public boolean verificaCastelo(int posicao) {
 		return posicoes.get(posicao).isCastelo();
-	}
-
-	public Posicao atribuiInimigoPosicao(int posicaoDestino) {
-		inimigo = posicoes.get(posicaoDestino).getOcupante();
-		return posicoes.get(posicaoDestino);
-		
-	}
-
-	public Posicao atribuiPersonagemPosicao(int posicaoDestino) {
-		posicoes.get(posicaoDestino).setOcupante(null);
-		ocupante.setAcaoDoTurno(true);
-		return posicoes.get(posicaoDestino);
-	}
-
-	public Personagem getOcupante() {
-		return ocupante;
-	}
-
-	public void setOcupante(Personagem ocupante) {
-		this.ocupante = ocupante;
-	}
-
-	public Personagem getInimigo() {
-		return inimigo;
-	}
-
-	public void setInimigo(Personagem inimigo) {
-		this.inimigo = inimigo;
 	}
 	
 	public Posicao verificarPosicao(int posicao){

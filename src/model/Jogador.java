@@ -16,7 +16,6 @@ public class Jogador  implements Jogada {
 	private boolean turno;
 	private boolean vencedor;
 	private int codigo;
-	private boolean passarTurno;
 	private Muro muro;
 	
 	public Jogador(boolean ataque, String nome, boolean turno, int codigo) {
@@ -25,21 +24,6 @@ public class Jogador  implements Jogada {
 		this.turno = turno;
 		this.codigo = codigo;
 
-	}
-
-	public void jogar() {
-		// TODO - implement Jogador.jogar
-		throw new UnsupportedOperationException();
-	}
-
-	public void receberJogada() {
-		// TODO - implement Jogador.receberJogada
-		throw new UnsupportedOperationException();
-	}
-
-	public boolean verificaVencedor() {
-		// TODO - implement Jogador.verificaVencedor
-		throw new UnsupportedOperationException();
 	}
 
 	public boolean isTurno() {
@@ -58,16 +42,8 @@ public class Jogador  implements Jogada {
 		return this.ataque;
 	}
 
-	/**
-	 * 
-	 * @param vencedor
-	 */
 	public void setVencedor(boolean vencedor) {
 		this.vencedor = vencedor;
-	}
-
-	public boolean isPassarTurno() {
-		return this.passarTurno;
 	}
 
 	public boolean isVencedor() {

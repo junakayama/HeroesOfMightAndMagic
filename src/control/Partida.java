@@ -11,7 +11,6 @@ import model.Posicao;
 
 ///import model.Posicao;
 import model.Tabuleiro;
-import view.AtorJogador;
 
 public class Partida implements Jogada{
 
@@ -30,6 +29,7 @@ public class Partida implements Jogada{
 		numTotalRodadas = 15;
 		numRodadas = 0;
 		tabuleiro = new Tabuleiro();
+		emAndamento = true;
 	}
 
 	public boolean isEmAndamento() {
@@ -59,8 +59,6 @@ public class Partida implements Jogada{
 					verificaAndar(posicaoAtual, posicaoDestino);
 
 						if(jogador1.isAtaque()) {
-							System.out.println("verifica se eh ataque uhul");
-
 							if(tabuleiro.verificaCastelo(posicaoDestino)) {
 								jogador1.setVencedor(true);
 							}

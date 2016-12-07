@@ -32,13 +32,6 @@ public class Personagem  implements Jogada {
 		this.pontosVida = pontosVida;
 	}
 
-	public int recebeDano(int pontosAtaque) {
-
-		this.setPontosVida(this.pontosVida - pontosAtaque);
-
-		return this.pontosVida;
-	}
-
 	public int getCodigoJogador() {
 		return this.codigoJogador;
 	}

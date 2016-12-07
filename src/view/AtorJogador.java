@@ -47,8 +47,6 @@ public class AtorJogador implements Jogada{
 		
 	}
 	
-	
-	
 	public void enviarJogada(Partida partida) throws NaoJogandoException {
 		this.atorNetGames.enviarJogada(partida);
 	}
@@ -65,24 +63,11 @@ public class AtorJogador implements Jogada{
 		this.partida.criarJogadores(idUsuario, idAdversario, posicao);
 	}
 
-	public String solicitarNome() {
-		return tela.solicitaNome();
-	}
-	
-	public String solicitarServidor() {
-		return tela.solicitaServidor();
-	}
 
 	public void iniciarPartida() throws NaoConectadoException {
 		atorNetGames.iniciarPartidaRede();
 	}
-
-	/**
-	 * 
-	 * @param posicaoAtual
-	 * @param posicaoDestino
-	 * @throws Exception 
-	 */
+	
 	public void jogar(int posicaoAtual, int posicaoDestino) throws Exception {
 		int verifica = this.partida.jogar(posicaoAtual, posicaoDestino);
 		if(this.partida.verificaJogada()) {
@@ -109,10 +94,6 @@ public class AtorJogador implements Jogada{
 		
 	}
 
-	/**
-	 * 
-	 * @param tabuleiro
-	 */
 	public void receberJogada(Partida partidaAtualizada) {
 		this.partida.setNumRodadas(this.partida.getNumRodadas()+1);
 		

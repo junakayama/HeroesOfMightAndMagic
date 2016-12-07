@@ -63,25 +63,4 @@ public class Posicao implements Jogada {
 		this.muro = muro;
 	}
 	
-	
-	//TUDO ISSO PODE SER SUBSTITUIDO APENAS PELA VERIFICA��O DE OCUPANTE
-	
-//	public boolean getOcupada() {
-//		return this.ocupada;
-//	}
-//
-//	public boolean isOcupada() {
-//		// TODO - implement Posicao.isOcupada
-//		throw new UnsupportedOperationException();
-//	}
-//
-//	public void setPersonagem(Personagem ocupante) {
-//		// TODO - implement Posicao.setPersonagem
-//		throw new UnsupportedOperationException();
-//	}
-//
-//	public Personagem getPersonagem() {
-//		// TODO - implement Posicao.getPersonagem
-//		throw new UnsupportedOperationException();
-//	}
 }
