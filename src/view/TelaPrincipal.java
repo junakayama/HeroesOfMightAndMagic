@@ -888,8 +888,6 @@ public class TelaPrincipal extends JFrame implements Jogada {
 			btnIniciar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					try {
-						System.out.println("entrou try");
-
 						ator.iniciarPartida();
 						if (ator.getPartida().isEmAndamento()) {
 							btnIniciar.setEnabled(false);
